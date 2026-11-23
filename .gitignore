@@ -3,7 +3,7 @@ __pycache__/
 logs/
 models/
 runtime/
-downloads/
+/downloads/
 config/local.json
 *.part
 third_party/
@@ -14,7 +14,7 @@ desktop/third_party/
 desktop/build/
 Bot用/
 backups/
-downloads/
+/downloads/
 exa-results/
 character_models/
 --probe-selfcheck/
