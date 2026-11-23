@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <!-- 冷启动 (地址带 splash=令牌, start-pet.cmd 每次启动生成): 第一时间把底色写成纯黑, 免得页面第一帧前露出别的颜色; 启动画面开始收尾时撤掉. 没有这个参数的页面不受影响 -->
+  <script>if (/[?&]splash=(?!0(?:&|$))[^&]/.test(location.search)) document.head.insertAdjacentHTML('beforeend', '<style id="wm-cold">html,body{background:#000 !important}</style>');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S.A.T.I.O</title>
+  <link rel="stylesheet" href="/pet/ui-kit.css">
+  <link rel="stylesheet" href="/pet/workbench.css">
+  <link rel="stylesheet" href="/pet/ui-preferences.css">
+  <link rel="stylesheet" href="/pet/workbench-studio.css">
+  <link rel="stylesheet" href="/pet/workbench-navigation.css">
+  <link rel="stylesheet" href="/pet/workbench-canvas.css">
+  <link rel="stylesheet" href="/pet/workbench-platform.css">
+  <link rel="stylesheet" href="/pet/workbench-resident.css">
+  <link rel="stylesheet" href="/pet/vendor/xterm/xterm.css">
+  <link rel="stylesheet" href="/pet/workbench-terminal.css">
+  <link rel="stylesheet" href="/pet/ui-material.css">
+  <link rel="stylesheet" href="/pet/workbench-shell.css">
+  <link rel="icon" href="/pet/brand/icon-64.png">
+  <!-- 启动画面 (splash.js, 独立模块): 在所有脚本之前启动, 只盖在加载过程上面, 不挡 workbench.js. 取不到 splash.js (浏览器里它不在服务端的静态文件白名单) 或出错就直接进终端.
+       只在冷启动 (地址带 splash=令牌, 且不是上次放过的令牌) 或自检 (splashtest=) 时放; 设置里"启动画面"开关管它. "终端好了" = 宿主回的 workbench-capabilities 消息 (只读监听, 不拦截). -->
+  <script type="module">
+    (async () => {
+      const cold = () => document.getElementById('wm-cold')?.remove();
+      try {
+        const q = location.search;
+        if (!/[?&]splash=(?!0(?:&|$))[^&]|[?&]splashtest=[^&]/.test(q)) return cold();
+        const host = window.chrome && window.chrome.webview;
+        if (host) host.addEventListener('message', (e) => { if (e.data && e.data.t === 'workbench-capabilities') { window.__wmTermReady = true; window.dispatchEvent(new Event('wm-term-ready')); } });
+        const [S, P] = await Promise.all([import('/pet/splash.js'), import('/pet/ui-preferences.js')]);
+        let last = null;
+        try { last = localStorage.getItem(P.TERM_SPLASH_LAST); } catch { /* 无所谓 */ }
+        if (!S.splashEnabled({ search: q, pref: P.readTermSplash(), last })) return cold();
+        const token = S.coldToken(q);
+        if (token) { try { localStorage.setItem(P.TERM_SPLASH_LAST, token); } catch { /* 无所谓 */ } }
+        if (!host) addEventListener('load', () => setTimeout(() => { window.__wmTermReady = true; window.dispatchEvent(new Event('wm-term-ready')); }, 600));
+        const reduced = S.splashReduced(P.getPreferences().reducedMotion, matchMedia('(prefers-reduced-motion: reduce)').matches);
+        const log = (text) => { if (host) host.postMessage('workbench ' + JSON.stringify({ op: 'log', text })); };
+        const test = new URLSearchParams(q).get('splashtest');
+        if (test) { S.runSplashTest(test, { log, reduced }); cold(); return; }
+        S.startSplash({ reduced, onEvent: (name) => { if (name === 'fade' || name === 'skip' || name === 'end') cold(); } });
+      } catch (err) { cold(); }
+    })();
+  </script>
+  <script type="importmap">
+    { "imports": { "three": "/static/vendor/three/build/three.module.js", "three/addons/": "/static/vendor/three/examples/jsm/",
+                   "@pixiv/three-vrm": "/static/vendor/three-vrm/three-vrm.module.min.js" } }
+  </script>
+</head>
+<body class="wb2">
+  <div class="app" id="app">
+    <aside class="side wb-side" id="sidebar" aria-label="会话与项目">
+      <div class="wb-side-head">
+        <span class="wb-brand"><img src="/pet/brand/icon-64.png" alt=""><span id="herSub">绫音工作台</span></span>
+        <button type="button" class="wb-icon" id="sideSearchBtn" title="搜索会话 (Ctrl K)" aria-label="搜索会话"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+        <button type="button" class="wb-icon" id="sideCollapse" title="收起侧栏 (Ctrl B)" aria-label="收起侧栏" aria-controls="sidebar"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16"/></svg></button>
+      </div>
+      <label class="wb-side-search" id="sideSearch" hidden><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="filter" type="search" placeholder="搜索会话" aria-label="搜索会话"></label>
+      <nav class="wb-side-nav" aria-label="工作台">
+        <button type="button" class="wb-nav" id="newSession"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M17.5 3.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/></svg><span>新聊天</span><kbd>Ctrl N</kbd></button>
+        <button type="button" class="wb-nav wb-her-row" id="herRow" aria-expanded="false" aria-controls="her"><img src="/pet/brand/avatar-128.png" alt=""><span class="wb-her-copy"><span class="wb-her-name" id="herName">绫音</span><span class="wb-her-status" id="herStatus">在桌面上陪着你</span></span><span class="wb-badge" id="herBadge" hidden></span></button>
+        <button type="button" class="wb-nav" id="pluginsOpen"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3v4M15 3v4M7 7h10v4a5 5 0 0 1-10 0zM12 16v5"/></svg><span>插件</span></button>
+        <button type="button" class="wb-nav" id="automationOpen"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>自动化任务</span></button>
+        <button type="button" class="wb-nav" id="notebookOpen" title="资料本：跨会话的学习资料，挂到会话后她只按资料回答、句句带出处"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span>资料本</span></button>
+        <button type="button" class="wb-nav" id="mailOpen" title="连接邮箱、改汇报方式、看读信记录"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg><span>邮箱</span></button>
+        <button type="button" class="wb-nav" id="studioOpen"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><path d="M17 14v6M14 17h6"/></svg><span>任务与成果</span><span class="wb-badge quiet" id="checkBadge" hidden></span></button>
+      </nav>
+      <div class="wb-side-scroll" id="sideScroll">
+        <div class="wb-sect" id="pinnedHead" hidden><span>置顶</span></div>
+        <nav id="pinned" class="tree wb-tree wb-pinned" aria-label="置顶的会话"></nav>
+        <div class="wb-sect"><span>项目</span><span class="wb-sect-actions"><button type="button" class="wb-icon small" id="sideViewBtn" title="分组、排序和显示" aria-label="左栏怎么排" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg></button><button type="button" class="wb-icon small" id="addWs" title="添加项目 (一个文件夹)" aria-label="添加项目">＋</button></span></div>
+        <nav id="tree" class="tree wb-tree" aria-label="项目和会话"></nav>
+        <div class="wb-sect" id="recentHead"><span>最近</span></div>
+        <nav id="recent" class="wb-recent" aria-label="最近的会话"></nav>
+        <button type="button" id="archivedSessions" class="wb-nav wb-archive"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 8h16v13H4zM3 3h18v5H3zM9 12h6"/></svg><span>归档与回收站</span><span id="archivedCount"></span></button>
+      </div>
+      <div class="wb-side-foot">
+        <div class="her" id="her" hidden>
+          <div class="desk" id="desk" hidden></div>
+          <button type="button" class="icon fold" id="deskFold" title="收起 / 放出桌前的她 (收起时整个卸掉, 省显存)"></button>
+          <button type="button" class="icon face-sw" id="deskFace" hidden></button>
+          <div class="info" id="herInfo"></div>
+        </div>
+        <div class="wb-dock" id="dockKeys" aria-label="桌宠的功能键"></div>
+      </div>
+    </aside>
+    <button class="side-scrim" id="sideScrim" type="button" aria-label="收起会话栏" tabindex="-1" hidden></button>
+    <main class="main" id="mainView">
+      <section class="settings" id="settings" hidden>
+        <header class="settings-top"><button type="button" class="back" id="settingsBack">← 回到对话</button>
+          <div class="title">设置</div><span class="settings-caption">桌宠与工作台</span></header>
+        <div class="settings-frame" id="settingsFrame"></div>
+      </section>
+      <header class="top wb-top" id="top"></header>
+      <section class="chat" id="chat"></section>
+      <footer class="composer wb-composer">
+        <div class="slash" id="slash" hidden></div>
+        <div class="box wb-box">
+          <div id="contextChips" class="context-chips" aria-label="本轮引用内容" hidden></div>
+          <input id="contextFiles" type="file" multiple hidden>
+          <textarea id="input" rows="2" placeholder="描述任务，或输入 / 查看指令" aria-label="消息" aria-describedby="composerHint"></textarea>
+          <div class="tools wb-tools">
+            <button type="button" class="wb-plus" id="contextAdd" title="添加文件、图片、链接或 BV 号（也能直接拖进来、粘贴图片）" aria-label="添加内容"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+            <button type="button" class="pick wb-mode" id="modeBtn" aria-haspopup="menu" title="她改东西、跑命令前怎么问你"></button>
+            <button type="button" class="tog wb-web" id="webTog" title="智能搜索: 开着时她能上网搜、读网页 (只读公网)"></button>
+            <span class="grow"></span>
+            <span id="contextComposerStatus" class="wb-context-status" role="status"></span>
+            <button type="button" class="pick model" id="modelBtn" aria-haspopup="menu" title="模型、做法和思考强度"></button>
+            <button type="button" class="send" id="send" title="发送 (Enter)"></button>
+          </div>
+        </div>
+        <div class="menu" id="menu" role="menu" hidden></div>
+        <div class="composer-foot wb-foot">
+          <button type="button" class="wb-ws" id="wsName" title="工作区" aria-haspopup="menu"></button>
+          <span class="wb-device"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8m-4-4v4"/></svg>此计算机</span>
+          <button type="button" class="wb-ws wb-nb-chip" id="nbChip" hidden></button>
+          <span class="grow"></span>
+          <span id="composerHint" class="wb-hint">Enter 发送<span class="hint-extra"> · Shift + Enter 换行</span></span>
+          <div class="status" id="status" aria-live="polite"></div>
+        </div>
+        <div class="wb-empty-extras" id="emptyExtras" hidden></div>
+      </footer>
+    </main>
+  </div>
+  <div class="persona-pop glass" id="personaPop" hidden></div>
+  <div id="notifications" class="wb-notifications" aria-live="polite" aria-label="工作台提醒"></div>
+  <dialog id="studioDialog" class="studio-dialog" aria-labelledby="studioTitle">
+    <header class="studio-head"><div class="studio-title-wrap"><span class="studio-mark" aria-hidden="true">✦</span><div><h2 id="studioTitle">任务与成果</h2><p id="studioSubtitle">一起把想法变成成果</p></div></div><button type="button" id="studioRefresh" class="studio-quiet" title="刷新">刷新</button><button type="button" id="studioClose" class="studio-icon-button" aria-label="关闭任务与成果">×</button></header>
+    <nav id="studioTabs" class="studio-tabs" aria-label="任务与成果分类" role="tablist"></nav>
+    <div id="studioBody" class="studio-body" role="tabpanel" tabindex="0"></div>
+    <footer class="studio-foot"><span id="studioFeedback" role="status">进度和结果来自实际任务记录</span><span class="studio-foot-key">Esc 收起</span></footer>
+  </dialog>
+  <dialog id="contextDialog" class="studio-dialog context-dialog" aria-labelledby="contextTitle">
+    <header class="studio-head"><div><h2 id="contextTitle">添加任务内容</h2><p>文件、网页链接或 B 站 BV 号</p></div><button type="button" id="contextClose" class="studio-icon-button" aria-label="关闭添加内容">×</button></header>
+    <div class="studio-body"><button type="button" id="contextUpload" class="context-upload"><span aria-hidden="true">＋</span><strong>选择文件</strong><small>也可以拖入工作台，或直接粘贴 · 单个不超过 8 MB</small></button>
+      <form id="contextReferenceForm" class="context-reference-form"><label for="contextReference">网页链接 / BV 号</label><div class="studio-inline"><input id="contextReference" name="value" type="text" placeholder="https://… 或 BV1…" required autocomplete="off"><button class="studio-button primary" type="submit">添加</button></div></form>
+      <p id="contextFeedback" class="context-feedback" role="status"></p>
+      <div class="studio-section-head"><h3>本会话的内容</h3><span>点击名称预览 · 锁定后持续引用</span></div><div id="contextLibrary"></div><p class="studio-note">已提取文本不代表她已经读过。网页和视频仍需读取，锁定内容会随后续任务持续提供。</p>
+    </div>
+  </dialog>
+  <script type="module" src="/pet/workbench.js"></script>
+</body>
+</html>

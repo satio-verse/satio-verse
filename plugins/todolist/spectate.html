@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh">
+<head><meta charset="utf-8"><title>待办 · 旁观</title></head>
+<body style="font-family: sans-serif; max-width: 720px; margin: 2rem auto; line-height: 1.8;">
+  <h1>待办</h1>
+  <p>这个插件记待办：<code>todo_add</code> 加一条（可带截止提示和来源原话），<code>todo_list</code> 列出来，
+     <code>todo_done</code> 标成做完（只写 <code>done_at</code>，不删行），<code>todo_undo</code> 撤销完成标记。</p>
+  <p>待办和回执都在 <code>~/.worldmodel/plugins/todolist/</code>（可用 <code>WM_TODO_HOME</code> 改位置）：
+     <code>todos.jsonl</code> 一行一条，<code>receipts.jsonl</code> 一行一个动作。它不写她的记忆库，也不写 vault。</p>
+  <p>边界：记忆负责"你说过的安排"（原话、带日期），本插件只负责"这条待办做没做"；两处口径见
+     <code>docs/roadmap/single-source-of-truth-todo.md</code>。</p>
+  <p>本页是契约里 <code>plugin.world.spectate</code> 要求的旁观面板占位；<code>fixtures/twin.json</code>
+     是同一个契约要求的双胞胎夹具占位。</p>
+</body>
+</html>

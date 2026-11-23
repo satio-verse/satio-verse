@@ -1,0 +1,90 @@
+{
+  "id": "filesorter",
+  "name": "文件整理",
+  "description": "把 --dir 指定目录里的文件按类型分到 images、documents、audio、video、archives、code、other 子目录。默认只出计划（dry-run）不动文件，confirm 才真移；移动前过 BlacklistStore 路径保护，受保护的文件跳过并报告；每次动作写回执，undo 按回执把文件移回。不自动扫全盘，目录每次由你显式指定。",
+  "plugin": {
+    "schema": 2,
+    "version": "0.2.0",
+    "author": "WorldModel",
+    "license": "MIT",
+    "host": ">=0.4",
+    "tier": "process",
+    "permissions": {
+      "notify": true
+    },
+    "panel": {
+      "entry": "spectate.html"
+    },
+    "world": {
+      "kind": "space",
+      "prefix": "filesorter",
+      "events": [
+        {
+          "type": "files_moved",
+          "sense": "receipt"
+        },
+        {
+          "type": "files_restored",
+          "sense": "receipt"
+        }
+      ],
+      "actions": [
+        {
+          "name": "filesorter_plan",
+          "kind": "query",
+          "why": "只读扫描你指定的目录第一层，按类型给出整理计划，不动任何文件",
+          "params": {
+            "dir": {
+              "type": "string",
+              "required": true,
+              "max_len": 4000
+            }
+          }
+        },
+        {
+          "name": "filesorter_move",
+          "kind": "act",
+          "outward": false,
+          "receipt": "files_moved",
+          "why": "把目录第一层的文件按类型移进子目录；confirm=true 才真移，受保护路径跳过并写回执",
+          "params": {
+            "dir": {
+              "type": "string",
+              "required": true,
+              "max_len": 4000
+            },
+            "confirm": {
+              "type": "bool",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "filesorter_undo",
+          "kind": "act",
+          "outward": false,
+          "receipt": "files_restored",
+          "why": "按回执编号把上次整理移走的文件移回原位；已不在的跳过并说明，重复调用不报错",
+          "params": {
+            "receipt_id": {
+              "type": "string",
+              "required": true,
+              "max_len": 200
+            }
+          }
+        }
+      ],
+      "perception": {
+        "visible": [
+          "dir"
+        ],
+        "twin_fixtures": [
+          "fixtures/twin.json"
+        ]
+      },
+      "spectate": {
+        "panel": "spectate.html"
+      }
+    }
+  }
+}

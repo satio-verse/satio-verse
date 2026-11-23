@@ -1,0 +1,9 @@
+start 2026-11-15T05:37:43-0800
+exit=0
+end 2026-11-15T05:50:53-0800
+488c37c747bcc081 *apply.out
+46059836abcd2548 *verify.out
+2ec2e4d8447d43e9 *after.txt
+7dc59263229b9cc6 *baseline-vs-after.diff
+20c976868a5ec500 *upgrade-list.txt
+after.txt: read-only post-hardening snapshot (same wm-snapshot.sh 8568e8cf), secret scan 0 hits; keepalive ssh connection stayed open through apply

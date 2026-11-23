@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<title>陪玩旁观</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --ink: #1d2433; --muted: #5d6676; --line: #d7dce5;
+  --grid: #e6e9ef; --accent: #2a6df4; --seen: #1f9d6b; --hidden: #8b93a3; --warn: #c2410c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171d; --panel: #1c2028; --ink: #e8ebf2; --muted: #9aa3b5; --line: #2e3442;
+    --grid: #262b36; --accent: #6b9bff; --seen: #3ec796; --hidden: #7d8597; --warn: #f59e5b;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171d; --panel: #1c2028; --ink: #e8ebf2; --muted: #9aa3b5; --line: #2e3442;
+  --grid: #262b36; --accent: #6b9bff; --seen: #3ec796; --hidden: #7d8597; --warn: #f59e5b;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 system-ui, "Microsoft YaHei", sans-serif; }
+.wrap { padding: 12px 16px; max-width: 980px; margin: 0 auto; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 10px; }
+h1 { font-size: 16px; margin: 0; font-weight: 600; }
+.pill { border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px; color: var(--muted); font-size: 12px; background: var(--panel); }
+.pill b { color: var(--ink); font-weight: 600; }
+button { margin-left: auto; font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:disabled { opacity: .55; cursor: default; }
+.main { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 12px; }
+@media (max-width: 640px) { .main { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; min-width: 0; }
+h2 { font-size: 13px; margin: 0 0 6px; color: var(--muted); font-weight: 600; }
+.log { height: 190px; overflow-y: auto; font-size: 12.5px; margin: 0 0 10px; padding: 0; list-style: none; }
+.log li { padding: 2px 0; border-bottom: 1px dashed var(--grid); overflow-wrap: anywhere; }
+.log .tag { color: var(--muted); margin-right: 6px; }
+.log .bad { color: var(--warn); }
+.hid { border-style: dashed; color: var(--hidden); }
+.hid h2 { color: var(--hidden); }
+.hid li { border-bottom: 1px dashed var(--grid); padding: 2px 0; }
+.note { color: var(--muted); font-size: 12px; margin-top: 6px; }
+ul.plain { margin: 0 0 6px; padding: 0; list-style: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="title">陪玩旁观</h1>
+    <span class="pill">状态 <b id="state">连接中</b></span>
+    <span class="pill">在看 <b id="watching">—</b></span>
+    <button id="leave" type="button">叫她回来</button>
+  </header>
+  <div class="main">
+    <div class="card">
+      <h2>她收到的</h2>
+      <ul class="log" id="in" role="log" aria-live="polite"></ul>
+      <h2>她说的、记的</h2>
+      <ul class="log" id="out" role="log" aria-live="polite"></ul>
+    </div>
+    <div class="card hid">
+      <h2>她没看到的（只有你看得到）</h2>
+      <ul class="plain" id="hidden"></ul>
+      <div class="note">被跳过的窗口只记次数，不记标题；这里不显示任何游戏画面。</div>
+      <h2 style="margin-top:12px">用了多少</h2>
+      <ul class="plain" id="stats"></ul>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var STATE = { idle: '还没开始', starting: '准备中', watching: '在看', paused: '暂停', done: '结束', ended: '已结束', left: '已回来' };
+  var SKIP = { private: '聊天 / 密码 / 网银 / 登录这类窗口', self: '桌宠自己', work: '写代码 / 办公窗口', small: '太小的窗口',
+               none: '没有前台窗口' };
+  var EV = { game_started: '开始看', game_scene: '看了一眼', game_away: '他去看别的了', game_back: '他回来了', owner_said: '他说',
+             game_ended: '结束', say_result: '说话回执', note_result: '记笔记回执', game_recall: '想起了' };
+  var REASON = { owner_stopped: '你叫她回来', left_game: '你离开了游戏窗口', time_limit: '到时间了', model_down: '模型连不上', error: '出错了' };
+
+  function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+  function add(list, tag, text, bad) {
+    var li = document.createElement('li');
+    var t = document.createElement('span'); t.className = 'tag'; t.textContent = tag;
+    li.appendChild(t);
+    var body = document.createElement('span'); body.textContent = text; if (bad) body.className = 'bad';
+    li.appendChild(body);
+    list.appendChild(li);
+  }
+  function line(list, text) { var li = document.createElement('li'); li.textContent = text; list.appendChild(li); }
+
+  function describe(it) {
+    var f = it.fields || {}, base = EV[it.type] || it.type;
+    if (it.type === 'game_started') return base + '《' + (f.title || '') + '》（' + (f.app || '') + '）';
+    if (it.type === 'game_scene') return base + (f.change === 'big' ? '（画面大变）' : '') + (f.first === 'true' ? '（第一眼）' : '');
+    if (it.type === 'owner_said') return base + '：' + (it.text || '');
+    if (it.type === 'game_ended') return base + '：' + (REASON[f.reason] || f.reason || '');
+    if (it.type === 'say_result' || it.type === 'note_result') return base + '：' + (f.ok === 'true' ? '成了' : '没成（' + (f.why || '') + '）');
+    return base + (it.text ? '：' + it.text : '');
+  }
+
+  function render(p) {
+    $('state').textContent = STATE[p.state] || p.state || '—';
+    $('watching').textContent = p.title ? '《' + p.title + '》' : '—';
+    var inl = $('in'); clear(inl);
+    (p.she_got || []).forEach(function (it) {
+      var tag = { saw: '看见', heard: '听见', receipt: '回执' }[it.sense] || it.sense;
+      add(inl, tag, describe(it), it.type === 'say_result' && it.fields && it.fields.ok !== 'true');
+    });
+    var out = $('out'); clear(out);
+    (p.she_said || []).forEach(function (s) { add(out, '说', s); });
+    (p.she_noted || []).forEach(function (s) { add(out, '记', s); });
+    var hid = $('hidden'); clear(hid);
+    var nc = (p.she_did_not_see || {}).not_captured || {}, ep = (p.she_did_not_see || {}).episodes || {}, any = false;
+    Object.keys(nc).forEach(function (k) { any = true; line(hid, (SKIP[k] || k) + '：切去 ' + (ep[k] || 0) + ' 回，没取画面（巡视 ' + nc[k] + ' 次）'); });
+    if (!any) line(hid, '还没有');
+    var st = $('stats'); clear(st);
+    var s = p.stats || {};
+    line(st, '看了 ' + (s.looks || 0) + ' 眼，说了 ' + (s.said || 0) + ' 句，没话说 ' + (s.silent || 0) + ' 次');
+    line(st, '截了 ' + (s.captures || 0) + ' 张，发给云端 ' + (s.uploads || 0) + ' 次（小拼图，只在内存里，看完就删）');
+    if (s.errors) line(st, '模型出错 ' + s.errors + ' 次');
+    if (p.state === 'ended' || p.state === 'done' || p.state === 'left') $('leave').disabled = true;
+  }
+
+  window.addEventListener('message', function (e) {
+    if (e.source !== parent || !e.data || !e.data.wmHost) return;
+    var m = e.data.wmHost;
+    if (m.kind === 'hello') { $('title').textContent = '陪玩旁观 · ' + m.name; }
+    else if (m.kind === 'panel') { render(m.data || {}); }
+  });
+
+  $('leave').addEventListener('click', function () {
+    $('leave').disabled = true;
+    parent.postMessage({ wmPanel: JSON.stringify({ op: 'leave' }) }, '*');
+  });
+  parent.postMessage({ wmPanel: JSON.stringify({ op: 'ready' }) }, '*');
+})();
+</script>
+</body>
+</html>

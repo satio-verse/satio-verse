@@ -1,0 +1,52 @@
+/* 工作台和设置窗口共用 (ui-kit.js): 磨砂玻璃的面板和下拉菜单. 颜色用各页自己的 --panel / --line / --text / --muted / --accent. */
+.glass {
+  background: color-mix(in srgb, var(--panel, #fff) 68%, transparent);
+  backdrop-filter: blur(22px) saturate(1.6);
+  -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  border: 1px solid color-mix(in srgb, var(--line, #e5e5ea) 70%, rgba(255, 255, 255, .35));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .35) inset, 0 10px 32px rgba(30, 20, 70, .14);
+}
+@media (prefers-color-scheme: dark) {
+  .glass { box-shadow: 0 1px 0 rgba(255, 255, 255, .06) inset, 0 12px 36px rgba(0, 0, 0, .45); }
+}
+
+/* 下拉: 按钮 */
+select.dd-native { display: none !important; }
+.dd {
+  display: inline-flex; align-items: center; gap: 6px; max-width: 100%; min-width: 0;
+  font: inherit; color: var(--text, #1c1c1f); cursor: pointer; text-align: left;
+  background: color-mix(in srgb, var(--panel, #fff) 70%, transparent); border: 1px solid var(--line, #e3e3e8);
+  border-radius: 9px; padding: 5px 8px 5px 11px; transition: border-color .15s, background .15s;
+}
+.dd:hover { border-color: color-mix(in srgb, var(--accent, #6c5ce7) 45%, var(--line, #e3e3e8)); }
+.dd.open, .dd:focus-visible { outline: none; border-color: var(--accent, #6c5ce7); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #6c5ce7) 18%, transparent); }
+.dd:disabled { opacity: .5; cursor: default; }
+.dd-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dd-chev { display: inline-flex; color: var(--muted, #6b6b75); transition: transform .15s; }
+.dd.open .dd-chev { transform: rotate(180deg); }
+
+/* 下拉: 弹出来的菜单 (磨砂玻璃) */
+.dd-menu {
+  position: fixed; z-index: 1000; max-width: min(420px, calc(100vw - 16px)); max-height: min(360px, 60vh); overflow: auto;
+  box-sizing: border-box; overscroll-behavior: contain; scrollbar-gutter: stable;
+  border-radius: 14px; padding: 6px; animation: dd-in .14s ease-out;
+  /* 菜单要读字: 比别处的玻璃实一些 (68% 时后面的字会透出来) */
+  background: color-mix(in srgb, var(--panel, #fff) 86%, transparent);
+  backdrop-filter: blur(28px) saturate(1.8); -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  font: 14px/1.5 "Microsoft YaHei UI", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; color: var(--text, #1c1c1f);
+}
+@keyframes dd-in { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+.dd-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; cursor: pointer; }
+.dd-item.hot { background: color-mix(in srgb, var(--accent, #6c5ce7) 12%, transparent); }
+.dd-item.off { opacity: .45; cursor: default; }
+.dd-text { flex: 1; min-width: 0; }
+.dd-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dd-item.sel .dd-name { font-weight: 600; }
+.dd-desc { font-size: 12px; color: var(--muted, #6b6b75); margin-top: 1px; white-space: normal; }
+.dd-check { width: 16px; flex: none; color: var(--accent, #6c5ce7); display: inline-flex; }
+html[data-wm-motion="reduce"] .dd-menu { animation: none; }
+html[data-wm-motion="reduce"] .dd, html[data-wm-motion="reduce"] .dd-chev { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-wm-motion="full"]) .dd-menu { animation: none; }
+  html:not([data-wm-motion="full"]) .dd, html:not([data-wm-motion="full"]) .dd-chev { transition: none; }
+}

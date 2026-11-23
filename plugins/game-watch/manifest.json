@@ -1,0 +1,84 @@
+{
+  "id": "game-watch",
+  "name": "游戏世界·看画面",
+  "description": "你玩文字多、节奏慢的单机游戏，她在旁边看着、陪你说话。只在你叫她陪的时候，只看你前台的游戏窗口，聊天、密码这些窗口不看，画面只在内存里、不存盘；她只看不碰，不往游戏里发任何东西。",
+  "plugin": {
+    "schema": 2,
+    "version": "0.1.0",
+    "author": "WorldModel",
+    "license": "MIT",
+    "host": ">=0.4",
+    "tier": "builtin",
+    "permissions": {
+      "capture": {
+        "scope": "foreground_window",
+        "trigger": "owner_call",
+        "persist": "never",
+        "excludes": ["chat", "password", "bank_pay_login", "mail", "pet_itself", "office_code"]
+      },
+      "upload": "ask-each",
+      "audio": false
+    },
+    "panel": {
+      "entry": "spectate.html",
+      "tools": []
+    },
+    "budget": {
+      "minutes_per_day": 120
+    },
+    "world": {
+      "kind": "game",
+      "prefix": "game",
+      "events": [
+        {"type": "game_started", "sense": "saw", "urgency": "piggyback", "fields": ["app", "title"]},
+        {"type": "game_scene", "sense": "saw", "urgency": "now", "fields": ["app", "title", "first", "change"]},
+        {"type": "game_away", "sense": "saw", "urgency": "piggyback"},
+        {"type": "game_back", "sense": "saw", "urgency": "piggyback"},
+        {"type": "owner_said", "sense": "heard", "urgency": "piggyback"},
+        {"type": "game_ended", "sense": "saw", "urgency": "now", "fields": ["reason"]},
+        {"type": "say_result", "sense": "receipt", "urgency": "now", "fields": ["ok", "why"]},
+        {"type": "note_result", "sense": "receipt", "urgency": "piggyback", "fields": ["ok", "why"]}
+      ],
+      "actions": [
+        {
+          "name": "game_say",
+          "kind": "act",
+          "outward": true,
+          "receipt": "say_result",
+          "params": {
+            "text": {"type": "string", "required": true, "max_len": 60},
+            "emo": {"type": "enum", "values": ["neutral", "happy", "excited", "calm", "sad", "shy", "angry", "surprised"]}
+          },
+          "why": "在主人旁边说一句话"
+        },
+        {
+          "name": "game_note",
+          "kind": "act",
+          "outward": false,
+          "receipt": "note_result",
+          "params": {
+            "text": {"type": "string", "required": true, "max_len": 40}
+          },
+          "why": "记一笔刚看到的（只存在这次陪玩里）"
+        },
+        {
+          "name": "game_recall",
+          "kind": "query",
+          "why": "想一想自己刚才记过什么"
+        }
+      ],
+      "perception": {
+        "visible": ["app", "title", "first", "change", "reason", "ok", "why"],
+        "hidden": ["window_exe", "window_rect", "skip_reason", "skipped_titles", "other_windows", "raw_frames", "screen_area"],
+        "twin_fixtures": [
+          "fixtures/twin-private-flicker.json",
+          "fixtures/twin-away-reason.json",
+          "fixtures/twin-scene-differs.json"
+        ]
+      },
+      "env_prompt": "ENV_PROMPT.md",
+      "leave": {"ack_timeout_s": 2},
+      "spectate": {"panel": "spectate.html"}
+    }
+  }
+}

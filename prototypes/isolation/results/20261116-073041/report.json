@@ -1,0 +1,431 @@
+{
+  "schema": 1,
+  "started_at": "2026-11-16T07:30:41-08:00",
+  "finished_at": "2026-11-16T07:32:29-08:00",
+  "exit_code": 0,
+  "environment": {
+    "python": "3.10.2",
+    "bits": 64,
+    "windows": "10.0.26200"
+  },
+  "uac_settings": {
+    "EnableLUA": 1,
+    "ConsentPromptBehaviorAdmin": 0,
+    "PromptOnSecureDesktop": 0
+  },
+  "elevation": {
+    "tried": true,
+    "valid": true,
+    "conclusion": "测法成立 (对照写了 ELEVATED); 三种关法都要不到",
+    "choice": "用户输入 y，真试",
+    "command": "C:\\WINDOWS\\System32\\cmd.exe /d /s /c \"C:\\WINDOWS\\System32\\whoami.exe /groups | C:\\WINDOWS\\System32\\findstr.exe /c:S-1-16-12288 >nul && (>G:\\RunProgram\\WorldModel_v1\\prototypes\\isolation\\results\\20261116-073041\\elev_<关法>.txt echo ELEVATED) || (>G:\\RunProgram\\WorldModel_v1\\prototypes\\isolation\\results\\20261116-073041\\elev_<关法>.txt echo NOT_ELEVATED)\""
+  },
+  "appcontainer": {
+    "name": "wm.ayane.isolation.proto",
+    "summary": "没有一种配法起得来",
+    "registered_before_this_run": false
+  },
+  "steps": [
+    {
+      "n": 1,
+      "name": "自查",
+      "ms": 2
+    },
+    {
+      "n": 2,
+      "name": "建东西",
+      "ms": 6561
+    },
+    {
+      "n": 3,
+      "name": "登记沙箱身份、加权限",
+      "ms": 69
+    },
+    {
+      "n": 4,
+      "name": "起探针",
+      "ms": 101200
+    },
+    {
+      "n": 5,
+      "name": "提权那一条",
+      "ms": 0
+    },
+    {
+      "n": 6,
+      "name": "收尾",
+      "ms": 195
+    }
+  ],
+  "modes": [
+    {
+      "id": "appcontainer",
+      "label": "应用容器",
+      "variant": null,
+      "tries": [
+        {
+          "配法": "只按名字算出 SID, 没登记",
+          "起来了吗": "没起来",
+          "错误": "CreateProcessW 失败, 错误码 2"
+        },
+        {
+          "配法": "登记后再起",
+          "起来了吗": "没起来",
+          "错误": "CreateProcessW 失败, 错误码 203"
+        }
+      ],
+      "items": {
+        "python": {
+          "state": "cannot",
+          "code": 203,
+          "note": "Python 没起来 (见“试过”)"
+        },
+        "read_fake": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "read_decoy": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_work": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_temp": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_home": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "connect": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "elevate": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        }
+      },
+      "start_ms": null,
+      "token": null,
+      "verdict": {
+        "ok": false,
+        "text": "不能用: Python 起不来",
+        "problems": [
+          "Python 起不来"
+        ],
+        "undetermined": [
+          "读假保管箱",
+          "读假文件",
+          "写外面(work)",
+          "写外面(临时)",
+          "写自己文件夹",
+          "连本机回环",
+          "要管理员权限"
+        ]
+      }
+    },
+    {
+      "id": "restricted_downgrade",
+      "label": "受限令牌·只降级",
+      "variant": null,
+      "tries": [
+        {
+          "配法": "只降级, 不加限制 SID",
+          "创建进程用时ms": 77.8,
+          "起来了吗": "创建了进程，但没回话",
+          "没回话的原因": "eof",
+          "退出码": "0xC0000135",
+          "stderr": ""
+        }
+      ],
+      "items": {
+        "python": {
+          "state": "cannot",
+          "code": 3221225781,
+          "note": "Python 没起来 (见“试过”)"
+        },
+        "read_fake": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "read_decoy": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_work": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_temp": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_home": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "connect": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "elevate": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        }
+      },
+      "start_ms": null,
+      "token": null,
+      "verdict": {
+        "ok": false,
+        "text": "不能用: Python 起不来",
+        "problems": [
+          "Python 起不来"
+        ],
+        "undetermined": [
+          "读假保管箱",
+          "读假文件",
+          "写外面(work)",
+          "写外面(临时)",
+          "写自己文件夹",
+          "连本机回环",
+          "要管理员权限"
+        ]
+      }
+    },
+    {
+      "id": "restricted_sids",
+      "label": "受限令牌·加限制SID",
+      "variant": null,
+      "tries": [
+        {
+          "配法": "严: 限制 SID = 沙箱 SID + ALL APPLICATION PACKAGES",
+          "起来了吗": "没起来",
+          "错误": "CreateRestrictedToken 失败, 错误码 87"
+        },
+        {
+          "配法": "松: 限制 SID = 沙箱 SID + Users + Everyone + RESTRICTED + 登录 SID",
+          "起来了吗": "没起来",
+          "错误": "CreateRestrictedToken 失败, 错误码 87"
+        }
+      ],
+      "items": {
+        "python": {
+          "state": "cannot",
+          "code": 87,
+          "note": "Python 没起来 (见“试过”)"
+        },
+        "read_fake": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "read_decoy": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_work": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_temp": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "write_home": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "connect": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        },
+        "elevate": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: Python 没起来"
+        }
+      },
+      "start_ms": null,
+      "token": null,
+      "verdict": {
+        "ok": false,
+        "text": "不能用: Python 起不来",
+        "problems": [
+          "Python 起不来"
+        ],
+        "undetermined": [
+          "读假保管箱",
+          "读假文件",
+          "写外面(work)",
+          "写外面(临时)",
+          "写自己文件夹",
+          "连本机回环",
+          "要管理员权限"
+        ]
+      }
+    },
+    {
+      "id": "control",
+      "label": "对照(不关)",
+      "variant": "不关",
+      "tries": [
+        {
+          "配法": "不关",
+          "创建进程用时ms": 4.7,
+          "起来了吗": "起来了",
+          "到第一句回话ms": 102
+        }
+      ],
+      "items": {
+        "python": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "read_fake": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "read_decoy": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_work": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_temp": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_home": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "connect": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "elevate": {
+          "state": "can",
+          "code": null,
+          "note": "拿到了管理员权限 (结果文件写着 ELEVATED)"
+        }
+      },
+      "start_ms": 102,
+      "token": {
+        "是不是提权的": "否",
+        "提权类型": "受限(未提权)",
+        "完整性级别": "中",
+        "是不是应用容器": "否",
+        "有没有限制SID(受限令牌)": "否"
+      },
+      "elevate_detail": {
+        "请求返回值": 1,
+        "请求错误码": 0,
+        "结果文件": "ELEVATED",
+        "拿到进程句柄": true,
+        "等它退出": "exited",
+        "这次试出来的进程已经没有了": "是",
+        "结果文件夹里多出的文件": "只多了预期的那一个"
+      },
+      "close": {
+        "exited": true,
+        "active_in_job": 0,
+        "exit_code": 0
+      },
+      "verdict": {
+        "ok": true,
+        "text": "对照正常: 这几样平时都做得到",
+        "problems": [],
+        "undetermined": []
+      }
+    }
+  ],
+  "acl": {
+    "临时文件夹(假保管箱所在)": [
+      "<本人>",
+      "SYSTEM",
+      "Administrators"
+    ],
+    "work(假文件所在的上一级)": [
+      "Administrators",
+      "SYSTEM",
+      "Users",
+      "Authenticated Users"
+    ],
+    "假文件所在文件夹 work\\decoy": [
+      "Administrators",
+      "SYSTEM",
+      "Users",
+      "Authenticated Users"
+    ],
+    "work\\pyrt": [
+      "<沙箱SID>",
+      "Administrators",
+      "SYSTEM",
+      "Users",
+      "Authenticated Users"
+    ],
+    "work\\home": [
+      "<本人>",
+      "<沙箱SID>",
+      "Administrators",
+      "SYSTEM",
+      "Users",
+      "Authenticated Users"
+    ]
+  },
+  "cleanup": {
+    "起过的探针个数": 2,
+    "全部已退出": true,
+    "作业里没有剩下的进程": true,
+    "提权请求试出来的进程都没有了": "是",
+    "删登记的沙箱身份": "已删",
+    "登记表里还有这个沙箱身份吗": "没有",
+    "AppData\\Local\\Packages 下还有它的文件夹吗": "没有",
+    "临时文件夹里的子目录": "已删",
+    "work 目录": "已删",
+    "迟到出现的提权结果文件": "没有",
+    "原型目录里多出来的东西": "没有 (只剩源文件、tests 和 results)"
+  },
+  "notes": {
+    "home_user_full_control": true,
+    "permission_inherited_by_copied_files": true,
+    "listener_selfcheck": true,
+    "profile_created_by_this_run": true
+  },
+  "errors": [],
+  "pii_scan": {
+    "result": "没找到个人信息"
+  }
+}

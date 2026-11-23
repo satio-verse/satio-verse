@@ -1,0 +1,12 @@
+{
+  "sceneId": "casa-luce-v8",
+  "note": "Only supported exploration outcomes; no fabricated food/utility task rewards.",
+  "out": {
+    "explore": {
+      "fun": 1,
+      "per_new": 3,
+      "max": 10,
+      "energy": -1
+    }
+  }
+}

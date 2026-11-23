@@ -1,0 +1,12 @@
+aiohttp>=3.9
+pypdf>=6.10.2,<7
+numpy>=1.24
+scipy>=1.10
+# 可选: 本地流式 ASR 和 TTS (asr.engine=sherpa / tts.engine=sherpa)
+# sherpa-onnx==1.13.8
+# 微信接入 (channels.weixin, wm/channels/weixin.py): 画扫码的二维码、Windows DPAPI 加密存 token
+qrcode>=7
+pywin32>=306; sys_platform == "win32"
+pywinpty==2.0.15; sys_platform == "win32"
+# 测试
+pytest>=7

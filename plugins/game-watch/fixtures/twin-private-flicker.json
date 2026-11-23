@@ -1,0 +1,107 @@
+{
+ "name": "twin-private-flicker",
+ "about": "两个世界只差'切去的是哪一类被跳过的窗口': A 里中途切去 QQ (私密) 6 秒再回来, B 里切去写代码的窗口 (办公) 6 秒再回来. 两边她都什么都看不到, 也不该有任何不同: 事件、提示、拼图、动作逐步相同.",
+ "expect": "same",
+ "run_s": 40,
+ "frame": [
+  320,
+  180
+ ],
+ "windows": {
+  "game": {
+   "exe": "vnreader.exe",
+   "title": "月下的信 - 第三章",
+   "rect": [
+    0,
+    0,
+    1920,
+    1080
+   ]
+  },
+  "qq": {
+   "exe": "qq.exe",
+   "title": "小满",
+   "rect": [
+    100,
+    80,
+    1500,
+    900
+   ],
+   "color": [
+    255,
+    0,
+    255
+   ]
+  },
+  "code": {
+   "exe": "code.exe",
+   "title": "main.py - Visual Studio Code",
+   "rect": [
+    0,
+    0,
+    1920,
+    1080
+   ],
+   "color": [
+    0,
+    255,
+    255
+   ]
+  }
+ },
+ "scenes": {
+  "dialog": [
+   20,
+   30,
+   120
+  ],
+  "battle": [
+   240,
+   200,
+   60
+  ],
+  "options": [
+   40,
+   160,
+   60
+  ],
+  "black": [
+   0,
+   0,
+   0
+  ]
+ },
+ "variants": {
+  "A": {},
+  "B": {}
+ },
+ "timeline": [
+  {
+   "at": 0,
+   "window": "game",
+   "scene": "dialog"
+  },
+  {
+   "at": 12,
+   "window": "qq",
+   "only": [
+    "A"
+   ]
+  },
+  {
+   "at": 12,
+   "window": "code",
+   "only": [
+    "B"
+   ]
+  },
+  {
+   "at": 18,
+   "window": "game"
+  },
+  {
+   "at": 30,
+   "scene": "battle"
+  }
+ ]
+}

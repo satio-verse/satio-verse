@@ -1,0 +1,99 @@
+{
+ "name": "twin-scene-differs",
+ "about": "两个世界差在她感知得到的地方: 第 12 秒起 A 里游戏画面换成明亮的战斗场景, B 里换成绿色的选项画面. 她看得到画面, 所以拼图不同、她说的话也要不同.",
+ "expect": "differ",
+ "run_s": 30,
+ "frame": [
+  320,
+  180
+ ],
+ "windows": {
+  "game": {
+   "exe": "vnreader.exe",
+   "title": "月下的信 - 第三章",
+   "rect": [
+    0,
+    0,
+    1920,
+    1080
+   ]
+  },
+  "qq": {
+   "exe": "qq.exe",
+   "title": "小满",
+   "rect": [
+    100,
+    80,
+    1500,
+    900
+   ],
+   "color": [
+    255,
+    0,
+    255
+   ]
+  },
+  "code": {
+   "exe": "code.exe",
+   "title": "main.py - Visual Studio Code",
+   "rect": [
+    0,
+    0,
+    1920,
+    1080
+   ],
+   "color": [
+    0,
+    255,
+    255
+   ]
+  }
+ },
+ "scenes": {
+  "dialog": [
+   20,
+   30,
+   120
+  ],
+  "battle": [
+   240,
+   200,
+   60
+  ],
+  "options": [
+   40,
+   160,
+   60
+  ],
+  "black": [
+   0,
+   0,
+   0
+  ]
+ },
+ "variants": {
+  "A": {},
+  "B": {}
+ },
+ "timeline": [
+  {
+   "at": 0,
+   "window": "game",
+   "scene": "dialog"
+  },
+  {
+   "at": 12,
+   "scene": "battle",
+   "only": [
+    "A"
+   ]
+  },
+  {
+   "at": 12,
+   "scene": "options",
+   "only": [
+    "B"
+   ]
+  }
+ ]
+}

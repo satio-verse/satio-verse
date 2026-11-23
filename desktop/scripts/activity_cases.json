@@ -1,0 +1,15 @@
+[
+  {"exe": "E:\\STEAM\\steam\\steamapps\\common\\ELDEN RING\\Game\\eldenring.exe", "title": "ELDEN RING™", "want": ["game", "ELDEN RING", ""]},
+  {"exe": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "title": "Python 教程 - 廖雪峰的官方网站 - Google Chrome", "want": ["browser", "Chrome", "Python 教程 - 廖雪峰的官方网站"]},
+  {"exe": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "title": "【4K】猫咪合集_哔哩哔哩_bilibili 和另外 3 个页面 - 个人 - Microsoft\u200b Edge", "want": ["video", "哔哩哔哩", "【4K】猫咪合集"]},
+  {"exe": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "title": "InPrivate - 某个网页 - Microsoft\u200b Edge", "want": ["browser", "Edge", ""]},
+  {"exe": "C:\\Program Files\\Tencent\\QQNT\\QQ.exe", "title": "张三", "want": ["chat", "QQ", ""]},
+  {"exe": "C:\\Program Files\\Tencent\\WeChat\\WeChat.exe", "title": "文件传输助手", "want": ["chat", "微信", ""]},
+  {"exe": "C:\\Program Files\\NetEase\\CloudMusic\\cloudmusic.exe", "title": "晴天 - 周杰伦", "want": ["music", "网易云音乐", "晴天 - 周杰伦"]},
+  {"exe": "C:\\Windows\\explorer.exe", "title": "我的私人文件夹", "want": ["files", "文件资源管理器", ""]},
+  {"exe": "D:\\Games\\Genshin Impact Game\\YuanShen.exe", "title": "原神", "want": ["game", "原神", ""]},
+  {"exe": "C:\\Program Files\\Mozilla Firefox\\firefox.exe", "title": "Some page\u202e evil\u0007 text — Mozilla Firefox", "want": ["browser", "Firefox", "Some page evil text"]},
+  {"exe": "D:\\Tools\\SomeApp\\SomeApp.exe", "title": "一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十多出来的字", "want": ["other", "SomeApp", "一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十…"]},
+  {"exe": "C:\\Program Files\\KeePassXC\\KeePassXC.exe", "title": "Passwords.kdbx", "want": ["other", "KeePassXC", ""]},
+  {"exe": "", "title": "读不到进程的窗口", "want": ["other", "", "读不到进程的窗口"]}
+]

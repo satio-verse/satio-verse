@@ -1,0 +1,13 @@
+{
+  "note": "小窝可供性的环境真值 (见 docs/roadmap/room-afford.md): 每件事做完世界怎么回应 (out), 规则按 desktop/web/room-world.js 的 outcomeOf 读. 只给执行 (room-afford.js) 和评测台 (tools/bench_afford.mjs) 用; 她挑事情的那一层 (room-known.js)、服务端 (wm/room_plan.py、wm/cognition) 都不读这份. 公开的那份是 petal-oak.afford.json.",
+  "out": {
+    "read_book": {"fun": [3, 12], "energy": -1},
+    "bedside_book": {"fun": [2, 10], "energy": 1},
+    "phone": {"fun": 7, "social": 3, "energy": -2, "again": {"fun": 1, "social": 1, "energy": -3}},
+    "water_plant": {"dry": {"fun": 9}, "ok": {"fun": 3}, "wet": {"fun": -3}, "add": 0.55, "decay_day": 0.3, "overflow_ml": 60},
+    "lamp": {"night-off": {"fun": 5}, "night-on": {"fun": -2}, "day-off": {"fun": 0}, "day-on": {"fun": 2}},
+    "wipe_spill": {"wiped": {"fun": 6}, "stain": {"fun": 8}, "gone": {"fun": 0}, "missed": {"fun": -1}},
+    "hug_bunny": {"lonely": {"social": 10, "fun": 4}, "fine": {"social": 4, "fun": 2}},
+    "explore": {"fun": 1, "per_new": 3, "max": 10, "energy": -1}
+  }
+}

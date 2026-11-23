@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh">
+<head><meta charset="utf-8"><title>记账 · 旁观</title></head>
+<body style="font-family: sans-serif; max-width: 720px; margin: 2rem auto; line-height: 1.8;">
+  <h1>记账</h1>
+  <p>这个插件记的是生活支出：你显式给金额、类别、可选备注和时间，它才记一笔；
+     <code>book_summary</code> 只汇总，<code>book_undo</code> 凭回执把那一笔删掉。</p>
+  <p>账本和回执都在 <code>~/.worldmodel/plugins/bookkeeper/</code>（可用 <code>WM_BOOK_HOME</code> 改位置）：
+     <code>ledger.jsonl</code> 一行一笔，<code>receipts.jsonl</code> 一行一个动作。它不写她的记忆库，也不写 vault。</p>
+  <p>本页是契约里 <code>plugin.world.spectate</code> 要求的旁观面板占位；<code>fixtures/twin.json</code>
+     是同一个契约要求的双胞胎夹具占位。</p>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<title>广场旁观</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --ink: #1d2433; --muted: #5d6676; --line: #d7dce5;
+  --grid: #e6e9ef; --accent: #2a6df4; --seen: #1f9d6b; --hidden: #8b93a3; --warn: #c2410c; --range: rgba(42,109,244,.10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171d; --panel: #1c2028; --ink: #e8ebf2; --muted: #9aa3b5; --line: #2e3442;
+    --grid: #262b36; --accent: #6b9bff; --seen: #3ec796; --hidden: #7d8597; --warn: #f59e5b; --range: rgba(107,155,255,.14);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171d; --panel: #1c2028; --ink: #e8ebf2; --muted: #9aa3b5; --line: #2e3442;
+  --grid: #262b36; --accent: #6b9bff; --seen: #3ec796; --hidden: #7d8597; --warn: #f59e5b; --range: rgba(107,155,255,.14);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 system-ui, "Microsoft YaHei", sans-serif; }
+.wrap { padding: 12px 16px; max-width: 980px; margin: 0 auto; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 10px; }
+h1 { font-size: 16px; margin: 0; font-weight: 600; }
+.pill { border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px; color: var(--muted); font-size: 12px; background: var(--panel); }
+.pill b { color: var(--ink); font-weight: 600; }
+button { margin-left: auto; font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:disabled { opacity: .55; cursor: default; }
+.main { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 12px; }
+@media (max-width: 640px) { .main { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; min-width: 0; }
+canvas { width: 100%; height: auto; display: block; aspect-ratio: 24 / 14; }
+.legend { color: var(--muted); font-size: 12px; margin-top: 6px; }
+h2 { font-size: 13px; margin: 0 0 6px; color: var(--muted); font-weight: 600; }
+.log { height: 140px; overflow-y: auto; font-size: 12.5px; margin: 0 0 10px; padding: 0; list-style: none; }
+.log li { padding: 2px 0; border-bottom: 1px dashed var(--grid); overflow-wrap: anywhere; }
+.log .tag { color: var(--muted); margin-right: 6px; }
+.log .bad { color: var(--warn); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="title">广场旁观</h1>
+    <span class="pill">邀请码 <b id="code">—</b></span>
+    <span class="pill">状态 <b id="state">连接中</b></span>
+    <button id="leave" type="button">叫她回来</button>
+  </header>
+  <div class="main">
+    <div class="card">
+      <canvas id="map" width="960" height="560" role="img" aria-label="广场地图"></canvas>
+      <div class="legend">实心点：她看得见的；虚线圈：她没看到的（只有你看得到）。大方框是视野，小方框是听力范围。</div>
+    </div>
+    <div class="card">
+      <h2>她收到的</h2>
+      <ul class="log" id="in" role="log" aria-live="polite"></ul>
+      <h2>她做的</h2>
+      <ul class="log" id="out" role="log" aria-live="polite"></ul>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var cv = $('map'), cx = cv.getContext('2d');
+  var panel = null;
+  var WORDS = { near: '很近', mid: '不远', far: '有点远', left: '左边', right: '右边', up: '上边', down: '下边', here: '就在这儿',
+                wave: '挥手', smile: '微笑', nod: '点头' };
+  var STATE = { in_room: '在广场里', connecting: '连接中', reconnecting: '重连中', left: '已离开', room_gone: '房间没了',
+                connected: '已连接', stopped: '已停止', bridge_closed: '连接断了' };
+
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  function draw() {
+    var W = cv.width, H = cv.height;
+    cx.clearRect(0, 0, W, H);
+    var g = (panel && panel.grid) || { w: 24, h: 14 };
+    var s = Math.min(W / g.w, H / g.h);
+    cx.strokeStyle = css('--grid'); cx.lineWidth = 1;
+    for (var i = 0; i <= g.w; i++) { cx.beginPath(); cx.moveTo(i * s, 0); cx.lineTo(i * s, g.h * s); cx.stroke(); }
+    for (var j = 0; j <= g.h; j++) { cx.beginPath(); cx.moveTo(0, j * s); cx.lineTo(g.w * s, j * s); cx.stroke(); }
+    if (!panel || !panel.me) return;
+    var mx = (panel.me.pos[0] + 0.5) * s, my = (panel.me.pos[1] + 0.5) * s;
+    cx.fillStyle = css('--range');
+    var r = panel.sight * s + s / 2;
+    cx.fillRect(mx - r, my - r, 2 * r, 2 * r);
+    cx.setLineDash([5, 4]); cx.strokeStyle = css('--accent');
+    var h = panel.hear * s + s / 2;
+    cx.strokeRect(mx - h, my - h, 2 * h, 2 * h);
+    cx.setLineDash([]);
+    cx.font = Math.round(s * 0.5) + 'px system-ui, sans-serif';
+    cx.textAlign = 'center';
+    panel.members.forEach(function (m) {
+      var x = (m.pos[0] + 0.5) * s, y = (m.pos[1] + 0.5) * s;
+      if (m.seen) {
+        cx.fillStyle = css('--seen'); cx.beginPath(); cx.arc(x, y, s * 0.36, 0, 6.2832); cx.fill();
+        cx.fillStyle = css('--ink'); cx.fillText(m.name, x, y - s * 0.5);
+      } else {
+        cx.setLineDash([4, 3]); cx.strokeStyle = css('--hidden'); cx.lineWidth = 2;
+        cx.beginPath(); cx.arc(x, y, s * 0.36, 0, 6.2832); cx.stroke(); cx.setLineDash([]); cx.lineWidth = 1;
+        cx.fillStyle = css('--hidden'); cx.fillText(m.name + '（她没看到）', x, y - s * 0.5);
+      }
+    });
+    cx.fillStyle = css('--accent'); cx.beginPath(); cx.arc(mx, my, s * 0.4, 0, 6.2832); cx.fill();
+    cx.strokeStyle = css('--ink'); cx.lineWidth = 2; cx.stroke(); cx.lineWidth = 1;
+    cx.fillStyle = css('--ink'); cx.fillText(panel.me.name, mx, my - s * 0.55);
+  }
+
+  function add(list, tag, text, bad) {
+    var li = document.createElement('li');
+    var t = document.createElement('span'); t.className = 'tag'; t.textContent = tag;
+    li.appendChild(t);
+    var body = document.createElement('span'); body.textContent = text; if (bad) body.className = 'bad';
+    li.appendChild(body);
+    list.appendChild(li);
+    while (list.children.length > 120) list.removeChild(list.firstChild);
+    list.scrollTop = list.scrollHeight;
+  }
+
+  function where(f) { return (WORDS[f.distance_bucket] || '') + (f.direction ? '，' + (WORDS[f.direction] || f.direction) : ''); }
+
+  function onLog(it) {
+    var f = it.fields || {};
+    if (it.k === 'in') {
+      var tag = { saw: '看见', heard: '听见', receipt: '回执' }[it.sense] || it.sense;
+      var text = it.type;
+      if (it.type === 'pet_entered') text = f.pet_name + ' 出现了（' + where(f) + '）';
+      else if (it.type === 'pet_left') text = f.pet_name + ' 不见了';
+      else if (it.type === 'pet_moved') text = f.pet_name + ' 动了（' + where(f) + '）';
+      else if (it.type === 'pet_said') text = f.pet_name + '（' + where(f) + '）说：' + it.text;
+      else if (it.type === 'pet_emoted') text = f.pet_name + ' ' + (WORDS[f.emote] || f.emote);
+      else if (it.type === 'act_result') text = (f.ok === 'true' ? '成功' : '没成：' + (f.why || '')) + (f.why === 'joined' ? '，进了广场' : '') + (f.own_position ? '，我在 ' + f.own_position : '');
+      add($('in'), tag, text, it.type === 'act_result' && f.ok !== 'true');
+    } else if (it.k === 'act') {
+      var a = it.args || {};
+      add($('out'), '动作', (it.name || '').replace('plaza_', '') + (a.direction ? ' ' + a.direction : '') + (a.text ? '：' + a.text : '') + (a.emote ? ' ' + a.emote : ''));
+    } else if (it.k === 'blocked') {
+      add($('out'), '挡住', (it.name || '') + '：' + (it.why || ''), true);
+    } else if (it.k === 'leave') {
+      add($('out'), '叫停', '叫她回来，等她确认（最多 ' + it.timeout_s + ' 秒）', true);
+    } else if (it.k === 'left') {
+      add($('out'), '离场', it.status === 'acknowledged' ? '她确认离场了（' + it.elapsed + ' 秒）' : '超时，进程被结束（' + it.elapsed + ' 秒）', it.status !== 'acknowledged');
+      $('leave').disabled = true;
+    } else if (it.k === 'state') {
+      $('state').textContent = STATE[it.state] || it.state;
+    }
+  }
+
+  window.addEventListener('message', function (e) {
+    if (e.source !== parent || !e.data || !e.data.wmHost) return;
+    var m = e.data.wmHost;
+    if (m.kind === 'hello') { $('title').textContent = '广场旁观 · ' + m.name; }
+    else if (m.kind === 'panel') {
+      panel = m.data; $('code').textContent = panel.code || '—';
+      if (panel.state) $('state').textContent = STATE[panel.state] || panel.state;
+      draw();
+    } else if (m.kind === 'log') onLog(m.item);
+  });
+
+  $('leave').addEventListener('click', function () {
+    $('leave').disabled = true;
+    parent.postMessage({ wmPanel: JSON.stringify({ op: 'leave' }) }, '*');
+  });
+  draw();
+  parent.postMessage({ wmPanel: JSON.stringify({ op: 'ready' }) }, '*');
+})();
+</script>
+</body>
+</html>

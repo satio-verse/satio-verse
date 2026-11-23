@@ -1,0 +1,99 @@
+{
+ "name": "twin-away-reason",
+ "about": "A 里离开去聊天窗口 (私密) 60 秒不回来, B 里离开去写代码的窗口 (办公) 60 秒不回来 (都超过 away_s). 她知道的只有'他看别处去了'和后来的收尾, 不知道去了哪一类: 事件、提示、动作逐步相同.",
+ "expect": "same",
+ "run_s": 80,
+ "frame": [
+  320,
+  180
+ ],
+ "windows": {
+  "game": {
+   "exe": "vnreader.exe",
+   "title": "月下的信 - 第三章",
+   "rect": [
+    0,
+    0,
+    1920,
+    1080
+   ]
+  },
+  "qq": {
+   "exe": "qq.exe",
+   "title": "小满",
+   "rect": [
+    100,
+    80,
+    1500,
+    900
+   ],
+   "color": [
+    255,
+    0,
+    255
+   ]
+  },
+  "code": {
+   "exe": "code.exe",
+   "title": "main.py - Visual Studio Code",
+   "rect": [
+    0,
+    0,
+    1920,
+    1080
+   ],
+   "color": [
+    0,
+    255,
+    255
+   ]
+  }
+ },
+ "scenes": {
+  "dialog": [
+   20,
+   30,
+   120
+  ],
+  "battle": [
+   240,
+   200,
+   60
+  ],
+  "options": [
+   40,
+   160,
+   60
+  ],
+  "black": [
+   0,
+   0,
+   0
+  ]
+ },
+ "variants": {
+  "A": {},
+  "B": {}
+ },
+ "timeline": [
+  {
+   "at": 0,
+   "window": "game",
+   "scene": "dialog"
+  },
+  {
+   "at": 10,
+   "window": "qq",
+   "only": [
+    "A"
+   ]
+  },
+  {
+   "at": 10,
+   "window": "code",
+   "only": [
+    "B"
+   ]
+  }
+ ]
+}

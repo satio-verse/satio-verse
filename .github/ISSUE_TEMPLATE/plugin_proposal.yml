@@ -1,0 +1,37 @@
+name: 插件 / 世界提案
+description: 提议一个新的插件或世界接入
+labels: ["plugin"]
+body:
+  - type: input
+    id: kind
+    attributes:
+      label: 类型
+      description: world plugin（接入一个世界）/ 功能插件 / 渠道插件
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 它做什么
+      description: 用户能感知到的行为，而不是实现细节
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: 世界契约要素（world plugin 必填）
+      placeholder: |
+        kind: space
+        prefix: myworld
+        actions: myworld_walk, myworld_sit
+        events: myworld_move, myworld_say
+        perception: saw / heard / told
+    validations:
+      required: false
+  - type: dropdown
+    id: tier
+    attributes:
+      label: 需要的权限档
+      options: ["text（只读文字）", "panel（带界面）", "code（执行本机代码）", "process（起子进程）"]
+    validations:
+      required: true

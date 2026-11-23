@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "wm-pet": {
+      "type": "stdio",
+      "command": "G:/RunProgram/WorldModel_v1/desktop/build/bin/wmpet.exe",
+      "args": [
+        "--mcp-stdio"
+      ]
+    }
+  }
+}

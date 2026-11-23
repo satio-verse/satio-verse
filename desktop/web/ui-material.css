@@ -1,0 +1,125 @@
+/* Shared material system: colour belongs to the shell; documents remain readable.
+   Inspired by Liuli's separated layers, implemented for WorldModel's own DOM. */
+html[data-wm-theme] {
+  --wm-surface: color-mix(in srgb, var(--panel) var(--wm-glass-opacity, 82%), transparent);
+  --wm-surface-strong: color-mix(in srgb, var(--panel) 96%, transparent);
+  --wm-edge: color-mix(in srgb, var(--text) 10%, transparent);
+  --wm-shine: color-mix(in srgb, var(--panel) 86%, transparent);
+  --wm-float-shadow: 0 12px 36px color-mix(in srgb, var(--text) 10%, transparent), inset 0 1px 0 var(--wm-shine);
+  --wm-ease: cubic-bezier(.2,.8,.2,1);
+}
+html[data-wm-theme=light] { --bg:#f5f5fa; --panel:#ffffff; --side:#f1f2f8; --line:#e4e5ed; --text:#252733; --muted:#697080; --faint:#7b8292; }
+html[data-wm-theme=dark] { --bg:#181b23; --panel:#222631; --side:#1c202a; --line:#353b49; --text:#eef0f7; --muted:#abb4c6; --faint:#929db2; }
+html[data-wm-theme] body,
+html[data-wm-theme] button, html[data-wm-theme] input,
+html[data-wm-theme] select, html[data-wm-theme] textarea { font-family:var(--wm-ui-font, "Segoe UI", "Microsoft YaHei UI", sans-serif); }
+html[data-wm-material=glass] body:not(.wm-pet-surface) {
+  background:radial-gradient(ellipse at 0 4%,color-mix(in srgb,var(--b1) 28%,transparent),transparent 45%),
+    radial-gradient(ellipse at 100% 100%,color-mix(in srgb,var(--b2) 26%,transparent),transparent 48%),var(--bg);
+  background-attachment:fixed;
+}
+html[data-wm-material=glass][data-wm-wallpaper=true] body:not(.wm-pet-surface) {
+  background:linear-gradient(color-mix(in srgb,var(--bg) calc(var(--wm-wallpaper-dim)*100%),transparent),color-mix(in srgb,var(--bg) calc(var(--wm-wallpaper-dim)*100%),transparent)),var(--wm-wallpaper) center / cover fixed,var(--bg);
+}
+html[data-wm-material=glass] :is(.side,.nav,.rail),
+html[data-wm-material=glass] body.embed .nav {
+  background:var(--wm-surface);backdrop-filter:blur(var(--wm-glass-blur,24px)) saturate(1.15);
+  border-color:var(--wm-edge);
+}
+html[data-wm-material=glass] body:not(.wm-pet-surface) > .app { background:transparent; }
+html[data-wm-material=glass] .main,
+html[data-wm-material=glass] body:not(:has(#mainView)):not(.wm-pet-surface) main {
+  background:var(--wm-surface-strong);
+}
+html[data-wm-material=glass] .main.is-empty {
+  background:radial-gradient(ellipse 440px 280px at 50% 40%,color-mix(in srgb,var(--accent-soft) 50%,transparent),transparent),var(--wm-surface-strong);
+}
+html[data-wm-material=glass] .workbench-canvas {
+  background:color-mix(in srgb,var(--panel) 95%,transparent);border-color:var(--wm-edge);
+}
+html[data-wm-material=glass] :is(.top,.settings-top,.canvas-head,.canvas-tabs) {
+  background:color-mix(in srgb,var(--panel) 76%,transparent);border-color:var(--wm-edge);
+}
+html[data-wm-material=glass] :is(.box,.wb-notice,.studio-dialog,.persona-pop,.navigation-menu,.context-add-menu) {
+  background:var(--wm-surface-strong);border-color:var(--wm-edge);box-shadow:var(--wm-float-shadow);
+}
+/* Keep fixed-position child menus anchored to the viewport: no transforms or
+   backdrop-filter on their containing menu itself. */
+html[data-wm-material=glass] .box { border-radius:20px; }
+html[data-wm-material=glass] .composer-scope { background:color-mix(in srgb,var(--accent-soft) 45%,var(--panel));border-color:var(--wm-edge); }
+html[data-wm-theme] .top { min-height:60px; }
+html[data-wm-theme] .side { padding-top:21px; }
+html[data-wm-theme] .brand .name { letter-spacing:-.4px; }
+html[data-wm-theme] .brand .sub { margin-top:4px; }
+html[data-wm-theme] .new { min-height:43px;box-shadow:inset 0 1px 0 var(--wm-shine); }
+html[data-wm-theme] .sess { min-height:37px; }
+html[data-wm-theme] .sess.sel { background:color-mix(in srgb,var(--accent-soft) 85%,var(--panel)); }
+html[data-wm-theme] .search { background:color-mix(in srgb,var(--panel) 70%,transparent);border:1px solid var(--wm-edge);border-radius:11px; }
+html[data-wm-theme] .nav-search { border-radius:11px; }
+html[data-wm-theme] .nav button.active { background:var(--accent-soft);color:var(--accent-ink);box-shadow:none; }
+html[data-wm-theme] .nav button.active svg { color:var(--accent-ink); }
+html[data-wm-theme] .rail button { border-radius:11px; }
+html[data-wm-theme] .rail button.on { background:var(--accent-soft);color:var(--accent-ink); }
+html[data-wm-theme] .chat { scrollbar-color:color-mix(in srgb,var(--muted) 28%,transparent) transparent; }
+html[data-wm-theme] .msg-user { background:color-mix(in srgb,var(--accent-soft) 60%,var(--panel));border:1px solid color-mix(in srgb,var(--accent) 12%,transparent);border-radius:17px 17px 5px 17px; }
+html[data-wm-theme] .message-actions button:hover { background:var(--accent-soft);color:var(--accent-ink); }
+html[data-wm-theme] .her-msg > img { box-shadow:0 3px 10px color-mix(in srgb,var(--accent) 10%,transparent); }
+html[data-wm-theme] .card, html[data-wm-theme] .settings-group { border-radius:15px; }
+html[data-wm-theme] .pref-section { border:0;padding:0;margin:0 0 30px;background:transparent; }
+html[data-wm-theme] .pref-section > h2 { position:static;margin:0 0 14px; }
+html[data-wm-theme] .pref-choice-section { display:block;margin-bottom:30px; }
+html[data-wm-theme] #pref-theme,html[data-wm-theme] #pref-themePreset { padding:0;margin-top:0; }
+html[data-wm-theme] .pref-choice-label { margin-bottom:12px;color:var(--muted); }
+html[data-wm-theme] .pref-theme-preview { height:104px;border-radius:12px; }
+html[data-wm-theme] .pref-theme-options { margin-left:0;width:100%;max-width:580px;gap:12px; }
+html[data-wm-theme] .pref-palette { justify-content:flex-start; }
+html[data-wm-theme] .pref-wallpaper .btn { transition:color 160ms ease,background-color 160ms ease,border-color 160ms ease; }
+html[data-wm-theme] .pref-row { min-height:64px;padding:13px 0; }
+html[data-wm-theme] .pref-row[hidden] { display:none; }
+html[data-wm-theme] .pref-description { max-width:44em; }
+.pref-material-details { border-top:1px solid var(--line);margin-top:18px; }
+.pref-material-details>summary { cursor:pointer;list-style:none;padding:15px 0;color:var(--muted);font-size:13px; }
+.pref-material-details>summary::before { content:'›';display:inline-block;margin-right:9px;transition:transform 160ms ease; }
+.pref-material-details[open]>summary::before { transform:rotate(90deg); }
+.pref-material-details[hidden] { display:none; }
+.pref-range { width:100%;display:flex;align-items:center;gap:14px; }
+.pref-range input[type=range] { width:100%;min-width:60px;accent-color:var(--accent-ink);padding:0;cursor:pointer; }
+.pref-range output { min-width:43px;text-align:right;font-variant-numeric:tabular-nums;font-size:12px;color:var(--muted); }
+.pref-wallpaper { display:flex;align-items:center;gap:20px;padding:18px;margin-top:12px;border-radius:14px;border:1px solid var(--line);background:var(--panel); }
+.pref-wallpaper-thumbnail { flex:none;width:102px;height:88px;border-radius:10px;background:radial-gradient(ellipse at top left,var(--b1),transparent),linear-gradient(140deg,var(--accent-soft),var(--b2));border:1px solid var(--wm-edge); }
+html[data-wm-wallpaper=true] .pref-wallpaper-thumbnail { background:var(--wm-wallpaper) center / cover; }
+.pref-wallpaper strong { font-size:14px;font-weight:600; }
+.pref-wallpaper p { color:var(--muted);font-size:12px;margin:6px 0 12px;line-height:1.6; }
+.pref-wallpaper-actions { display:flex;align-items:center;flex-wrap:wrap;gap:8px; }
+.pref-wallpaper-actions .btn { font-size:12px;min-height:30px;padding:5px 10px; }
+.pref-wallpaper-actions>span { font-size:11px;color:var(--muted); }
+.pref-custom-color { display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:7px 12px;font-size:13px; }
+.pref-custom-color input[type=color] { width:23px;height:23px;padding:0;min-height:0;border:0;background:transparent;cursor:pointer; }
+.pref-control>input:not([type=checkbox]) { width:100%;min-width:0;background:var(--field);border:1px solid var(--line);border-radius:8px;padding:8px;color:var(--text); }
+html[data-wm-material=solid] { --wm-surface:var(--panel);--wm-surface-strong:var(--panel); }
+html[data-wm-material=solid] body:not(.wm-pet-surface) { background:var(--bg); }
+html[data-wm-material=solid] :is(.side,.nav,.rail) { backdrop-filter:none;background:var(--side); }
+/* Desktop pet remains transparent; only its conversation and controls get material. */
+html:has(body.wm-pet-surface), html[data-wm-theme] body.wm-pet-surface { background:transparent!important; }
+.wm-pet-surface :is(.island,.ask,.persona-menu,.dock,.think) { color:var(--text);background:var(--wm-surface-strong);border:1px solid var(--wm-edge);box-shadow:var(--wm-float-shadow);font-family:var(--wm-ui-font); }
+html[data-wm-material=glass] .wm-pet-surface :is(.island,.ask,.persona-menu,.dock) { backdrop-filter:blur(var(--wm-glass-blur)) saturate(1.1); }
+.wm-pet-surface :is(.island-label,.island-heard,.persona-menu li span,.ask-note) { color:var(--muted); }
+.wm-pet-surface :is(.island-reply,.h-pet,.persona-menu li,.ask-title) { color:var(--text); }
+.wm-pet-surface .h-user { color:var(--accent-ink);background:var(--accent-soft);padding:7px 10px;border-radius:10px;margin:8px 0; }
+.wm-pet-surface .island-input { color:var(--text);background:var(--field);border-color:var(--line);border-radius:10px; }
+.wm-pet-surface .dock { border-radius:15px;padding:5px; }
+.wm-pet-surface .dock button { color:color-mix(in srgb,var(--text) 78%,var(--muted));background:transparent;box-shadow:none;border-radius:10px; }  /* 2026-11-01 用户: 按钮太暗 (以前底色是写死的深色块) */
+.wm-pet-surface .dock button[data-act="mute"].on { color:var(--danger); }
+.wm-pet-surface .dock button[data-act="pin"].on { color:#d97706; }
+.wm-pet-surface .dock button:hover { background:color-mix(in srgb,#f59e0b 20%,var(--panel));color:#b45309; }  /* 点按钮的反馈: 橙黄 (2026-11-01 用户要的) */
+html[data-wm-theme=dark] .wm-pet-surface .dock button:hover { background:color-mix(in srgb,#f59e0b 26%,var(--panel));color:#fbbf24; }
+.wm-pet-surface .dock button:active { background:#f59e0b;color:#fff; }
+.wm-pet-surface .think::before,.wm-pet-surface .think::after { background:var(--panel); }
+.wm-pet-surface .think i { background:var(--accent); }
+html[data-wm-motion=full] :is(.pref-theme-preview,.pref-swatch>span,.nav button,.pref-wallpaper) { transition:border-color 180ms var(--wm-ease),box-shadow 180ms var(--wm-ease); }
+html[data-wm-motion=full] dialog[open] { animation:wm-material-enter 180ms var(--wm-ease); }
+@keyframes wm-material-enter { from { opacity:.3; } to { opacity:1; } }
+@media(max-width:600px) { .pref-wallpaper { gap:12px;padding:13px; }.pref-wallpaper-thumbnail { width:72px;height:88px; }.pref-range{gap:8px;} }
+@media(prefers-reduced-motion:reduce) { html:not([data-wm-motion=full]) *,html:not([data-wm-motion=full]) *::before,html:not([data-wm-motion=full]) *::after { animation:none!important;transition:none!important;scroll-behavior:auto!important; } }
+html[data-wm-motion=reduce] *,html[data-wm-motion=reduce] *::before,html[data-wm-motion=reduce] *::after { animation:none!important;transition:none!important;scroll-behavior:auto!important; }
+@media(forced-colors:active) { :root { --wm-surface:Canvas;--wm-surface-strong:Canvas; }html[data-wm-material] body:not(.wm-pet-surface){background:Canvas;} }

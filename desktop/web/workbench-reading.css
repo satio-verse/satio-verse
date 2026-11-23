@@ -1,0 +1,36 @@
+/* 阅读面板 (workbench-reading.js): 全部写在 .wb-reading 下, 颜色用 workbench-shell.css 的变量, 深浅色跟着走 */
+.wb-pview[data-view="read"] { overflow: hidden; }
+.wb-reading { position: relative; display: flex; flex-direction: column; flex: 1; min-height: 0; height: 100%; color: var(--text); background: var(--panel); }
+.wb-reading .rd-state { margin: 24px 18px; color: var(--muted); font-size: var(--fs-2); line-height: 1.6; }
+.wb-reading .rd-head { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 12px 4px 16px; border-bottom: 1px solid var(--soft-line); }
+.wb-reading .rd-title { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.wb-reading .rd-title strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--fs-3); }
+.wb-reading .rd-title small { color: var(--faint); font-size: var(--fs-1); white-space: nowrap; }
+.wb-reading .grow { flex: 1; }
+.wb-reading [hidden] { display: none !important; }  /* .wb-btn 的 display 会盖掉 hidden */
+.wb-reading .rd-note { margin: 0; padding: 8px 16px; border-bottom: 1px solid var(--soft-line); background: var(--hot-soft); color: var(--hot-ink); font-size: var(--fs-1); line-height: 1.5; }
+.wb-reading .rd-note[hidden] { display: none; }
+.wb-reading .rd-nav { display: flex; align-items: center; gap: 8px; padding: 6px 16px; border-bottom: 1px solid var(--soft-line); }
+.wb-reading .rd-pos { min-width: 86px; text-align: center; font-size: var(--fs-2); font-variant-numeric: tabular-nums; }
+.wb-reading .rd-jump { margin-left: auto; max-width: 46%; height: 26px; border: 1px solid var(--line); border-radius: var(--r-1); background: var(--panel); color: var(--text); font-size: var(--fs-1); }
+.wb-reading .rd-body { flex: 1; min-height: 0; overflow: auto; padding: 8px 16px 16px; }
+.wb-reading .rd-unit > header { display: flex; align-items: center; justify-content: space-between; margin: 4px 0 6px; }
+.wb-reading .rd-unit h3 { margin: 0; font-size: var(--fs-3); font-weight: 600; }
+.wb-reading .rd-block { position: relative; margin: 0 0 10px; padding: 8px 10px 8px 12px; border-left: 3px solid var(--soft-line); border-radius: 0 var(--r-1) var(--r-1) 0; }
+.wb-reading .rd-block.hit { border-left-color: var(--hot); background: var(--hot-soft); }
+.wb-reading .rd-key { display: block; margin-bottom: 2px; color: var(--faint); font: var(--fs-1) var(--mono); user-select: none; }
+.wb-reading .rd-block p { margin: 0; font-size: var(--fs-2); line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+.wb-reading .rd-empty { color: var(--muted); font-size: var(--fs-2); }
+.wb-reading .rd-float { position: absolute; z-index: 5; box-shadow: 0 4px 14px color-mix(in srgb, #000 22%, transparent); }
+.wb-reading .rd-float[hidden] { display: none; }
+.wb-reading .rd-attach { display: flex; align-items: center; gap: 8px; padding: 6px 16px; border-top: 1px solid var(--soft-line); background: var(--hot-soft); font-size: var(--fs-1); }
+.wb-reading .rd-attach[hidden] { display: none; }
+.wb-reading .rd-ask { padding: 8px 16px 12px; border-top: 1px solid var(--soft-line); }
+.wb-reading .rd-ask[hidden] { display: none; }
+.wb-reading .rd-scope { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: var(--muted); font-size: var(--fs-1); }
+.wb-reading .rd-ask-row { display: flex; gap: 8px; }
+.wb-reading .rd-q { flex: 1; min-width: 0; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: var(--r-2); background: var(--panel); color: var(--text); font-size: var(--fs-2); }
+.wb-reading .rd-unreadable { margin: 24px 18px; }
+.wb-reading .rd-unreadable h3 { margin: 0 0 6px; font-size: var(--fs-4); }
+.wb-reading .rd-unreadable p { margin: 0 0 8px; color: var(--muted); font-size: var(--fs-2); line-height: 1.65; }
+.wb-reading .rd-unreadable .rd-local { color: var(--faint); font-size: var(--fs-1); }

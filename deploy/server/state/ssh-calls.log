@@ -1,0 +1,54 @@
+2026-11-14T18:08:33-0800	--	uname -sr	0
+2026-11-14T18:08:34-0800	--	cat /etc/os-release	0
+2026-11-14T18:08:49-0800	refused		2
+2026-11-14T18:08:50-0800	refused	-o StrictHostKeyChecking=no	2
+2026-11-14T18:08:50-0800	refused	-- -V	2
+2026-11-14T18:08:51-0800	refused	--script	2
+2026-11-14T18:08:51-0800	refused	--script /no/such/file	2
+2026-11-14T18:08:51-0800	refused	-i /x host cmd	2
+2026-11-14T18:09:25-0800	--script	/g/RunProgram/WorldModel_v1/deploy/server/wm-snapshot.sh sha256=67c745450ea44b4567a8a8fbbd93f940baacac1a86164a2df7bc872ed4f0e4ad	0
+2026-11-14T18:12:49-0800	--script	/g/RunProgram/WorldModel_v1/deploy/server/wm-snapshot.sh sha256=dc4df4e83ea5f2882a75a52961002c04cfd43f337b1df7f477aa94e980587bad	0
+2026-11-14T18:15:33-0800	--script	/g/RunProgram/WorldModel_v1/deploy/server/wm-snapshot.sh sha256=8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2	0
+2026-11-15T05:05:22-0800	--	sudo -n passwd -S root ubuntu lighthouse	2
+2026-11-15T05:05:29-0800	--	for u in root ubuntu lighthouse; do sudo -n passwd -S "$u"; done	0
+2026-11-15T05:22:21-0800	--put	wm-harden.sh=549501fa4e03067fc8f4a04124719019be250feadb98e88afd78db0b37a7b3d4 wm-snapshot.sh=8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2 wm-snapshot-diff.sh=16f2429aef165d813cc25c74f44e58d38aec60dcc90fab6d028944f16e8ca9c3 wm-verify.sh=2aed8c9f5089f8a031da12038bf911accbbe90dbd359ffc0dbc2a158e526b59a 	0
+2026-11-15T05:22:36-0800	--	bash ~/wm-init/wm-harden.sh --check --security-updates-now	10
+2026-11-15T05:37:28-0800	--	sudo -n env DEBIAN_FRONTEND=noninteractive apt-get update -o DPkg::Lock::Timeout=300 -q 2>&1 | tail -n 4; echo ---; apt-get -s --no-install-recommends install fail2ban 2>&1 | grep -E "^(Inst|Remv|E:) "	0
+2026-11-15T05:50:53-0800	--	bash ~/wm-init/wm-harden.sh --apply --security-updates-now	0
+2026-11-15T05:51:29-0800	--	echo new-connection-ok; id -un; sudo -n sshd -T | grep -E "^(passwordauthentication|kbdinteractiveauthentication|permitrootlogin|pubkeyauthentication) "	0
+2026-11-15T05:51:40-0800	--	sudo -n /usr/local/sbin/wm-verify	0
+2026-11-15T05:52:01-0800	--script	/g/RunProgram/WorldModel_v1/deploy/server/wm-snapshot.sh sha256=8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2	0
+2026-11-15T05:54:48-0800	--	uname -r; uptime -p; pgrep -a -f "apt|dpkg|unattended-upgrade" | grep -v pgrep || echo no-apt-running; ls /var/run/reboot-required	0
+2026-11-15T05:55:04-0800	--	sudo -n systemd-run --on-active=5 --unit=wm-reboot --description="owner-approved reboot 11-15" systemctl reboot && echo reboot-scheduled	0
+2026-11-15T05:55:44-0800	--	echo keepalive-open; sleep 2400; echo keepalive-done	127
+2026-11-15T05:56:01-0800	--	uname -r; uptime -p	255
+2026-11-15T05:56:22-0800	--	uname -r; uptime -p	0
+2026-11-15T05:56:46-0800	--	uname -r; test -e /var/run/reboot-required && echo REBOOT-STILL-REQUIRED || echo no-reboot-required; systemctl --failed --no-legend --no-pager | wc -l; sudo -n sshd -T | grep -E "^(passwordauthentication|permitrootlogin) "; sudo -n ufw status | head -1; systemctl is-active fail2ban tat_agent chrony	0
+2026-11-15T05:56:52-0800	--	sudo -n /usr/local/sbin/wm-verify	0
+2026-11-16T09:48:37-0800	--script	/g/RunProgram/WorldModel_v1/deploy/server/wm-snapshot.sh sha256=8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2	0
+2026-11-16T09:48:38-0800	--	uname -r; ls -la /srv/worldmodel; command -v coscli || echo no-coscli; df -h / | tail -1; curl -sS -o /dev/null -w "github %{http_code} %{time_total}s\n" -m 20 -I https://github.com/tencentyun/coscli/releases/download/v1.0.9/sha256sum.log || echo github-unreachable	0
+2026-11-16T09:48:49-0800	--	curl -fsSL -m 30 https://github.com/tencentyun/coscli/releases/download/v1.0.9/sha256sum.log | grep -E "linux-amd64"	0
+2026-11-16T09:56:12-0800	--put	wm-harden.sh=549501fa4e03067fc8f4a04124719019be250feadb98e88afd78db0b37a7b3d4 wm-snapshot.sh=8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2 wm-snapshot-diff.sh=16f2429aef165d813cc25c74f44e58d38aec60dcc90fab6d028944f16e8ca9c3 wm-verify.sh=2aed8c9f5089f8a031da12038bf911accbbe90dbd359ffc0dbc2a158e526b59a wm-batch1.sh=149c306e21c742046d026c1e17b0659db6e02d2451aebef9ab8fd08a1e62a7c6 	0
+2026-11-16T09:56:22-0800	--	bash ~/wm-init/wm-batch1.sh --check; echo "rc=$?"; ls -ld /var/log/wm-ops/batch1.log 2>&1 | head -1	0
+2026-11-16T09:56:31-0800	--	sudo -n ls -la /var/log/wm-ops/; test -e /usr/local/bin/coscli && echo coscli-present || echo no-coscli	0
+2026-11-16T09:58:14-0800	--	bash ~/wm-init/wm-batch1.sh --apply	56
+2026-11-16T09:58:16-0800	--	bash ~/wm-init/wm-batch1.sh --check; echo rc=$?; coscli --version; ls -la /srv/worldmodel /srv/worldmodel/community	2
+2026-11-16T10:01:32-0800	--	bash ~/wm-init/wm-batch1.sh --apply	56
+2026-11-16T10:09:22-0800	--put	wm-harden.sh=549501fa4e03067fc8f4a04124719019be250feadb98e88afd78db0b37a7b3d4 wm-snapshot.sh=8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2 wm-snapshot-diff.sh=16f2429aef165d813cc25c74f44e58d38aec60dcc90fab6d028944f16e8ca9c3 wm-verify.sh=2aed8c9f5089f8a031da12038bf911accbbe90dbd359ffc0dbc2a158e526b59a wm-batch1.sh=1dfd1e50bb4adc5d9f1167fea7eacb70375d12ffbe53665c83191e3e39f8d8a4 coscli-v1.0.9-linux-amd64=a07de5ba2800147a700ed29036b0c76a4229088cee68e1682d0eae19b638a915 	0
+2026-11-16T10:09:23-0800	--	bash ~/wm-init/wm-batch1.sh --check; echo rc=$?	0
+2026-11-16T10:09:37-0800	--	bash ~/wm-init/wm-batch1.sh --apply	0
+2026-11-16T10:09:38-0800	--	bash ~/wm-init/wm-batch1.sh --check; echo rc=$?; command -v coscli; ls -la /srv/worldmodel; sudo -n ls -la /srv/worldmodel/community	0
+2026-11-16T10:09:56-0800	--script	/g/RunProgram/WorldModel_v1/deploy/server/wm-snapshot.sh sha256=8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2	0
+2026-11-16T10:09:59-0800	--	sudo -n /usr/local/sbin/wm-verify	0
+2026-11-16T11:34:38-0800	--	id -un; if test -f ~/.cos.yaml; then stat -c "ubuntu cfg: %a %U:%G %s bytes" ~/.cos.yaml; else echo "ubuntu cfg: missing"; fi; sudo -n test -f /root/.cos.yaml && sudo -n stat -c "root cfg: %a %U:%G %s bytes" /root/.cos.yaml || echo "root cfg: missing"; coscli ls cos://wm 2>&1 | tail -n 15; echo "ls rc=${PIPESTATUS[0]}"	0
+2026-11-16T11:34:58-0800	--	set -e; f=$(mktemp); printf "worldmodel coscli check %s\n" "$(date -u +%FT%TZ)" > "$f"; sha256sum < "$f" | cut -d" " -f1 > "$f.sha"; coscli cp "$f" cos://wm/test/coscli-check.txt >/dev/null 2>&1; coscli signurl cos://wm/test/coscli-check.txt -t 600 2>/dev/null | grep -Eo "https://[^ ]+" | head -n1; cat "$f.sha" >&2; rm -f "$f" "$f.sha"	0
+2026-11-16T11:35:08-0800	--	coscli rm cos://wm/test/coscli-check.txt -f >/dev/null 2>&1; echo rm rc=$?; coscli ls cos://wm 2>&1 | grep -E "TOTAL OBJECTS"	0
+2026-11-16T11:36:22-0800	--	stat -c "before: %a %U:%G" ~/.cos.yaml; chmod 600 ~/.cos.yaml; stat -c "after:  %a %U:%G" ~/.cos.yaml; coscli ls cos://wm 2>&1 | grep -E "TOTAL OBJECTS"; echo ls rc=${PIPESTATUS[0]}	0
+2026-11-16T11:40:09-0800	--	coscli ls 2>&1 | grep -Eio "AccessDenied|access denied|403|TOTAL BUCKETS[^|]*\|[^|]*" | head -n 2; echo "list-all rc=${PIPESTATUS[0]}"; coscli ls cos://wm 2>&1 | grep -E "TOTAL OBJECTS"; echo "list-wm rc=${PIPESTATUS[0]}"	0
+2026-11-16T11:40:10-0800	--	set -e; f=$(mktemp); printf "worldmodel coscli check2 %s\n" "$(date -u +%FT%TZ)" > "$f"; sha256sum < "$f" | cut -d" " -f1 >&2; coscli cp "$f" cos://wm/test/coscli-check2.txt >/dev/null 2>&1; coscli signurl cos://wm/test/coscli-check2.txt -t 600 2>/dev/null | grep -Eo "https://[^ ]+" | head -n1; rm -f "$f"	0
+2026-11-16T11:40:14-0800	--	coscli rm cos://wm/test/coscli-check2.txt -f >/dev/null 2>&1; echo "rm rc=$?"	0
+2026-11-16T11:40:24-0800	--	coscli bucket-tagging --method get cos://wm 2>&1 | tail -n 3 | cut -c1-200; echo "tagging rc=${PIPESTATUS[0]}"	0
+2026-11-16T11:42:13-0800	--	echo "== list all buckets"; coscli ls 2>&1 | grep -Eo "TOTAL BUCKETS[^|]*\|[^|]*|AccessDenied|[0-9]{3} [A-Za-z]+" | head -n 2; echo "== bucket tagging"; coscli bucket-tagging --method get cos://wm 2>&1 | grep -Eo "[0-9]{3} [A-Za-z]+" | head -n 1; echo "== list wm"; coscli ls cos://wm 2>&1 | grep -E "TOTAL OBJECTS|AccessDenied" | head -n 1	0
+2026-11-16T11:42:14-0800	--	set -e; f=$(mktemp); printf "worldmodel coscli check3 %s\n" "$(date -u +%FT%TZ)" > "$f"; sha256sum < "$f" | cut -d" " -f1 >&2; coscli cp "$f" cos://wm/test/coscli-check3.txt >/dev/null 2>&1; coscli signurl cos://wm/test/coscli-check3.txt -t 600 2>/dev/null | grep -Eo "https://[^ ]+" | head -n1; rm -f "$f"	0
+2026-11-16T11:42:19-0800	--	coscli rm cos://wm/test/coscli-check3.txt -f >/dev/null 2>&1; echo "rm rc=$?"	0
+2026-11-16T11:46:32-0800	--	coscli help 2>&1 | grep -iE "versioning|lifecycle|cors|policy" | head -n 6; echo ---; coscli bucket-versioning --method get cos://wm 2>&1 | tail -n 3 | cut -c1-220; echo "rc=${PIPESTATUS[0]}"	0

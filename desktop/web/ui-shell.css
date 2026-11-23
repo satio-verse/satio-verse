@@ -1,0 +1,762 @@
+/* 灵动对话栏 (左下方)、思考气泡 (头左边) 和侧菜单 (右侧), 见 ui-shell.js */
+
+/* 对话栏和工具确认卡片叠在左下方 (盖在腿上, 不挡脸), 从下往上长; 卡片在对话栏上面 */
+.talk-stack {
+  position: fixed;
+  left: 8px;
+  bottom: calc(11% * var(--pet-k, 1));  /* 桌宠缩小了 (ui-shell.js 的 setScale 设 --pet-k): 还是盖在腿上 */
+  width: min(68vw, 290px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.talk-stack > * {
+  pointer-events: auto;
+}
+
+/* 趴着时: 栏杆线以下是裁掉的, 对话栏挪到头顶上方 (从窗口顶往下长), 卡片在对话栏下面; 展开的记录按头顶以上的空间收矮 */
+.talk-stack.lean {
+  top: calc(100% - (100% - 8px) * var(--pet-k, 1));
+  bottom: auto;
+  flex-direction: column-reverse;
+}
+
+.talk-stack.lean .island-history {
+  max-height: var(--lean-history, 120px);
+}
+
+.talk-stack.lean .island-body {
+  max-height: 4.65em;
+}
+
+.island {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 112px;
+  padding: 7px 14px;
+  border-radius: 22px;
+  background: rgba(16, 18, 24, 0.9);
+  color: #f3f4f6;
+  font-size: 13px;
+  line-height: 1.55;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  transition: border-radius 0.25s ease, padding 0.25s ease;
+}
+
+.island[hidden] {
+  display: none;
+}
+
+.island-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 18px;
+}
+
+.island-row .island-label:empty {
+  display: none;
+}
+
+.island-label {
+  color: #d1d5db;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* 工具调用卡住时可以点的"停" (在想的那一行右边) */
+.island-stop {
+  margin-left: auto;
+  padding: 1px 10px;
+  border: 1px solid rgba(252, 165, 165, 0.6);
+  border-radius: 99px;
+  background: rgba(220, 38, 38, 0.18);
+  color: #fecaca;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.island-stop:hover {
+  background: rgba(220, 38, 38, 0.38);
+}
+
+.island-stop[hidden] {
+  display: none;
+}
+
+.island-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 14px;
+}
+
+.island-icon i {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: #9ca3af;
+  transform: scaleY(0.3);
+}
+
+/* 在听: 绿色音柱, 高度由 ui-shell.js 按麦克风音量每帧设 */
+.island[data-state="listening"] .island-icon i {
+  background: #4ade80;
+}
+
+/* 在想: 跳动的点在头左边的思考气泡里, 对话栏只留原话 */
+.island[data-state="thinking"] .island-icon {
+  display: none;
+}
+
+/* 思考气泡: 圆角气泡里三个依次跳动的点, 两个小圆圈连向脸 (位置由 ui-shell.js 按头的位置设, 这里往左平移自身宽度) */
+.think {
+  position: fixed;
+  transform: translateX(-100%);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 13px;
+  border-radius: 18px;
+  background: rgba(16, 18, 24, 0.88);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+
+.think[hidden] {
+  display: none;
+}
+
+.think i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fbbf24;
+  animation: island-think 0.9s ease-in-out infinite;
+}
+
+.think i:nth-child(2) { animation-delay: 0.15s; }
+.think i:nth-child(3) { animation-delay: 0.3s; }
+
+.think::before,
+.think::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(16, 18, 24, 0.88);
+}
+
+.think::before {
+  width: 9px;
+  height: 9px;
+  right: -9px;
+  bottom: -5px;
+}
+
+.think::after {
+  width: 5px;
+  height: 5px;
+  right: -17px;
+  bottom: -11px;
+}
+
+/* 在说: 蓝色音柱轻轻起伏 */
+.island[data-state="speaking"] .island-icon i {
+  background: #60a5fa;
+  animation: island-talk 0.7s ease-in-out infinite;
+}
+
+.island-icon i:nth-child(2) { animation-delay: 0.12s; }
+.island-icon i:nth-child(3) { animation-delay: 0.24s; }
+.island-icon i:nth-child(4) { animation-delay: 0.36s; }
+.island-icon i:nth-child(5) { animation-delay: 0.48s; }
+
+@keyframes island-think {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(-4px); opacity: 1; }
+}
+
+@keyframes island-talk {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+/* 说完了: 音柱停住 */
+.island[data-state="done"] .island-icon,
+.island[data-state="expanded"] .island-icon {
+  display: none;
+}
+
+/* 平时 (光标在角色上、麦克风开着): 小胶囊, 红点 */
+.island[data-state="peek"] .island-icon i {
+  display: none;
+}
+
+.island[data-state="peek"] .island-icon::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+
+/* 说话和说完时占满左下方那一栏、最多约 5 行 (自动滚到最新) */
+.island[data-state="speaking"],
+.island[data-state="done"] {
+  width: 100%;
+  border-radius: 16px;
+}
+
+.island-body {
+  display: none;
+  max-height: 7.8em;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.island[data-state="listening"] .island-body,
+.island[data-state="thinking"] .island-body,
+.island[data-state="speaking"] .island-body,
+.island[data-state="done"] .island-body {
+  display: block;
+}
+
+.island-heard {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.island-heard:empty,
+.island-reply:empty {
+  display: none;
+}
+
+.island-reply {
+  color: #f9fafb;
+  white-space: pre-wrap;
+}
+
+/* 展开: 最近几轮对话 + 输入框 */
+.island[data-state="expanded"] {
+  width: 100%;
+  border-radius: 16px;
+  padding: 10px 12px;
+  cursor: default;
+}
+
+.island-panel {
+  display: none;
+}
+
+.island[data-state="expanded"] .island-panel {
+  display: block;
+}
+
+.island-history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 230px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.island-history:empty::before {
+  content: "还没有聊过";
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.h-user {
+  margin: 6px 0 0;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.h-pet {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.island-input {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font: inherit;
+  outline: none;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.island-input:focus {
+  border-color: #60a5fa;
+}
+
+.island-input::placeholder {
+  color: #9ca3af;
+}
+
+/* 侧菜单 */
+.dock {
+  position: fixed;
+  top: var(--dock-top, 36%);
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dock-gap, 8px);
+  opacity: 0;
+  transform: translateX(14px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dock button.move {
+  cursor: move;
+}
+
+.dock.open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.dock button {
+  width: var(--dock-btn, 36px);
+  height: var(--dock-btn, 36px);
+  padding: calc(var(--dock-btn, 36px) * 0.22);
+  border: none;
+  border-radius: 50%;
+  background: rgba(16, 18, 24, 0.85);
+  color: #e5e7eb;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dock button:hover {
+  background: rgba(46, 50, 62, 0.95);
+}
+
+.dock button svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dock button[data-act="mic"].on {
+  background: #dc2626;
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.28), 0 3px 12px rgba(0, 0, 0, 0.28);
+}
+
+.dock button[data-act="mute"].on {
+  color: #fca5a5;
+}
+
+/* 图钉: 置顶时亮着 (默认), 取消置顶时是划掉的灰图钉 */
+.dock button[data-act="pin"].on {
+  color: #93c5fd;
+}
+
+/* 工具确认框: 叠在对话栏上面, 云端模型要调"每次确认"的工具时出现 (见 ui-shell.js 的 askTool) */
+.ask {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px 8px;
+  border-radius: 14px;
+  background: rgba(16, 18, 24, 0.94);
+  color: #f3f4f6;
+  font-size: 12.5px;
+  line-height: 1.5;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(251, 191, 36, 0.45);
+}
+
+.ask[hidden] {
+  display: none;
+}
+
+.ask-title {
+  color: #fbbf24;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ask-what {
+  margin-top: 2px;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.ask-args {
+  margin-top: 4px;
+  max-height: 4.5em;
+  overflow: hidden;
+  color: #cbd5e1;
+  font-family: Consolas, "Cascadia Mono", monospace;
+  font-size: 11.5px;
+  word-break: break-all;
+}
+
+.ask-args:empty {
+  display: none;
+}
+
+/* 高风险的工具 (执行命令、文件、注册表…): 红框, 要做的事完整列出来 (长的可以滚动), 只有"允许一次 / 拒绝" */
+.ask-power {
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35), inset 0 0 0 2px rgba(248, 113, 113, 0.75);
+}
+
+.ask-power .ask-title {
+  color: #fca5a5;
+}
+
+.ask-power .ask-args {
+  max-height: 10em;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+/* 操控电脑时的提醒: 会把屏幕上的文字发给谁、会动鼠标键盘 */
+.ask-note {
+  margin-top: 4px;
+  color: #fde68a;
+  font-size: 11.5px;
+}
+
+.ask-note:empty,
+.ask-buttons button[hidden] {
+  display: none;
+}
+
+/* "她在操作你的电脑"提示条: 叠在对话栏上面, 操控期间一直在 (见 ui-shell.js 的 control) */
+.control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 5px 8px 5px 10px;
+  border-radius: 99px;
+  background: rgba(127, 29, 29, 0.92);
+  color: #fee2e2;
+  font-size: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(252, 165, 165, 0.5);
+}
+
+.control[hidden] {
+  display: none;
+}
+
+.control-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f87171;
+  animation: control-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes control-blink {
+  50% { opacity: 0.3; }
+}
+
+.control-text {
+  white-space: nowrap;
+}
+
+.control-stop {
+  padding: 1px 12px;
+  border: 0;
+  border-radius: 99px;
+  background: #dc2626;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.control-stop:hover {
+  background: #ef4444;
+}
+
+.control-key {
+  overflow: hidden;
+  color: #fca5a5;
+  font-size: 10.5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ask-buttons {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.ask-buttons button {
+  flex: 1;
+  padding: 5px 0;
+  border: 0;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f3f4f6;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ask-buttons button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ask-buttons button[data-how="once"] {
+  background: #2563eb;
+}
+
+.ask-buttons button[data-how="once"]:hover {
+  background: #3b82f6;
+}
+
+.ask-buttons button[data-how="turn"] {
+  background: rgba(37, 99, 235, 0.45);
+}
+
+.ask-buttons button[data-how="deny"] {
+  color: #fca5a5;
+}
+
+.ask-bar {
+  margin-top: 8px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.ask-bar i {
+  display: block;
+  height: 100%;
+  background: #fbbf24;
+  transform-origin: left center;
+}
+
+/* 侧菜单的人设预设列表: 贴在人设按钮左边 (见 ui-shell.js 的 showPersonas) */
+.dock button[data-act="persona"].on {
+  background: rgba(46, 50, 62, 0.95);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.45), 0 3px 12px rgba(0, 0, 0, 0.28);
+}
+
+.persona-menu {
+  position: fixed;
+  right: 54px;
+  box-sizing: border-box;
+  min-width: 150px;
+  max-width: 62%;
+  padding: 6px;
+  border-radius: 12px;
+  background: rgba(16, 18, 24, 0.94);
+  color: #f3f4f6;
+  font-size: 13px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+.persona-menu[hidden] {
+  display: none;
+}
+
+.persona-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.persona-menu li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 8px 6px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.persona-menu li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.persona-menu li span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.persona-menu li small {
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.persona-menu li.cur::before {
+  content: "✓";
+  position: absolute;
+  left: 7px;
+  color: #60a5fa;
+}
+
+.persona-menu .manage {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 6px 8px;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0 0 8px 8px;
+  background: none;
+  color: #93c5fd;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+/* "她在陪你看"提示条 (2026-11-07): 叠在对话栏上面, 陪看期间一直在 (见 ui-shell.js 的 watch); 比操控电脑那条安静, 不闪 */
+.watch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 4px 5px 4px 10px;
+  border-radius: 99px;
+  background: rgba(30, 27, 75, 0.9);
+  color: #e0e7ff;
+  font-size: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(165, 180, 252, 0.45);
+}
+
+.watch[hidden] {
+  display: none;
+}
+
+.watch-icon {
+  flex: none;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 8px;
+  border-color: transparent transparent transparent #a5b4fc;
+}
+
+.watch-text {
+  flex: none;
+  white-space: nowrap;
+}
+
+.watch-what {
+  min-width: 0;
+  overflow: hidden;
+  color: #c7d2fe;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.watch-stop {
+  flex: none;
+  padding: 1px 10px;
+  border: 0;
+  border-radius: 99px;
+  background: rgba(99, 102, 241, 0.85);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.watch-stop:hover {
+  background: #6366f1;
+}
+
+.watch-hint[hidden] {
+  display: none;
+}
+
+/* 屏幕陪看 (2026-11-08, wm/screen_along.py): 开头"她在看你的屏幕", 图标是一块小屏幕, 下面一行小字"只看前台那个窗口";
+   两行就不做成胶囊了. 要写成 :not([hidden]), 不然 display: grid 会盖过 .watch[hidden] (一样的权重, 后写的赢) */
+.watch.screen:not([hidden]) {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 6px;
+  border-radius: 14px;
+}
+
+.watch.screen .watch-icon {
+  position: relative;
+  width: 12px;
+  height: 9px;
+  box-sizing: border-box;
+  border: 1.5px solid #a5b4fc;
+  border-radius: 2px;
+}
+
+.watch.screen .watch-icon::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: -4.5px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: #a5b4fc;
+}
+
+.watch.screen .watch-stop {
+  grid-row: 1 / span 2;
+  grid-column: 4;
+}
+
+.watch.screen .watch-hint {
+  grid-row: 2;
+  grid-column: 2 / span 2;
+  color: #a5b4fc;
+  font-size: 10.5px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+/* 她自己决定不看了 (切走好一阵、看太久): 先写为什么, 停几秒再收 (见 watch-bar.js); 没有"不看了"了, 图标淡下去 */
+.watch.ending .watch-stop,
+.watch.ending .watch-what {
+  display: none;
+}
+
+.watch.ending .watch-icon {
+  opacity: 0.45;
+}
+
+/* 这一轮不是你说的话 (陪看): "你说的"那行换成一个小标签 */
+.heard-tag {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 5px;
+  background: rgba(99, 102, 241, 0.32);
+  color: #c7d2fe;
+  font-size: 11px;
+  line-height: 17px;
+}

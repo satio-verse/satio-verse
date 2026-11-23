@@ -1,0 +1,637 @@
+{
+ "repo": "ggml-org/llama.cpp",
+ "tag": "b11429",
+ "license": "MIT",
+ "files": [
+  {
+   "path": "LICENSE",
+   "size": 1078,
+   "git_sha1": "e7dca554bcb802f98408383a864404e3aa4eacca"
+  },
+  {
+   "path": "conversion/__init__.py",
+   "size": 16413,
+   "git_sha1": "051ddf99dc3e477630b015b6983d6ab89cbfd298"
+  },
+  {
+   "path": "conversion/afmoe.py",
+   "size": 3229,
+   "git_sha1": "844925dca7be44a648c6011f4ef60e4f6ea0d612"
+  },
+  {
+   "path": "conversion/arctic.py",
+   "size": 6867,
+   "git_sha1": "843e24a7b9edcb0a981af546cdca426d78688052"
+  },
+  {
+   "path": "conversion/baichuan.py",
+   "size": 2550,
+   "git_sha1": "769bdd56780ebf3828ef7c7e35acb0d04fdcd5ef"
+  },
+  {
+   "path": "conversion/bailingmoe.py",
+   "size": 9482,
+   "git_sha1": "351be1df1758c31a50393dc4fed2723933578d0a"
+  },
+  {
+   "path": "conversion/bailingmoe3.py",
+   "size": 14059,
+   "git_sha1": "36b931564927f4eff5354bbe61d9c8341718f00b"
+  },
+  {
+   "path": "conversion/base.py",
+   "size": 149864,
+   "git_sha1": "0f3bd9a7b7555cff98e59aff30e658a45b12cf54"
+  },
+  {
+   "path": "conversion/bert.py",
+   "size": 32982,
+   "git_sha1": "f247154269de60ab0c4ab48adff8212109f651d7"
+  },
+  {
+   "path": "conversion/bitnet.py",
+   "size": 1883,
+   "git_sha1": "82bcadaf9a69839662e72efcc00d7a52a64c835d"
+  },
+  {
+   "path": "conversion/bloom.py",
+   "size": 2983,
+   "git_sha1": "9654cd4a0f51b50e561555c81e371aaa508a277c"
+  },
+  {
+   "path": "conversion/chameleon.py",
+   "size": 2436,
+   "git_sha1": "8f2065df6634367853236fda5b3e3b3b96160fb1"
+  },
+  {
+   "path": "conversion/chatglm.py",
+   "size": 8437,
+   "git_sha1": "9b902dae30c47eeb4ec229abc32c5285ff29ebce"
+  },
+  {
+   "path": "conversion/clef.py",
+   "size": 6639,
+   "git_sha1": "b793d92c8d329c893bc5977d7000a768fc748872"
+  },
+  {
+   "path": "conversion/codeshell.py",
+   "size": 1020,
+   "git_sha1": "1c7f1129b549ed2511ae1640b3204454ad5c568d"
+  },
+  {
+   "path": "conversion/cogvlm.py",
+   "size": 1085,
+   "git_sha1": "13c314441bfaa2663ade2c279367aa64f4f8fe63"
+  },
+  {
+   "path": "conversion/command_r.py",
+   "size": 8193,
+   "git_sha1": "971f93ebdf1259a38d7674e1a973310cce68577e"
+  },
+  {
+   "path": "conversion/dbrx.py",
+   "size": 3689,
+   "git_sha1": "d37ce83e784577082d93ba82398dd101bd0edca1"
+  },
+  {
+   "path": "conversion/deci.py",
+   "size": 9382,
+   "git_sha1": "2ccaa92a98efe28131ff95a44f47358a604b8628"
+  },
+  {
+   "path": "conversion/deepseek.py",
+   "size": 51450,
+   "git_sha1": "817eb76128b6ddeb25c949e203ff20a33c7a2e82"
+  },
+  {
+   "path": "conversion/dots1.py",
+   "size": 1202,
+   "git_sha1": "ffa3b6db4459cb1370fdbe692fa887190ec968f5"
+  },
+  {
+   "path": "conversion/dots3.py",
+   "size": 16919,
+   "git_sha1": "c7ac2319e243e6edc5e7e90762c1415d6730f7c3"
+  },
+  {
+   "path": "conversion/dotsocr.py",
+   "size": 2142,
+   "git_sha1": "ace6aa9a13d5de8e50d8c5b28ca7c2573300b62c"
+  },
+  {
+   "path": "conversion/dream.py",
+   "size": 2905,
+   "git_sha1": "14f25404d67f83541ea0d84be57717506cee3cbd"
+  },
+  {
+   "path": "conversion/ernie.py",
+   "size": 8835,
+   "git_sha1": "3c4226a2598af81188e5f6f6b549ecc9885ce7b1"
+  },
+  {
+   "path": "conversion/exaone.py",
+   "size": 15303,
+   "git_sha1": "0919d2ffafe8a04df86ca62f46213cab02b79be0"
+  },
+  {
+   "path": "conversion/falcon.py",
+   "size": 2749,
+   "git_sha1": "2c55511a09b428ee8a71db5023823c3890f906dc"
+  },
+  {
+   "path": "conversion/falcon_h1.py",
+   "size": 5506,
+   "git_sha1": "6686f7001c7a2dbe0779e73f00c2129e2c750667"
+  },
+  {
+   "path": "conversion/gemma.py",
+   "size": 56704,
+   "git_sha1": "9ec622ed4995779e84f4985101149a8a9187046a"
+  },
+  {
+   "path": "conversion/glm.py",
+   "size": 27523,
+   "git_sha1": "10f3ef113c4fcec19695e3a5a73c472591f4ba0a"
+  },
+  {
+   "path": "conversion/gpt2.py",
+   "size": 3319,
+   "git_sha1": "06dff9e4c7f6a8cdd2715ee85bde78b7b1ef9e0b"
+  },
+  {
+   "path": "conversion/gpt_oss.py",
+   "size": 5976,
+   "git_sha1": "7542ec0ea8df717a434c7195ca88067561cfc450"
+  },
+  {
+   "path": "conversion/gptneox.py",
+   "size": 2949,
+   "git_sha1": "0b0e91c4f516c97f41563f0810ac1e61dc98f71d"
+  },
+  {
+   "path": "conversion/granite.py",
+   "size": 38552,
+   "git_sha1": "796d37cca269a71e014759cb0f6c5c1342c7615b"
+  },
+  {
+   "path": "conversion/grok.py",
+   "size": 5204,
+   "git_sha1": "b966361d299d1ee017fb9314500241e55eef76c2"
+  },
+  {
+   "path": "conversion/grovemoe.py",
+   "size": 4864,
+   "git_sha1": "f418f18ac407854607134cee9f5e90d666805b5f"
+  },
+  {
+   "path": "conversion/hrm_text.py",
+   "size": 3802,
+   "git_sha1": "3684fe912a15aac73e617fb51e0903e74b3cc711"
+  },
+  {
+   "path": "conversion/hunyuan.py",
+   "size": 22631,
+   "git_sha1": "58dee2ec8bc2415ec057cefd9f949408d0a380e7"
+  },
+  {
+   "path": "conversion/hy_v4.py",
+   "size": 11833,
+   "git_sha1": "358e21fe59ae1448f48e7f1d89f936a7a7b1dd9c"
+  },
+  {
+   "path": "conversion/internlm.py",
+   "size": 10991,
+   "git_sha1": "df2668474fe6efb64eed704bbd4944902ac8402d"
+  },
+  {
+   "path": "conversion/internvl.py",
+   "size": 4523,
+   "git_sha1": "799e23f5f58a5ea580e3d34b148b2b0dc9d7c28b"
+  },
+  {
+   "path": "conversion/jais.py",
+   "size": 4180,
+   "git_sha1": "f3f96c3efd6551e95ace72e1a6a7de3644aa40fe"
+  },
+  {
+   "path": "conversion/jamba.py",
+   "size": 5055,
+   "git_sha1": "a2e642cb0168f287fdfc5e82997d778aacbaf297"
+  },
+  {
+   "path": "conversion/januspro.py",
+   "size": 4390,
+   "git_sha1": "0f71ab3cd66b94acdb0f06c63fe61ed14ef3c953"
+  },
+  {
+   "path": "conversion/kimi_k3.py",
+   "size": 16673,
+   "git_sha1": "70aabb70513bf49ffbf46174b0a4729a0df19928"
+  },
+  {
+   "path": "conversion/kimi_linear.py",
+   "size": 11679,
+   "git_sha1": "697ab1b4a9edfd52e6af80e8ff47d1ab14288f17"
+  },
+  {
+   "path": "conversion/kimivl.py",
+   "size": 7816,
+   "git_sha1": "ae60abf3098359ef2c48dfd8f49fde79ff2762a9"
+  },
+  {
+   "path": "conversion/laguna.py",
+   "size": 10564,
+   "git_sha1": "29e0b3d6b318b73aa7f5c608103b9e3a90ddd271"
+  },
+  {
+   "path": "conversion/lev.py",
+   "size": 14154,
+   "git_sha1": "72b12445d8ee922c1620480f7a9e9fa1568027c4"
+  },
+  {
+   "path": "conversion/lfm2.py",
+   "size": 10917,
+   "git_sha1": "e50bbdd0fed456afed7ffced54b5e944d7f76ed5"
+  },
+  {
+   "path": "conversion/lighton_ocr.py",
+   "size": 933,
+   "git_sha1": "8686fe5c9186887e7472f69d9904b7358dd83bc3"
+  },
+  {
+   "path": "conversion/llada.py",
+   "size": 7125,
+   "git_sha1": "c03607191a768a5808f5d460f1332802b185e669"
+  },
+  {
+   "path": "conversion/llama.py",
+   "size": 21362,
+   "git_sha1": "41d8c2309281911564ab3604d84a2f30010ef7cc"
+  },
+  {
+   "path": "conversion/llama4.py",
+   "size": 1713,
+   "git_sha1": "280e309dd5a14ee4fc19f870525a6b19b986e338"
+  },
+  {
+   "path": "conversion/llava.py",
+   "size": 6141,
+   "git_sha1": "98a004f986939965b144857e2a53217b232996b6"
+  },
+  {
+   "path": "conversion/maincoder.py",
+   "size": 453,
+   "git_sha1": "2e291b8a96187b647b5547cde425e4209d70b561"
+  },
+  {
+   "path": "conversion/mamba.py",
+   "size": 9739,
+   "git_sha1": "8a2a4637529a4f8140836ab089654684f85f96c9"
+  },
+  {
+   "path": "conversion/maple.py",
+   "size": 3588,
+   "git_sha1": "fb0e87804d53f5ff027921dadc94ab4973268ce0"
+  },
+  {
+   "path": "conversion/mellum.py",
+   "size": 2550,
+   "git_sha1": "1e50f92aeafdef85079631a99cbda0c6df24580a"
+  },
+  {
+   "path": "conversion/mimo.py",
+   "size": 23497,
+   "git_sha1": "982594e858cfa6a9ec44f1ad485eb54cf58bb2a1"
+  },
+  {
+   "path": "conversion/minicpm.py",
+   "size": 9111,
+   "git_sha1": "678d7bec187a9e73044c30e26e2653b9f3f438d3"
+  },
+  {
+   "path": "conversion/minimax.py",
+   "size": 12250,
+   "git_sha1": "aac340c61414a995c6cd06804a5160588c1fc198"
+  },
+  {
+   "path": "conversion/mistral.py",
+   "size": 9459,
+   "git_sha1": "aec22ca3877cb5cd09c99c2b4513da28b5d10ed0"
+  },
+  {
+   "path": "conversion/mistral3.py",
+   "size": 2419,
+   "git_sha1": "fee039b353c4c8c6f350e74e474f229b769f7a9b"
+  },
+  {
+   "path": "conversion/mpt.py",
+   "size": 2098,
+   "git_sha1": "d5d849ff35a6fd05296e3b55ba3bc3bf5dc057ed"
+  },
+  {
+   "path": "conversion/muse_glimmer.py",
+   "size": 8091,
+   "git_sha1": "c86b33227366013ad9f9b968f89d4cf7c2bed257"
+  },
+  {
+   "path": "conversion/nanbeige.py",
+   "size": 837,
+   "git_sha1": "a5b269a7a2a76a5ccaf4c6eac7c9201a1f215578"
+  },
+  {
+   "path": "conversion/nemotron.py",
+   "size": 28808,
+   "git_sha1": "c9bb3031f433612785e249e038e2d24a5f4ec115"
+  },
+  {
+   "path": "conversion/olmo.py",
+   "size": 4521,
+   "git_sha1": "e6faa1975864870b2be71ec2eae9e9c43e15b6fb"
+  },
+  {
+   "path": "conversion/openelm.py",
+   "size": 3724,
+   "git_sha1": "8863378bbfaad776d235f56a3a3af3913b3d6a12"
+  },
+  {
+   "path": "conversion/orion.py",
+   "size": 1718,
+   "git_sha1": "3e4c633c18698590c73f97beab48839d3e1172ba"
+  },
+  {
+   "path": "conversion/pangu.py",
+   "size": 1841,
+   "git_sha1": "74c76532b5a6b1beb69e58b9b93daa5cf64eb91a"
+  },
+  {
+   "path": "conversion/phi.py",
+   "size": 18221,
+   "git_sha1": "7d2532067bb0f2053ddc4a31cf493fa9318ad6c8"
+  },
+  {
+   "path": "conversion/pixtral.py",
+   "size": 1408,
+   "git_sha1": "acd9ce1cf702e8c8d7c6e8e9556b7d737ca7ed52"
+  },
+  {
+   "path": "conversion/plamo.py",
+   "size": 9392,
+   "git_sha1": "52055e4a16b2a69f49495507cb918fa6be733249"
+  },
+  {
+   "path": "conversion/plm.py",
+   "size": 835,
+   "git_sha1": "bca0147e63008dead3f62de80b12a9efa3a83b63"
+  },
+  {
+   "path": "conversion/pockettts.py",
+   "size": 18948,
+   "git_sha1": "1c99e58cfc777eab9f225989c69c0cf1d4d68baa"
+  },
+  {
+   "path": "conversion/qwen.py",
+   "size": 48254,
+   "git_sha1": "0b39187337065e6c5c08a0e15805eaec5aea4a6c"
+  },
+  {
+   "path": "conversion/qwen3tts.py",
+   "size": 25608,
+   "git_sha1": "2c35799f77fbc8c374143c2abbd3b6f98091bdf9"
+  },
+  {
+   "path": "conversion/qwen3vl.py",
+   "size": 18195,
+   "git_sha1": "638bcbb246febe637b4ceed4453f538e31af17c3"
+  },
+  {
+   "path": "conversion/qwen4exp.py",
+   "size": 10101,
+   "git_sha1": "7ca26c2a3399a7423b023e38796e3da375351be5"
+  },
+  {
+   "path": "conversion/qwenvl.py",
+   "size": 9152,
+   "git_sha1": "579a86a99f57f610d5ce7e5bc302020dba8222d7"
+  },
+  {
+   "path": "conversion/refact.py",
+   "size": 3274,
+   "git_sha1": "d6361512f716b537e652741a36981fe2bb02bc27"
+  },
+  {
+   "path": "conversion/rwkv.py",
+   "size": 14442,
+   "git_sha1": "e6fa84264efd433e81dd3b3697e5b0b9039a7989"
+  },
+  {
+   "path": "conversion/sarashina2.py",
+   "size": 1074,
+   "git_sha1": "fdb3e78da66a96c7926b3972805b15878e9c9e13"
+  },
+  {
+   "path": "conversion/smallthinker.py",
+   "size": 3517,
+   "git_sha1": "73d07b51a341324782039752463877341b9986a7"
+  },
+  {
+   "path": "conversion/smolvlm.py",
+   "size": 2153,
+   "git_sha1": "0cccb8f6f97b3409f2f47f5c7b058c8242140925"
+  },
+  {
+   "path": "conversion/spark2_5.py",
+   "size": 2876,
+   "git_sha1": "44a0bd262e6a53f559445ac925c278042ba0f900"
+  },
+  {
+   "path": "conversion/stablelm.py",
+   "size": 4024,
+   "git_sha1": "ac3a1ca9e1f1f91ec70703896c4669b87917181d"
+  },
+  {
+   "path": "conversion/starcoder.py",
+   "size": 982,
+   "git_sha1": "4a726ac36ad9c2e9b74d5661580912dc86c30bc8"
+  },
+  {
+   "path": "conversion/step3.py",
+   "size": 16724,
+   "git_sha1": "93eb3134e09e578e66a59d720282014a8300dba6"
+  },
+  {
+   "path": "conversion/t5.py",
+   "size": 14273,
+   "git_sha1": "3466ce49da63c84825e7cdc03cfd3810969cdf34"
+  },
+  {
+   "path": "conversion/talkie.py",
+   "size": 2138,
+   "git_sha1": "31445243de8bf45c2c1a0537fc501de7eaddd32e"
+  },
+  {
+   "path": "conversion/ultravox.py",
+   "size": 9169,
+   "git_sha1": "62819e574d578f2cab46871a342cf57f0c0e1895"
+  },
+  {
+   "path": "conversion/wavtokenizer.py",
+   "size": 1772,
+   "git_sha1": "c9a4b505da93900a72d6503fec09d732a2c57d9e"
+  },
+  {
+   "path": "conversion/xverse.py",
+   "size": 3909,
+   "git_sha1": "aa3b338802e43dab4dbd63560fa01e15f6d8c764"
+  },
+  {
+   "path": "conversion/youtuvl.py",
+   "size": 2931,
+   "git_sha1": "e9726107721533a90d8b236c98d61e7393094aff"
+  },
+  {
+   "path": "convert_hf_to_gguf.py",
+   "size": 13012,
+   "git_sha1": "e09616b190cf124e818d8a740468d4e84086015c"
+  },
+  {
+   "path": "convert_lora_to_gguf.py",
+   "size": 23200,
+   "git_sha1": "47c09af53fb5075efd63485cc1fd389226aaa42c"
+  },
+  {
+   "path": "gguf-py/LICENSE",
+   "size": 1072,
+   "git_sha1": "76f67efdc6470081b512a8db5bf2b1d4962d9c3c"
+  },
+  {
+   "path": "gguf-py/README.md",
+   "size": 3339,
+   "git_sha1": "ca7e09c68184f28b23a35ec7d611ff6ca117433c"
+  },
+  {
+   "path": "gguf-py/examples/reader.py",
+   "size": 1626,
+   "git_sha1": "703b782b5fa6672020492918fa498a77f0e96dfa"
+  },
+  {
+   "path": "gguf-py/examples/writer.py",
+   "size": 1080,
+   "git_sha1": "731873a7d666ca5a58dfb95a42bb809fe92fe747"
+  },
+  {
+   "path": "gguf-py/gguf/__init__.py",
+   "size": 219,
+   "git_sha1": "243defc4c1ca42d3713017d8902592f54ac849cd"
+  },
+  {
+   "path": "gguf-py/gguf/constants.py",
+   "size": 242304,
+   "git_sha1": "1e0a6b18ac6bd433810a74c86ce0da80283a8bf6"
+  },
+  {
+   "path": "gguf-py/gguf/gguf.py",
+   "size": 478,
+   "git_sha1": "651a81eb828248728f854c85c1a437b52892f275"
+  },
+  {
+   "path": "gguf-py/gguf/gguf_reader.py",
+   "size": 16321,
+   "git_sha1": "bf3e083800b01c822989c096f0d875dc750ab022"
+  },
+  {
+   "path": "gguf-py/gguf/gguf_writer.py",
+   "size": 72789,
+   "git_sha1": "4f1f8e5a5dc01faf81671d21725783691a71df7f"
+  },
+  {
+   "path": "gguf-py/gguf/lazy.py",
+   "size": 12015,
+   "git_sha1": "a39f22321597311ad54d03d360e155ae309ff5fd"
+  },
+  {
+   "path": "gguf-py/gguf/metadata.py",
+   "size": 39318,
+   "git_sha1": "d5836cc68d7a96cd267e70800994bb3cc7bfcad0"
+  },
+  {
+   "path": "gguf-py/gguf/py.typed",
+   "size": 0,
+   "git_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  {
+   "path": "gguf-py/gguf/quants.py",
+   "size": 64946,
+   "git_sha1": "80966b6ef1518a45b86745d94eb70d05c3c5490f"
+  },
+  {
+   "path": "gguf-py/gguf/scripts/gguf_convert_endian.py",
+   "size": 7681,
+   "git_sha1": "31618acfc79eac3d8cd3c8111550f6cf8f21147b"
+  },
+  {
+   "path": "gguf-py/gguf/scripts/gguf_dump.py",
+   "size": 23104,
+   "git_sha1": "8177dff386c7ee1e130ed0a013c2d297ee866439"
+  },
+  {
+   "path": "gguf-py/gguf/scripts/gguf_editor_gui.py",
+   "size": 64438,
+   "git_sha1": "293316afed4e497ce3e426243d9fbd30193f5c30"
+  },
+  {
+   "path": "gguf-py/gguf/scripts/gguf_hash.py",
+   "size": 3725,
+   "git_sha1": "3ef98992197e987d8aefc8fb5f5bf9c787e9d06a"
+  },
+  {
+   "path": "gguf-py/gguf/scripts/gguf_new_metadata.py",
+   "size": 10231,
+   "git_sha1": "c67436bad4af6dfcf662b23aff3d3a5bb1d26257"
+  },
+  {
+   "path": "gguf-py/gguf/scripts/gguf_set_metadata.py",
+   "size": 4145,
+   "git_sha1": "f5809c35c887086f8055e828719041f8ae3ea749"
+  },
+  {
+   "path": "gguf-py/gguf/tensor_mapping.py",
+   "size": 138533,
+   "git_sha1": "cef04d08271e1e5d88c2383b56a6e656f51f5f3b"
+  },
+  {
+   "path": "gguf-py/gguf/utility.py",
+   "size": 13534,
+   "git_sha1": "154351d8ed63c50f8a66cc0bb9152ec020414077"
+  },
+  {
+   "path": "gguf-py/gguf/vocab.py",
+   "size": 42992,
+   "git_sha1": "31036bbe5fb580cf01da330ceef8a0b505f74617"
+  },
+  {
+   "path": "gguf-py/pyproject.toml",
+   "size": 1296,
+   "git_sha1": "07e6f7fee82d3da7f870c2ad44969842a54131c2"
+  },
+  {
+   "path": "gguf-py/tests/__init__.py",
+   "size": 29,
+   "git_sha1": "d23ff9cb7380c5e0f9e246398f2ad0bee49e6981"
+  },
+  {
+   "path": "gguf-py/tests/test_gguf_reader_validation.py",
+   "size": 1271,
+   "git_sha1": "98f30a969608320017ab5f67efb3e51044020b06"
+  },
+  {
+   "path": "gguf-py/tests/test_metadata.py",
+   "size": 15628,
+   "git_sha1": "b77c563ff25efddbd958744cf7fbc743a495a083"
+  },
+  {
+   "path": "gguf-py/tests/test_quants.py",
+   "size": 10526,
+   "git_sha1": "9aa7c4ae2a5e1e84096e2617f9b29baed5eec539"
+  }
+ ]
+}

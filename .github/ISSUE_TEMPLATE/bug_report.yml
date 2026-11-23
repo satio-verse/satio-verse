@@ -1,0 +1,42 @@
+name: Bug 报告
+description: 报告一个可复现的问题
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "感谢反馈。请先搜索已有 issue，并确认你跑的是最新 Release。"
+  - type: textarea
+    id: what
+    attributes:
+      label: 发生了什么
+      description: 期望行为 vs 实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. python -m wm.services up
+        2. 打开 URL ...
+        3. 点 ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 版本 / commit
+      placeholder: v0.1.0 或 commit sha
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: 环境
+      description: 操作系统、Python 版本、显卡/显存、是否装了本地模型
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志 / 截图
+      description: 请删掉密钥、私人路径、聊天内容
+      render: text

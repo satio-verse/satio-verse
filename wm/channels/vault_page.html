@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>账号保管箱</title>
+<link rel="icon" href="data:,">
+<!-- 账号保管箱 (wm/channels/vault_http.py 的 /vault): 在这里填她要用的账号密码、扫码登录 B 站、看 QQ 自动挂接的情况和使用记录.
+     接口是 /api/vault; 密码只在"保存"那一下经过 (本机), 页面不存它、接口也不会再给回来. 一律用 textContent 放字, 不当 HTML. -->
+<style>
+:root {
+  --bg: #f4f5f8; --card: #ffffff; --text: #1d2129; --muted: #6b7280; --line: #e6e8ee; --soft: #f1f3f7;
+  --accent: #4b6bfb; --accent-ink: #ffffff; --ok: #15803d; --ok-bg: #ecfdf3; --bad: #c2410c; --bad-bg: #fff4ed;
+  --warn: #92400e; --warn-bg: #fffbeb; --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 4px 16px rgba(16, 24, 40, .04);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171c; --card: #1d2026; --text: #e8eaf0; --muted: #9aa1ae; --line: #2c3039; --soft: #252932;
+    --accent: #7d95ff; --accent-ink: #0f1115; --ok: #4ade80; --ok-bg: #12261a; --bad: #fb923c; --bad-bg: #2a1a10;
+    --warn: #fbbf24; --warn-bg: #2a2410; --shadow: none;
+  }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--text);
+       font: 14px/1.6 "Segoe UI", "Microsoft YaHei UI", "PingFang SC", system-ui, sans-serif; }
+main { max-width: 820px; margin: 0 auto; padding: 28px 18px 56px; }
+h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: .2px; }
+h2 { font-size: 15px; margin: 0 0 4px; }
+h3 { font-size: 13.5px; margin: 16px 0 6px; }
+.sub { color: var(--muted); margin: 0 0 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 14px 0;
+        box-shadow: var(--shadow); }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; }
+label.field { display: block; margin: 12px 0 0; }
+label.field > span { display: block; font-weight: 600; margin-bottom: 6px; }
+input[type=text], input[type=password], select {
+  width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--card);
+  color: var(--text); font: inherit; outline: none; }
+input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.grow { flex: 1 1 auto; min-width: 0; }
+button { font: inherit; border-radius: 9px; padding: 8px 14px; border: 1px solid var(--line); background: var(--soft);
+         color: var(--text); cursor: pointer; }
+button:hover { filter: brightness(.97); }
+button:disabled { opacity: .55; cursor: default; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; font-weight: 600; padding: 9px 20px; }
+button.ghost { background: transparent; }
+button.danger { color: var(--bad); }
+button.small { padding: 4px 10px; font-size: 12.5px; }
+a.open { color: var(--accent); }
+.chip { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 12px; background: var(--soft);
+        border: 1px solid var(--line); color: var(--muted); }
+.chip.ok { color: var(--ok); background: var(--ok-bg); border-color: transparent; }
+.chip.bad { color: var(--bad); background: var(--bad-bg); border-color: transparent; }
+.chip.warn { color: var(--warn); background: var(--warn-bg); border-color: transparent; }
+.result { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; display: none; white-space: pre-wrap; }
+.result.ok { display: block; background: var(--ok-bg); color: var(--ok); }
+.result.bad { display: block; background: var(--bad-bg); color: var(--bad); }
+.result.busy { display: block; background: var(--soft); color: var(--muted); }
+.line { margin: 6px 0; }
+.line b { font-weight: 600; }
+.purposes { margin: 10px 0 0; border-top: 1px solid var(--line); }
+.purpose { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.purpose .what { flex: 1 1 auto; min-width: 0; }
+.purpose .name { font-weight: 600; }
+.purpose select { width: auto; padding: 4px 8px; font-size: 13px; }
+.purpose.high .name::after { content: "公开说话"; margin-left: 8px; font-size: 11.5px; font-weight: 400; color: var(--warn);
+                              background: var(--warn-bg); padding: 0 6px; border-radius: 999px; }
+.pw { position: relative; }
+.pw input { padding-right: 62px; }
+.eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); padding: 3px 8px; font-size: 12px; }
+.checks label { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; }
+.checks input { margin-top: 4px; accent-color: var(--accent); }
+.qr { display: block; width: 220px; max-width: 100%; margin: 12px 0 4px; border-radius: 10px; border: 1px solid var(--line); background: #fff; }
+table.log { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.log th, table.log td { text-align: left; padding: 6px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+table.log th { color: var(--muted); font-weight: 600; border-top: 0; }
+.ok-t { color: var(--ok); } .bad-t { color: var(--bad); }
+.account { padding: 10px 0; border-top: 1px solid var(--line); }
+.account:first-child { border-top: 0; }
+.fine { margin: 12px 0 0; }
+.banner { padding: 10px 14px; border-radius: 10px; margin: 10px 0; background: var(--warn-bg); color: var(--warn); }
+@media (max-width: 560px) { .purpose { flex-direction: column; gap: 6px; } table.log { display: block; overflow-x: auto; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="row"><h1 class="grow">账号保管箱</h1><span id="guard" class="chip"></span></div>
+  <p class="sub">她要用的账号和密码放在这里，由你本人在这一页填。密码只存在这台电脑上（Windows 加密，只有你这个账户解得开），
+    不进聊天、记忆、日志，也不给模型看；登录都是程序按平台一步步做的。能扫码、能用授权码的就不存密码。每样东西能被哪些事用到、
+    第一次用要不要你点头，都在下面写着，随时能改。</p>
+  <div id="banner"></div>
+
+  <section class="card" aria-labelledby="h-qq">
+    <div class="row"><h2 id="h-qq" class="grow">QQ（她的号）</h2><span id="qqState" class="chip"></span></div>
+    <p class="muted small" style="margin:2px 0 0">SnowLuma 重启或 QQ 重新登录以后，需要在 SnowLuma 的管理页点一下“挂接”才连得上。存了管理页密码，程序就替你点，而且只点她那个号的。</p>
+    <div id="qqLines"></div>
+    <div class="row" style="margin-top:10px">
+      <button id="qqNow">现在检查一次</button>
+      <button id="qqQrBtn" class="ghost" hidden>刷新二维码</button>
+      <span id="qqBusy" class="small muted"></span>
+    </div>
+    <div id="qqQr" hidden>
+      <img id="qqQrImg" class="qr" alt="QQ 登录二维码">
+      <p class="small muted" style="margin:0">这是电脑上 QQ 登录窗口里的二维码，用手机 QQ 扫（最好用她的号）。过几分钟会过期，QQ 会自己刷新，这里点“刷新二维码”重新取。只在 QQ 停在登录界面时才会去看那个窗口，已经登录的 QQ 的窗口不看。</p>
+    </div>
+    <h3>SnowLuma 管理页的密码</h3>
+    <div id="slAccount"></div>
+    <div id="slForm">
+      <label class="field"><span>管理页密码</span>
+        <div class="pw"><input id="slPass" type="password" autocomplete="new-password" spellcheck="false" placeholder="就是你在浏览器里登录 SnowLuma 管理页用的密码">
+          <button class="ghost eye" type="button" data-eye="slPass">显示</button></div></label>
+      <div id="slChecks" class="checks" style="margin-top:8px"></div>
+      <div class="row" style="margin-top:12px"><button id="slSave" class="primary">保存</button>
+        <span class="small muted">管理页连续输错 5 次会把这台电脑锁 15 分钟，所以密码被拒一次程序就不再试，等你在这里换新的。</span></div>
+    </div>
+    <div id="slResult" class="result" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-bili">
+    <div class="row"><h2 id="h-bili" class="grow">B 站（她的号）</h2><span id="biliState" class="chip"></span></div>
+    <p class="muted small" style="margin:2px 0 0">用登着她那个 B 站号的手机 App 扫码并确认，不用输密码。她看视频读字幕、看消息、（你打开的话）发评论都靠它。</p>
+    <div id="biliLines"></div>
+    <div class="row" style="margin-top:10px">
+      <button id="biliScan" class="primary">扫码登录</button>
+      <button id="biliCheck">检查还有效吗</button>
+      <button id="biliDel" class="danger" hidden>删除</button>
+    </div>
+    <div id="biliQr" hidden>
+      <img id="biliQrImg" class="qr" alt="B 站登录二维码">
+      <p id="biliText" class="small" style="margin:0"></p>
+      <div id="biliConfirm" class="row" style="margin-top:8px" hidden>
+        <button id="biliYes" class="primary">换成这个号</button><button id="biliNo">不换</button></div>
+    </div>
+    <div id="biliPurposes"></div>
+    <div id="biliResult" class="result" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-others">
+    <h2 id="h-others">别处已经连好的</h2>
+    <div id="others"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-gen">
+    <h2 id="h-gen">其他账号（只保存）</h2>
+    <p class="muted small" style="margin:2px 0 0">这些平台还没有对应的自动登录程序：先加密存着，不会被任何东西自动使用。以后做了对应平台的登录程序，才会按你勾的用途去用，第一次还会问你。</p>
+    <div id="genList"></div>
+    <details style="margin-top:12px"><summary class="muted" style="cursor:pointer">添加一个</summary>
+      <label class="field"><span>叫什么（比如“某某网站的小号”）</span><input id="genLabel" type="text" maxlength="40" autocomplete="off"></label>
+      <label class="field"><span>账号名（可不填）</span><input id="genUser" type="text" maxlength="120" autocomplete="off" spellcheck="false"></label>
+      <label class="field"><span>密码 / 令牌</span>
+        <div class="pw"><input id="genPass" type="password" autocomplete="new-password" spellcheck="false">
+          <button class="ghost eye" type="button" data-eye="genPass">显示</button></div></label>
+      <div class="row" style="margin-top:12px"><button id="genSave" class="primary">保存</button></div>
+      <div id="genResult" class="result" role="status" aria-live="polite"></div>
+    </details>
+  </section>
+
+  <section class="card" aria-labelledby="h-log">
+    <div class="row"><h2 id="h-log" class="grow">使用记录</h2><button id="logRefresh" class="ghost small">刷新</button></div>
+    <p class="muted small" style="margin:2px 0 8px">什么时候、哪个账号、做什么、成没成。不带密码。</p>
+    <div id="log"></div>
+  </section>
+
+  <p class="fine small muted">自动登录、自动操作可能触发平台的风控，严重时会封号：建议她用小号，不要把常用的大号放进来。验证码、短信、扫码确认这类，程序一律交还给你本人去做，不会绕过。
+    换电脑或重装系统后，这里的密码解不开，要重新填。</p>
+</main>
+
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+let S = null;           // 服务端状态
+let biliTimer = null;
+let qqQrAt = 0;
+const BY = { launcher: '自动挂接', bili: '她看 B 站', page: '你在这一页', card: '申请卡片', scan: '扫码登录' };
+
+function el(tag, props = {}, ...kids) {  // 只用 textContent / 属性, 不拼 HTML
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'text') e.textContent = v; else if (k === 'cls') e.className = v; else e[k] = v;
+  }
+  for (const k of kids) if (k != null) e.append(k);
+  return e;
+}
+
+function when(t) {  // 按服务端 (她的时区) 的钟显示
+  if (!t) return '还没有';
+  const d = new Date((t + (S?.utc_offset_min || 0) * 60) * 1000);
+  const p = (n) => String(n).padStart(2, '0');
+  return `${p(d.getUTCMonth() + 1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
+}
+
+async function api(body) {
+  try {
+    const r = await fetch('/api/vault', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-WM-Page': 'vault' }, body: JSON.stringify(body) });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok && !data.error) data.error = `出错了 (${r.status})`;
+    return data;
+  } catch (e) {
+    return { ok: false, error: '连不上服务端：看看桌宠的服务开着没有' };
+  }
+}
+
+function show(id, kind, text) {
+  const r = $(id);
+  r.className = `result ${kind}`;
+  r.textContent = text;
+}
+
+async function load(withQr = false) {
+  try {
+    const r = await fetch(`/api/vault?log=40${withQr ? '&qr=1' : ''}`, { cache: 'no-store' });
+    S = await r.json();
+  } catch (e) {
+    $('banner').replaceChildren(el('div', { cls: 'banner', text: '连不上服务端：看看桌宠的服务开着没有' }));
+    return;
+  }
+  render();
+}
+
+const acct = (platform) => (S?.accounts || []).find((a) => a.platform === platform && !a.broken);
+const plat = (id) => (S?.platforms || []).find((p) => p.id === id);
+const STATE_NAME = { allow: '允许', ask: '先问我', deny: '不允许' };
+
+function purposeRows(a) {  // 每个用途一行: 说明 + 三态下拉
+  const box = el('div', { cls: 'purposes' });
+  for (const p of a.purposes) {
+    const sel = el('select', { ariaLabel: `${p.name}：允许吗` });
+    for (const k of ['allow', 'ask', 'deny']) sel.append(el('option', { value: k, text: STATE_NAME[k] }));
+    sel.value = p.state;
+    sel.onchange = async () => {
+      const r = await api({ action: 'purpose', id: a.id, purpose: p.id, state: sel.value });
+      if (!r.ok) alert(r.error || '没改成');
+      await load();
+    };
+    box.append(el('div', { cls: `purpose ${p.risk === 'high' ? 'high' : ''}` },
+      el('div', { cls: 'what' },
+        el('div', { cls: 'name', text: p.name }),
+        el('div', { cls: 'small muted', text: p.desc }),
+        p.state === 'ask' ? el('div', { cls: 'small muted', text: p.waiting ? '有程序想用，在等你点头（桌宠上也有申请卡片）' : '还没点过头：第一次要用时会先问你' }) : null),
+      sel));
+  }
+  return box;
+}
+
+function checkRows(platformId, mountId) {  // 新存账号时的用途勾选
+  const p = plat(platformId);
+  const box = $(mountId);
+  box.replaceChildren(el('div', { cls: 'small muted', text: '允许用它做这些事（没勾的，第一次要用时会先问你）：' }),
+    ...(p?.purposes || []).map((u) => {
+      const cb = el('input', { type: 'checkbox', checked: !!u.ui_on, id: `${mountId}-${u.id}` });
+      cb.dataset.purpose = u.id;
+      return el('label', {}, cb, el('span', {}, el('b', { text: u.name }), el('span', { cls: 'small muted', text: `  ${u.desc}` })));
+    }));
+}
+
+function render() {
+  const g = $('guard');
+  if (S.protected === true) { g.textContent = '工作台碰不到这里'; g.className = 'chip ok'; }
+  else if (S.protected === false) { g.textContent = '工作台的守门没挡这个目录'; g.className = 'chip bad'; }
+  else { g.textContent = ''; g.className = 'chip'; }
+  const broken = (S.accounts || []).filter((a) => a.broken);
+  $('banner').replaceChildren(...broken.map((a) => el('div', { cls: 'banner', text: `${a.label}：${a.broken}` })));
+  renderQQ(); renderBili(); renderOthers(); renderGeneric(); renderLog();
+}
+
+function renderQQ() {
+  const q = S.qq || {};
+  const sl = q.snowluma;
+  const a = acct('snowluma');
+  const st = $('qqState');
+  const names = { online: '在线', connecting: '连接中', error: '出错', off: '没开', paused: '暂停' };
+  st.textContent = q.enabled ? (names[q.state] || q.state || '') : 'QQ 渠道没开';
+  st.className = 'chip ' + (q.state === 'online' ? 'ok' : (q.state === 'error' ? 'bad' : ''));
+  const lines = [];
+  if (!q.enabled) lines.push(el('div', { cls: 'line muted', text: '先在桌宠的设置 → 外部渠道里把 QQ 打开，这里才会管挂接。' }));
+  if (sl?.detail) lines.push(el('div', { cls: 'line' }, el('b', { text: 'SnowLuma：' }), document.createTextNode(sl.detail)));
+  if (q.enabled && q.self_id) lines.push(el('div', { cls: 'line small muted', text: `只会挂接 QQ ${q.self_id}，电脑上别的 QQ 号不碰。` }));
+  $('qqLines').replaceChildren(...lines);
+  const showQr = !!sl?.qr || ['need_scan', 'waiting_login'].includes(sl?.state);
+  $('qqQrBtn').hidden = !showQr;
+  $('qqNow').disabled = !q.enabled;
+  if (sl?.qr) { if (!qqQrAt || Date.now() - qqQrAt > 15000) { qqQrAt = Date.now(); load(true); } }
+  $('qqQr').hidden = !S.qq_qr;
+  if (S.qq_qr) $('qqQrImg').src = S.qq_qr;
+  // 密码
+  const form = $('slForm'), box = $('slAccount');
+  if (a) {
+    const rows = [el('div', { cls: 'line' }, el('b', { text: '已存' }), document.createTextNode(`（${when(a.updated)} 更新）。`),
+      a.rejected ? el('span', { cls: 'chip bad', text: '管理页拒绝过这个密码，要换新的' }) : null,
+      a.last_used ? el('span', { cls: 'small muted', text: `  上次用：${when(a.last_used.t)}${a.last_used.ok ? '' : '（没成）'}` }) : null),
+      purposeRows(a)];
+    const del = el('button', { cls: 'danger small', text: '删除这个密码' });
+    let armed = null;
+    del.onclick = async () => {
+      if (!armed) { del.textContent = '再点一次确认删除'; armed = setTimeout(() => { armed = null; del.textContent = '删除这个密码'; }, 4000); return; }
+      clearTimeout(armed);
+      const r = await api({ action: 'forget', id: a.id });
+      show('slResult', r.ok ? 'ok' : 'bad', r.ok ? '删掉了。SnowLuma 重启后需要你手动挂接，或者再存一次密码。' : (r.error || '没删成'));
+      load();
+    };
+    rows.push(el('div', { cls: 'row', style: 'margin-top:10px' }, del));
+    box.replaceChildren(...rows);
+    $('slSave').textContent = '换新密码';
+    $('slPass').placeholder = '要换的话在这里填新密码';
+  } else {
+    box.replaceChildren(el('div', { cls: 'line muted', text: '还没存。存了以后 SnowLuma 重启、QQ 重新登录都不用你再手动挂接。' }));
+    $('slSave').textContent = '保存';
+  }
+  if (!$('slChecks').childElementCount) checkRows('snowluma', 'slChecks');
+}
+
+function renderBili() {
+  const a = acct('bilibili');
+  const b = S.bili || { state: 'idle' };
+  const active = ['waiting', 'scanned', 'confirm'].includes(b.state);
+  const expired = a && (a.flags?.expired_at || a.meta?.verified === false);
+  const st = $('biliState');
+  st.textContent = !a ? '还没登录' : (expired ? '登录可能过期了' : '已登录');
+  st.className = 'chip ' + (!a ? '' : (expired ? 'bad' : 'ok'));
+  const lines = [];
+  if (a) {
+    lines.push(el('div', { cls: 'line' }, el('b', { text: a.meta?.uname || '(没取到昵称)' }),
+      document.createTextNode(a.meta?.mid ? `（uid ${a.meta.mid}）` : ''),
+      el('span', { cls: 'small muted', text: `  核对于 ${when(a.meta?.verified_at)}，存于 ${when(a.updated)}` })));
+    if (expired) lines.push(el('div', { cls: 'line', style: 'color:var(--bad)', text: '这个登录已经失效了，她读不到字幕、发不了评论；重新扫码一次就好。' }));
+  } else if (!active) {
+    lines.push(el('div', { cls: 'line muted', text: S.bili_file === 'plain' ? '旧的 Cookie 文件已经失效了。点“扫码登录”换成新的。' : '点“扫码登录”开始。' }));
+  }
+  $('biliLines').replaceChildren(...lines);
+  $('biliDel').hidden = !a;
+  $('biliCheck').disabled = !a;
+  $('biliScan').textContent = a ? '重新扫码' : '扫码登录';
+  $('biliQr').hidden = !(active || ['done', 'expired'].includes(b.state) && b.text);
+  $('biliQrImg').hidden = !(b.qr && ['waiting', 'scanned'].includes(b.state));
+  if (b.qr) $('biliQrImg').src = b.qr;
+  $('biliText').textContent = b.text || '';
+  $('biliConfirm').hidden = b.state !== 'confirm';
+  $('biliPurposes').replaceChildren(a ? purposeRows(a) : '');
+  if (active && b.state !== 'confirm') startBiliPoll(); else stopBiliPoll();
+}
+
+function startBiliPoll() {
+  if (biliTimer) return;
+  biliTimer = setInterval(async () => {
+    const r = await api({ action: 'bili_poll' });
+    if (r.login) { S.bili = r.login; if (!['waiting', 'scanned'].includes(r.login.state)) { stopBiliPoll(); await load(); return; } renderBili(); }
+    else if (r.error) { stopBiliPoll(); show('biliResult', 'bad', r.error); }
+  }, 2500);
+}
+function stopBiliPoll() { if (biliTimer) { clearInterval(biliTimer); biliTimer = null; } }
+
+function renderOthers() {
+  const o = S.others || {};
+  const rows = [];
+  if (o.mail) rows.push(el('div', { cls: 'line' }, el('b', { text: '邮箱：' }), document.createTextNode(o.mail.count ? `连了 ${o.mail.count} 个` : '还没连'),
+    document.createTextNode('　'), el('a', { cls: 'open', href: o.mail.url, text: '去连接邮箱 →' })));
+  if (o.weixin) rows.push(el('div', { cls: 'line' }, el('b', { text: '微信（ClawBot）：' }),
+    document.createTextNode(o.weixin.bound ? `已绑定 ${o.weixin.user || ''}（${o.weixin.state}）` : '还没绑定，在桌宠设置 → 外部渠道里扫码绑定')));
+  rows.push(el('div', { cls: 'line small muted', text: '邮箱用授权码、微信用扫码，都不存你的登录密码，也在各自的页面里管。' }));
+  $('others').replaceChildren(...rows);
+}
+
+function renderGeneric() {
+  const list = (S.accounts || []).filter((a) => a.platform === 'other');
+  $('genList').replaceChildren(...(list.length ? list.map((a) => {
+    const del = el('button', { cls: 'danger small', text: '删除' });
+    let armed = null;
+    del.onclick = async () => {
+      if (!armed) { del.textContent = '再点一次确认删除'; armed = setTimeout(() => { armed = null; del.textContent = '删除'; }, 4000); return; }
+      clearTimeout(armed);
+      await api({ action: 'forget', id: a.id });
+      load();
+    };
+    return el('div', { cls: 'account' }, el('div', { cls: 'row' }, el('b', { cls: 'grow', text: a.label }),
+      el('span', { cls: 'small muted', text: `${a.user || '（没填账号名）'} · ${when(a.updated)} 存` }), del));
+  }) : [el('div', { cls: 'line muted', text: '还没有。' })]));
+}
+
+function renderLog() {
+  const recs = S.log || [];
+  if (!recs.length) { $('log').replaceChildren(el('div', { cls: 'line muted', text: '还没有记录' })); return; }
+  const label = (id) => (S.accounts || []).find((a) => a.id === id)?.label || id;
+  const EXTRA = { check: '检查登录还有效吗' };  // 不在平台用途表里的、你在页面上点按钮触发的
+  const pname = (id, p) => { for (const pl of S.platforms || []) { const hit = pl.purposes.find((u) => u.id === p); if (hit && (id === pl.id || id.startsWith(pl.id + '-'))) return hit.name; } return EXTRA[p] || p; };
+  const head = el('tr', {}, ...['时间', '账号', '做什么', '谁', '结果'].map((t) => el('th', { text: t })));
+  const rows = recs.map((r) => el('tr', {}, el('td', { text: when(r.t) }), el('td', { text: label(r.account) }),
+    el('td', { text: r.purpose ? pname(r.account, r.purpose) : (r.kind === 'change' ? '账号' : '') }),
+    el('td', { text: BY[r.by] || r.by }),
+    el('td', { cls: r.ok === true ? 'ok-t' : (r.ok === false ? 'bad-t' : 'muted'), text: `${r.ok === true ? '✓ ' : r.ok === false ? '✗ ' : '… '}${r.note || ''}` })));
+  $('log').replaceChildren(el('table', { cls: 'log' }, el('thead', {}, head), el('tbody', {}, ...rows)));
+}
+
+function purposesFrom(mountId) {
+  const out = {};
+  for (const cb of $(mountId).querySelectorAll('input[type=checkbox]')) out[cb.dataset.purpose] = cb.checked;
+  return out;
+}
+
+// -- 动作 --------------------------------------------------------------------
+document.querySelectorAll('[data-eye]').forEach((b) => b.addEventListener('click', () => {
+  const i = $(b.dataset.eye); const hidden = i.type === 'password';
+  i.type = hidden ? 'text' : 'password'; b.textContent = hidden ? '隐藏' : '显示';
+}));
+
+$('slSave').addEventListener('click', async () => {
+  const pass = $('slPass').value;
+  if (!pass) return show('slResult', 'bad', '先把管理页密码填进来');
+  $('slSave').disabled = true; show('slResult', 'busy', '保存中…');
+  const r = await api({ action: 'save', platform: 'snowluma', fields: { password: pass }, purposes: purposesFrom('slChecks') });
+  $('slSave').disabled = false;
+  if (r.ok) {
+    $('slPass').value = '';
+    show('slResult', 'ok', '存好了（已加密）。马上替她检查一次 QQ 挂没挂上，进度在上面“SnowLuma：”那一行。' + (r.protect_note ? `\n${r.protect_note}` : ''));
+    setTimeout(() => load(), 1500);
+  } else show('slResult', 'bad', `没存上：${r.error || '不知道为什么'}`);
+  load();
+});
+$('slPass').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('slSave').click(); });
+
+$('qqNow').addEventListener('click', async () => {
+  $('qqNow').disabled = true; $('qqBusy').textContent = '检查中…';
+  const r = await api({ action: 'qq_attach' });
+  $('qqNow').disabled = false; $('qqBusy').textContent = r.ok ? '' : (r.error || '没成');
+  await load(true);
+});
+$('qqQrBtn').addEventListener('click', async () => {
+  $('qqBusy').textContent = '去看一眼登录窗口…';
+  const r = await api({ action: 'qq_qr' });
+  $('qqBusy').textContent = r.ok ? (r.seen ? '' : '没认出二维码（窗口没开、被收起来了，或者要先点一下“登录”）') : (r.error || '没成');
+  await load(true);
+});
+
+$('biliScan').addEventListener('click', async () => {
+  $('biliScan').disabled = true; show('biliResult', 'busy', '向 B 站要二维码…');
+  const r = await api({ action: 'bili_begin' });
+  $('biliScan').disabled = false;
+  if (r.ok) { show('biliResult', 'busy', ''); $('biliResult').className = 'result'; S.bili = r.login; renderBili(); }
+  else show('biliResult', 'bad', `没要到二维码：${r.error || '不知道为什么'}`);
+});
+$('biliCheck').addEventListener('click', async () => {
+  $('biliCheck').disabled = true; show('biliResult', 'busy', '问 B 站这个登录还有没有效…');
+  const r = await api({ action: 'bili_check' });
+  $('biliCheck').disabled = false;
+  show('biliResult', r.ok && r.valid ? 'ok' : 'bad', r.text || r.error || '没查成');
+  load();
+});
+$('biliYes').addEventListener('click', async () => { const r = await api({ action: 'bili_confirm', replace: true }); if (r.login) S.bili = r.login; await load(); });
+$('biliNo').addEventListener('click', async () => { const r = await api({ action: 'bili_confirm', replace: false }); if (r.login) S.bili = r.login; await load(); });
+$('biliDel').addEventListener('click', async () => {
+  const a = acct('bilibili'); if (!a) return;
+  if ($('biliDel').dataset.armed !== '1') { $('biliDel').dataset.armed = '1'; $('biliDel').textContent = '再点一次确认删除';
+    setTimeout(() => { $('biliDel').dataset.armed = ''; $('biliDel').textContent = '删除'; }, 4000); return; }
+  $('biliDel').dataset.armed = ''; $('biliDel').textContent = '删除';
+  await api({ action: 'forget', id: a.id });
+  show('biliResult', 'ok', '删掉了。她读不到字幕，直到你再扫码登录。');
+  load();
+});
+
+$('genSave').addEventListener('click', async () => {
+  const label = $('genLabel').value.trim(), secret = $('genPass').value;
+  if (!label) return show('genResult', 'bad', '先给它起个名字');
+  if (!secret) return show('genResult', 'bad', '先把密码 / 令牌填进来');
+  const r = await api({ action: 'save', platform: 'other', label, user: $('genUser').value.trim(), fields: { secret } });
+  if (r.ok) { $('genPass').value = ''; $('genLabel').value = ''; $('genUser').value = ''; show('genResult', 'ok', '存好了（已加密，暂时不会被任何东西使用）。'); load(); }
+  else show('genResult', 'bad', `没存上：${r.error || '不知道为什么'}`);
+});
+
+$('logRefresh').addEventListener('click', () => load());
+setInterval(() => { if (!document.hidden) load(!!S?.qq?.snowluma?.qr); }, 15000);
+load().then(() => { if (S?.bili && ['waiting', 'scanned'].includes(S.bili.state)) renderBili(); });
+</script>
+</body>
+</html>

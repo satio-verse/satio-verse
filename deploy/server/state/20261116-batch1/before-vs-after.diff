@@ -1,0 +1,167 @@
+3c3
+< utc: 20261116T174832Z
+---
+> utc: 20261116T180952Z
+842d841
+< fwupd.service
+1010,1013c1009,1012
+< 		iifname "lo" counter packets 8190 bytes 728824 accept
+< 		ct state related,established counter packets 355090 bytes 198925649 accept
+< 		ct state invalid counter packets 2561 bytes 131680 jump ufw-logging-deny
+< 		ct state invalid counter packets 2561 bytes 131680 drop
+---
+> 		iifname "lo" counter packets 8334 bytes 741285 accept
+> 		ct state related,established counter packets 362592 bytes 214454567 accept
+> 		ct state invalid counter packets 2565 bytes 131840 jump ufw-logging-deny
+> 		ct state invalid counter packets 2565 bytes 131840 drop
+1017c1016
+< 		ip protocol icmp icmp type echo-request counter packets 71096 bytes 2156340 accept
+---
+> 		ip protocol icmp icmp type echo-request counter packets 71963 bytes 2180924 accept
+1019c1018
+< 		counter packets 2274 bytes 95820 jump ufw-not-local
+---
+> 		counter packets 2311 bytes 97432 jump ufw-not-local
+1022c1021
+< 		counter packets 2274 bytes 95820 jump ufw-user-input
+---
+> 		counter packets 2311 bytes 97432 jump ufw-user-input
+1026,1028c1025,1027
+< 		oifname "lo" counter packets 8210 bytes 730424 accept
+< 		ct state related,established counter packets 365973 bytes 56774102 accept
+< 		counter packets 55930 bytes 3428778 jump ufw-user-output
+---
+> 		oifname "lo" counter packets 8354 bytes 742885 accept
+> 		ct state related,established counter packets 373167 bytes 57931076 accept
+> 		counter packets 56675 bytes 3474536 jump ufw-user-output
+1057c1056
+< 		limit rate 3/minute burst 10 packets counter packets 1559 bytes 57254 log prefix "[UFW BLOCK] "
+---
+> 		limit rate 3/minute burst 10 packets counter packets 1578 bytes 57942 log prefix "[UFW BLOCK] "
+1080,1081c1079,1080
+< 		ip protocol tcp ct state new counter packets 50708 bytes 3042480 accept
+< 		ip protocol udp ct state new counter packets 5217 bytes 381570 accept
+---
+> 		ip protocol tcp ct state new counter packets 51372 bytes 3082320 accept
+> 		ip protocol udp ct state new counter packets 5292 bytes 386954 accept
+1089,1094c1088,1093
+< 		counter packets 439211 bytes 202038313 jump ufw-before-logging-input
+< 		counter packets 439211 bytes 202038313 jump ufw-before-input
+< 		counter packets 1563 bytes 57410 jump ufw-after-input
+< 		counter packets 1563 bytes 57410 jump ufw-after-logging-input
+< 		counter packets 1563 bytes 57410 jump ufw-reject-input
+< 		counter packets 1563 bytes 57410 jump ufw-track-input
+---
+> 		counter packets 447765 bytes 217606048 jump ufw-before-logging-input
+> 		counter packets 447765 bytes 217606048 jump ufw-before-input
+> 		counter packets 1582 bytes 58098 jump ufw-after-input
+> 		counter packets 1582 bytes 58098 jump ufw-after-logging-input
+> 		counter packets 1582 bytes 58098 jump ufw-reject-input
+> 		counter packets 1582 bytes 58098 jump ufw-track-input
+1099,1104c1098,1103
+< 		counter packets 430113 bytes 60933304 jump ufw-before-logging-output
+< 		counter packets 430113 bytes 60933304 jump ufw-before-output
+< 		counter packets 55930 bytes 3428778 jump ufw-after-output
+< 		counter packets 55930 bytes 3428778 jump ufw-after-logging-output
+< 		counter packets 55930 bytes 3428778 jump ufw-reject-output
+< 		counter packets 55930 bytes 3428778 jump ufw-track-output
+---
+> 		counter packets 438196 bytes 62148497 jump ufw-before-logging-output
+> 		counter packets 438196 bytes 62148497 jump ufw-before-output
+> 		counter packets 56675 bytes 3474536 jump ufw-after-output
+> 		counter packets 56675 bytes 3474536 jump ufw-after-logging-output
+> 		counter packets 56675 bytes 3474536 jump ufw-reject-output
+> 		counter packets 56675 bytes 3474536 jump ufw-track-output
+1118c1117
+< 		ct state invalid limit rate 3/minute burst 10 packets counter packets 1782 bytes 96736 return
+---
+> 		ct state invalid limit rate 3/minute burst 10 packets counter packets 1786 bytes 96896 return
+1139,1140c1138,1139
+< 		fib daddr type local counter packets 861 bytes 44952 return
+< 		fib daddr type multicast counter packets 1413 bytes 50868 return
+---
+> 		fib daddr type local counter packets 880 bytes 45916 return
+> 		fib daddr type multicast counter packets 1431 bytes 51516 return
+1147c1146
+< 		tcp dport 22 counter packets 711 bytes 38410 accept
+---
+> 		tcp dport 22 counter packets 729 bytes 39334 accept
+1645a1645
+> find: '/srv/worldmodel/community/private': Permission denied
+1646a1647,1649
+> d 2750 ubuntu:wm 4096 /srv/worldmodel/community
+> d 750 root:wm 4096 /srv/worldmodel/community/private
+> d 2750 ubuntu:wm 4096 /srv/worldmodel/community/store
+1648a1652,1653
+> d 2750 ubuntu:wm 4096 /srv/worldmodel/site
+> d 2750 ubuntu:wm 4096 /srv/worldmodel/updates
+1650a1656
+> find: '/srv/worldmodel/community/private': Permission denied
+1651a1658
+> find: '/srv/worldmodel/community/private': Permission denied
+1652a1660
+> find: '/srv/worldmodel/community/private': Permission denied
+1653a1662
+> find: '/srv/worldmodel/community/private': Permission denied
+1729c1738
+< Mem:            7685         612        6325           2         998        7072
+---
+> Mem:            7685         601        6303           2        1030        7083
+1738c1747
+< 12K	/srv/worldmodel
+---
+> 32K	/srv/worldmodel
+1756,1758c1765,1767
+<                Local time: Tue 2026-11-17 01:48:35 CST
+<            Universal time: Mon 2026-11-16 17:48:35 UTC
+<                  RTC time: Mon 2026-11-16 17:48:35
+---
+>                Local time: Tue 2026-11-17 02:09:55 CST
+>            Universal time: Mon 2026-11-16 18:09:55 UTC
+>                  RTC time: Mon 2026-11-16 18:09:55
+1797,1803c1806,1812
+< Ref time (UTC)  : Mon Nov 16 17:47:38 2026
+< System time     : 0.000054603 seconds fast of NTP time
+< Last offset     : +0.000031292 seconds
+< RMS offset      : 0.000051683 seconds
+< Frequency       : 1.091 ppm slow
+< Residual freq   : +0.001 ppm
+< Skew            : 0.116 ppm
+---
+> Ref time (UTC)  : Mon Nov 16 18:09:14 2026
+> System time     : 0.000020648 seconds fast of NTP time
+> Last offset     : -0.000045525 seconds
+> RMS offset      : 0.000049955 seconds
+> Frequency       : 1.034 ppm slow
+> Residual freq   : -0.001 ppm
+> Skew            : 0.099 ppm
+1805,1806c1814,1815
+< Root dispersion : 0.017491313 seconds
+< Update interval : 257.4 seconds
+---
+> Root dispersion : 0.017469978 seconds
+> Update interval : 521.5 seconds
+1811,1815c1820,1824
+< ^+ <ipv4>                  2  10   377   777   +326us[ +374us] +/-   30ms
+< ^+ <ipv4>                  2  10   377   297   +408us[ +438us] +/-   35ms
+< ^+ <ipv4>                  2   8   377   188   +611us[ +642us] +/-   27ms
+< ^* <ipv4>                  2   8   377    56   +214us[ +245us] +/-   24ms
+< ^+ <ipv4>                  2   8   377    83   +146us[ +177us] +/-   24ms
+---
+> ^+ <ipv4>                  2  10   377  1017   +470us[ +496us] +/-   34ms
+> ^+ <ipv4>                  2  10   377   538    -13us[  -57us] +/-   55ms
+> ^+ <ipv4>                  2  10   377   688    +70us[  +30us] +/-   37ms
+> ^* <ipv4>                  2   9   377    40   -891us[ -936us] +/-   24ms
+> ^+ <ipv4>                  2   9   377   329   +187us[ +142us] +/-   42ms
+1818,1820c1827,1829
+< NEXT                           LEFT LAST                              PASSED UNIT                    ACTIVATES
+< Tue 2026-11-17 06:50:51 CST 5h 2min Mon 2026-11-16 06:37:20 CST      19h ago apt-daily-upgrade.timer apt-daily-upgrade.service
+< Tue 2026-11-17 09:34:39 CST      7h Mon 2026-11-16 20:12:01 CST 5h 36min ago apt-daily.timer         apt-daily.service
+---
+> NEXT                            LEFT LAST                              PASSED UNIT                    ACTIVATES
+> Tue 2026-11-17 06:50:51 CST 4h 40min Mon 2026-11-16 06:37:20 CST      19h ago apt-daily-upgrade.timer apt-daily-upgrade.service
+> Tue 2026-11-17 09:34:39 CST       7h Mon 2026-11-16 20:12:01 CST 5h 57min ago apt-daily.timer         apt-daily.service
+1851c1860
+< log lines read: 57
+---
+> log lines read: 102

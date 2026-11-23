@@ -1,0 +1,8 @@
+2026-11-16T18:09:37Z wm-batch1 action=apply sha256(self)=1dfd1e50bb4adc5d9f1167fea7eacb70375d12ffbe53665c83191e3e39f8d8a4
+2026-11-16T18:09:37Z CHANGE installed /usr/local/bin/coscli (coscli version v1.0.9)
+2026-11-16T18:09:37Z CHANGE directory /srv/worldmodel/site (2750 ubuntu:wm)
+2026-11-16T18:09:37Z CHANGE directory /srv/worldmodel/updates (2750 ubuntu:wm)
+2026-11-16T18:09:37Z CHANGE directory /srv/worldmodel/community (2750 ubuntu:wm)
+2026-11-16T18:09:37Z CHANGE directory /srv/worldmodel/community/store (2750 ubuntu:wm)
+2026-11-16T18:09:37Z CHANGE directory /srv/worldmodel/community/private (750 root:wm)
+2026-11-16T18:09:37Z summary action=apply changes=6

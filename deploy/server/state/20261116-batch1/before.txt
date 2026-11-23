@@ -1,0 +1,1890 @@
+##### 00-meta #####
+tool: wm-snapshot
+mode: stdout
+utc: 20261116T174832Z
+running as: ubuntu (uid 1000), groups: ubuntu adm dialout cdrom floppy sudo audio dip video plugdev lxd netdev
+sudo -n: works (passwordless)
+max_hash_bytes: 268435456
+
+##### 10-os #####
+PRETTY_NAME="Ubuntu 24.04.4 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.4 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+--- uname -srvmo
+Linux 6.8.0-149-generic #149-Ubuntu SMP PREEMPT_DYNAMIC Fri Oct 23 13:21:10 UTC 2026 x86_64 GNU/Linux
+--- boot time (uptime -s)
+2026-11-15 21:55:46
+--- versions
+OpenSSH_9.6p1 Ubuntu-3ubuntu13.20, OpenSSL 3.0.13 30 Jan 2024
+Sudo version 1.9.15p5
+systemd 255 (255.4-1ubuntu8.18)
+GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)
+
+##### 20-packages #####
+count: 739
+acpid	1:2.0.34-1ubuntu2
+adduser	3.137ubuntu1
+amd64-microcode	3.20251202.1ubuntu0.24.04.1
+apparmor	4.0.1really4.0.1-0ubuntu0.24.04.5
+apport	2.28.1-0ubuntu3.8
+apport-core-dump-handler	2.28.1-0ubuntu3.8
+apport-symptoms	0.25
+appstream	1.0.2-1build6
+apt	2.8.4ubuntu0.1
+apt-utils	2.8.4ubuntu0.1
+aptitude	0.8.13-5ubuntu5
+aptitude-common	0.8.13-5ubuntu5
+base-files	13ubuntu10.4
+base-passwd	3.6.3build1
+bash	5.2.21-2ubuntu4
+bash-completion	1:2.11-8
+bc	1.07.1-3ubuntu4
+bcache-tools	1.0.8-5build1
+bind9-dnsutils	1:9.18.39-0ubuntu0.24.04.9
+bind9-host	1:9.18.39-0ubuntu0.24.04.9
+bind9-libs:amd64	1:9.18.39-0ubuntu0.24.04.9
+binutils	2.42-4ubuntu2.8
+binutils-common:amd64	2.42-4ubuntu2.8
+binutils-x86-64-linux-gnu	2.42-4ubuntu2.8
+bolt	0.9.7-1
+bpfcc-tools	0.29.1+ds-1ubuntu7
+bpftrace	0.20.2-1ubuntu4.3
+bsdextrautils	2.39.3-9ubuntu6.6
+bsdutils	1:2.39.3-9ubuntu6.6
+btrfs-progs	6.6.3-1.1build2
+busybox-initramfs	1:1.36.1-6ubuntu3.1
+busybox-static	1:1.36.1-6ubuntu3.1
+byobu	6.11-0ubuntu1
+bzip2	1.0.8-5.1ubuntu0.1
+ca-certificates	20260816ubuntu0.24.04.2
+chrony	4.5-1ubuntu4.2
+cloud-guest-utils	0.33-1
+cloud-initramfs-copymods	0.49~24.04.1
+cloud-initramfs-dyn-netconf	0.49~24.04.1
+command-not-found	23.04.0
+console-setup	1.226ubuntu1
+console-setup-linux	1.226ubuntu1
+coreutils	9.4-3ubuntu6.3
+cpio	2.15+dfsg-1ubuntu2.1
+cpp	4:13.2.0-7ubuntu1
+cpp-13	13.3.0-6ubuntu2~24.04.1
+cpp-13-x86-64-linux-gnu	13.3.0-6ubuntu2~24.04.1
+cpp-x86-64-linux-gnu	4:13.2.0-7ubuntu1
+crash	8.0.4-1ubuntu2.1
+cron	3.0pl1-184ubuntu2
+cron-daemon-common	3.0pl1-184ubuntu2
+cryptsetup	2:2.7.0-1ubuntu4.2
+cryptsetup-bin	2:2.7.0-1ubuntu4.2
+cryptsetup-initramfs	2:2.7.0-1ubuntu4.2
+curl	8.5.0-2ubuntu10.16
+dash	0.5.12-6ubuntu5
+dbus	1.14.10-4ubuntu4.1
+dbus-bin	1.14.10-4ubuntu4.1
+dbus-daemon	1.14.10-4ubuntu4.1
+dbus-session-bus-common	1.14.10-4ubuntu4.1
+dbus-system-bus-common	1.14.10-4ubuntu4.1
+dbus-user-session	1.14.10-4ubuntu4.1
+debconf	1.5.86ubuntu1
+debconf-i18n	1.5.86ubuntu1
+debianutils	5.17build1
+dhcpcd-base	1:10.0.6-1ubuntu3.2
+diffutils	1:3.10-1ubuntu0.1
+dirmngr	2.4.4-2ubuntu17.6
+distro-info	1.7build1
+distro-info-data	2026.10.12-0ubuntu0.24.04.1
+dmeventd	2:1.02.185-3ubuntu3.2
+dmidecode	3.5-3ubuntu0.1
+dmsetup	2:1.02.185-3ubuntu3.2
+dosfstools	4.2-1.1build1
+dpkg	1.22.6ubuntu6.6
+dracut-install	060+5-1ubuntu3.4
+e2fsprogs	1.47.0-2.4~exp1ubuntu4.1
+e2fsprogs-l10n	1.47.0-2.4~exp1ubuntu4.1
+ed	1.20.1-1
+eject	2.39.3-9ubuntu6.6
+ethtool	1:6.7-1build1
+fail2ban	1.0.2-3ubuntu0.1
+fdisk	2.39.3-9ubuntu6.6
+file	1:5.45-3build1
+finalrd	9build1
+findutils	4.9.0-5build1
+firmware-sof-signed	2023.12.1-1ubuntu1.10
+fontconfig-config	2.15.0-1.1ubuntu2
+fonts-dejavu-core	2.37-8
+fonts-dejavu-mono	2.37-8
+fonts-ubuntu-console	0.869+git20240321-0ubuntu1
+friendly-recovery	0.2.42
+ftp	20230507-2build3
+fuse3	3.14.0-5build1
+fwupd	1.9.33-0ubuntu1~24.04.1ubuntu1
+fwupd-signed	1.52+1.4-1
+gawk	1:5.2.1-2ubuntu0.1
+gcc	4:13.2.0-7ubuntu1
+gcc-13	13.3.0-6ubuntu2~24.04.1
+gcc-13-base:amd64	13.3.0-6ubuntu2~24.04.1
+gcc-13-x86-64-linux-gnu	13.3.0-6ubuntu2~24.04.1
+gcc-14-base:amd64	14.2.0-4ubuntu2~24.04.1
+gcc-x86-64-linux-gnu	4:13.2.0-7ubuntu1
+gdisk	1.0.10-1build1
+gettext-base	0.21-14ubuntu2
+gir1.2-girepository-2.0:amd64	1.80.1-1
+gir1.2-glib-2.0:amd64	2.80.0-6ubuntu3.9
+gir1.2-packagekitglib-1.0	1.2.8-2ubuntu1.5
+git	1:2.43.0-1ubuntu7.4
+git-man	1:2.43.0-1ubuntu7.4
+gnupg	2.4.4-2ubuntu17.6
+gnupg-l10n	2.4.4-2ubuntu17.6
+gnupg-utils	2.4.4-2ubuntu17.6
+gpg	2.4.4-2ubuntu17.6
+gpg-agent	2.4.4-2ubuntu17.6
+gpg-wks-client	2.4.4-2ubuntu17.6
+gpgconf	2.4.4-2ubuntu17.6
+gpgsm	2.4.4-2ubuntu17.6
+gpgv	2.4.4-2ubuntu17.6
+grep	3.11-4build1
+groff-base	1.23.0-3build2
+grub-common	2.12-1ubuntu7.3
+grub-gfxpayload-lists	0.7build2
+grub-pc	2.12-1ubuntu7.3
+grub-pc-bin	2.12-1ubuntu7.3
+grub2-common	2.12-1ubuntu7.3
+gzip	1.12-1ubuntu3.2
+hdparm	9.65+ds-1build1
+hostname	3.23+nmu2ubuntu2
+htop	3.3.0-4build1
+hwdata	0.379-1
+ibverbs-providers:amd64	50.0-2ubuntu0.2
+ieee-data	20220827.1
+inetutils-inetd	2:2.5-3ubuntu4.2
+inetutils-telnet	2:2.5-3ubuntu4.2
+inetutils-telnetd	2:2.5-3ubuntu4.2
+info	7.1-3build2
+init	1.66ubuntu1
+init-system-helpers	1.66ubuntu1
+initramfs-tools	0.142ubuntu25.8
+initramfs-tools-bin	0.142ubuntu25.8
+initramfs-tools-core	0.142ubuntu25.8
+install-info	7.1-3build2
+intel-microcode	3.20260210.0ubuntu0.24.04.1
+iproute2	6.1.0-1ubuntu6.2
+iptables	1.8.10-3ubuntu2
+iputils-ping	3:20240117-1ubuntu0.1
+iputils-tracepath	3:20240117-1ubuntu0.1
+iso-codes	4.16.0-1
+iucode-tool	2.3.1-3build1
+jq	1.7.1-3ubuntu0.24.04.2
+kbd	2.6.4-2ubuntu2
+kdump-tools	1:1.10.3ubuntu2
+kexec-tools	1:2.0.28-0ubuntu3
+keyboard-configuration	1.226ubuntu1
+keyboxd	2.4.4-2ubuntu17.6
+klibc-utils	2.0.13-4ubuntu0.2
+kmod	31+20240202-2ubuntu7.2
+kpartx	0.9.4-5ubuntu8.1
+krb5-locales	1.20.1-6ubuntu2.7
+landscape-common	24.02-0ubuntu5.7
+less	590-2ubuntu2.1
+libacl1:amd64	2.3.2-1build1.1
+libaio1t64:amd64	0.3.113-6build1.1
+libaom3:amd64	3.8.2-2ubuntu0.2
+libapparmor1:amd64	4.0.1really4.0.1-0ubuntu0.24.04.5
+libappstream5:amd64	1.0.2-1build6
+libapt-pkg6.0t64:amd64	2.8.4ubuntu0.1
+libarchive13t64:amd64	3.7.2-2ubuntu0.9
+libargon2-1:amd64	0~20190702+dfsg-4build1
+libasan8:amd64	14.2.0-4ubuntu2~24.04.1
+libassuan0:amd64	2.5.6-1build1
+libatasmart4:amd64	0.19-5build3
+libatm1t64:amd64	1:2.5.1-5.1build1
+libatomic1:amd64	14.2.0-4ubuntu2~24.04.1
+libattr1:amd64	1:2.5.2-1ubuntu0.1
+libaudit-common	1:3.1.2-2.1build1.1
+libaudit1:amd64	1:3.1.2-2.1build1.1
+libbinutils:amd64	2.42-4ubuntu2.8
+libblkid1:amd64	2.39.3-9ubuntu6.6
+libblockdev-crypto3:amd64	3.1.1-1ubuntu0.1
+libblockdev-fs3:amd64	3.1.1-1ubuntu0.1
+libblockdev-loop3:amd64	3.1.1-1ubuntu0.1
+libblockdev-mdraid3:amd64	3.1.1-1ubuntu0.1
+libblockdev-nvme3:amd64	3.1.1-1ubuntu0.1
+libblockdev-part3:amd64	3.1.1-1ubuntu0.1
+libblockdev-swap3:amd64	3.1.1-1ubuntu0.1
+libblockdev-utils3:amd64	3.1.1-1ubuntu0.1
+libblockdev3:amd64	3.1.1-1ubuntu0.1
+libboost-iostreams1.83.0:amd64	1.83.0-2.1ubuntu3.2
+libbpf1:amd64	1:1.3.0-2build2
+libbpfcc:amd64	0.29.1+ds-1ubuntu7
+libbrotli1:amd64	1.1.0-2ubuntu0.1
+libbsd0:amd64	0.12.1-1build1.1
+libbytesize-common	2.10-1ubuntu2
+libbytesize1:amd64	2.10-1ubuntu2
+libbz2-1.0:amd64	1.0.8-5.1ubuntu0.1
+libc-bin	2.39-0ubuntu8.12
+libc-dev-bin	2.39-0ubuntu8.12
+libc-devtools	2.39-0ubuntu8.12
+libc6-dev:amd64	2.39-0ubuntu8.12
+libc6:amd64	2.39-0ubuntu8.12
+libcap-ng0:amd64	0.8.4-2build2
+libcap2-bin	1:2.66-5ubuntu2.4
+libcap2:amd64	1:2.66-5ubuntu2.4
+libcbor0.10:amd64	0.10.2-1.2ubuntu2
+libcc1-0:amd64	14.2.0-4ubuntu2~24.04.1
+libclang-cpp18	1:18.1.3-1ubuntu1
+libclang1-18	1:18.1.3-1ubuntu1
+libcom-err2:amd64	1.47.0-2.4~exp1ubuntu4.1
+libcrypt-dev:amd64	1:4.4.36-4build1
+libcrypt1:amd64	1:4.4.36-4build1
+libcryptsetup12:amd64	2:2.7.0-1ubuntu4.2
+libctf-nobfd0:amd64	2.42-4ubuntu2.8
+libctf0:amd64	2.42-4ubuntu2.8
+libcurl3t64-gnutls:amd64	8.5.0-2ubuntu10.16
+libcurl4t64:amd64	8.5.0-2ubuntu10.16
+libcwidget4:amd64	0.5.18-6build1
+libdb5.3t64:amd64	5.3.28+dfsg2-7
+libdbus-1-3:amd64	1.14.10-4ubuntu4.1
+libdbus-glib-1-2:amd64	0.112-3build2
+libde265-0:amd64	1.0.15-1ubuntu0.2
+libdebconfclient0:amd64	0.271ubuntu3
+libdeflate0:amd64	1.19-1build1.1
+libdevmapper-event1.02.1:amd64	2:1.02.185-3ubuntu3.2
+libdevmapper1.02.1:amd64	2:1.02.185-3ubuntu3.2
+libdpkg-perl	1.22.6ubuntu6.6
+libdrm-common	2.4.125-1ubuntu0.1~24.04.2
+libdrm2:amd64	2.4.125-1ubuntu0.1~24.04.2
+libduktape207:amd64	2.7.0+tests-0ubuntu3
+libdw1t64:amd64	0.190-1.1ubuntu0.1
+libedit2:amd64	3.1-20230828-1build1
+libefiboot1t64:amd64	38-3.1build1
+libefivar1t64:amd64	38-3.1build1
+libelf1t64:amd64	0.190-1.1ubuntu0.1
+liberror-perl	0.17029-2
+libestr0:amd64	0.1.11-1build1
+libevdev2:amd64	1.13.1+dfsg-1build1
+libevent-core-2.1-7t64:amd64	2.1.12-stable-9ubuntu2.2
+libexpat1:amd64	2.6.1-2ubuntu0.6
+libext2fs2t64:amd64	1.47.0-2.4~exp1ubuntu4.1
+libfastjson4:amd64	1.2304.0-1build1
+libfdisk1:amd64	2.39.3-9ubuntu6.6
+libffi-dev:amd64	3.4.6-1build1
+libffi8:amd64	3.4.6-1build1
+libfido2-1:amd64	1.14.0-1build3
+libfile-fcntllock-perl	0.22-4ubuntu5
+libflashrom1:amd64	1.3.0-2.1ubuntu2
+libfontconfig1:amd64	2.15.0-1.1ubuntu2
+libfreetype6:amd64	2.13.2+dfsg-1ubuntu0.2
+libfribidi0:amd64	1.0.13-3build1
+libftdi1-2:amd64	1.5-6build5
+libfuse3-3:amd64	3.14.0-5build1
+libfwupd2:amd64	1.9.33-0ubuntu1~24.04.1ubuntu1
+libgcc-13-dev:amd64	13.3.0-6ubuntu2~24.04.1
+libgcc-s1:amd64	14.2.0-4ubuntu2~24.04.1
+libgcrypt20:amd64	1.10.3-2ubuntu0.2
+libgd3:amd64	2.3.3-9ubuntu5
+libgdbm-compat4t64:amd64	1.23-5.1build1
+libgdbm6t64:amd64	1.23-5.1build1
+libgirepository-1.0-1:amd64	1.80.1-1
+libglib2.0-0t64:amd64	2.80.0-6ubuntu3.9
+libglib2.0-bin	2.80.0-6ubuntu3.9
+libglib2.0-data	2.80.0-6ubuntu3.9
+libgmp10:amd64	2:6.3.0+dfsg-2ubuntu6.1
+libgnutls30t64:amd64	3.8.3-1.1ubuntu3.6
+libgomp1:amd64	14.2.0-4ubuntu2~24.04.1
+libgpg-error-l10n	1.47-3build2.1
+libgpg-error0:amd64	1.47-3build2.1
+libgpgme11t64:amd64	1.18.0-4.1ubuntu4
+libgpm2:amd64	1.20.7-11
+libgprofng0:amd64	2.42-4ubuntu2.8
+libgssapi-krb5-2:amd64	1.20.1-6ubuntu2.7
+libgstreamer1.0-0:amd64	1.24.2-1ubuntu0.1
+libgudev-1.0-0:amd64	1:238-5ubuntu1
+libgusb2:amd64	0.4.8-1build2
+libheif-plugin-aomdec:amd64	1.17.6-1ubuntu4.9
+libheif-plugin-aomenc:amd64	1.17.6-1ubuntu4.9
+libheif-plugin-libde265:amd64	1.17.6-1ubuntu4.9
+libheif1:amd64	1.17.6-1ubuntu4.9
+libhogweed6t64:amd64	3.9.1-2.2build1.1
+libhwasan0:amd64	14.2.0-4ubuntu2~24.04.1
+libibverbs1:amd64	50.0-2ubuntu0.2
+libicu74:amd64	74.2-1ubuntu3.1
+libidn2-0:amd64	2.3.7-2build1.1
+libimobiledevice6:amd64	1.3.0-8.1build3
+libinih1:amd64	55-1ubuntu2
+libintl-perl	1.33-1build3
+libintl-xs-perl	1.33-1build3
+libip4tc2:amd64	1.8.10-3ubuntu2
+libip6tc2:amd64	1.8.10-3ubuntu2
+libisl23:amd64	0.26-3build1.1
+libisns0t64:amd64	0.101-0.3ubuntu0.1
+libitm1:amd64	14.2.0-4ubuntu2~24.04.1
+libjansson4:amd64	2.14-2build2
+libjbig0:amd64	2.1-6.1ubuntu2
+libjcat1:amd64	0.2.0-2build3
+libjpeg-turbo8:amd64	2.1.5-2ubuntu2
+libjpeg8:amd64	8c-2ubuntu11
+libjq1:amd64	1.7.1-3ubuntu0.24.04.2
+libjson-c5:amd64	0.17-1build1
+libjson-glib-1.0-0:amd64	1.8.0-2build2
+libjson-glib-1.0-common	1.8.0-2build2
+libk5crypto3:amd64	1.20.1-6ubuntu2.7
+libkeyutils1:amd64	1.6.3-3build1
+libklibc:amd64	2.0.13-4ubuntu0.2
+libkmod2:amd64	31+20240202-2ubuntu7.2
+libkrb5-3:amd64	1.20.1-6ubuntu2.7
+libkrb5support0:amd64	1.20.1-6ubuntu2.7
+libksba8:amd64	1.6.6-1build1
+libldap-common	2.6.10+dfsg-0ubuntu0.24.04.1
+libldap2:amd64	2.6.10+dfsg-0ubuntu0.24.04.1
+liblerc4:amd64	4.0.0+ds-4ubuntu2
+libllvm18:amd64	1:18.1.3-1ubuntu1
+liblmdb0:amd64	0.9.31-1build1
+liblocale-gettext-perl	1.07-6ubuntu5
+liblsan0:amd64	14.2.0-4ubuntu2~24.04.1
+liblvm2cmd2.03:amd64	2.03.16-3ubuntu3.2
+liblz4-1:amd64	1.9.4-1build1.1
+liblzma5:amd64	5.6.1+really5.4.5-1ubuntu0.4
+liblzo2-2:amd64	2.10-2build4
+libmagic-mgc	1:5.45-3build1
+libmagic1t64:amd64	1:5.45-3build1
+libmaxminddb0:amd64	1.9.1-1build1
+libmbim-glib4:amd64	1.31.2-0ubuntu3.1
+libmbim-proxy	1.31.2-0ubuntu3.1
+libmbim-utils	1.31.2-0ubuntu3.1
+libmd0:amd64	1.1.0-2build1.1
+libmm-glib0:amd64	1.23.4-0ubuntu2
+libmnl0:amd64	1.0.5-2build1
+libmodule-find-perl	0.16-2
+libmodule-scandeps-perl	1.35-1ubuntu0.24.04.1
+libmount1:amd64	2.39.3-9ubuntu6.6
+libmpc3:amd64	1.3.1-1build1.1
+libmpfr6:amd64	4.2.1-1build1.1
+libmspack0t64:amd64	0.11-1.1ubuntu0.24.04.1
+libncurses6:amd64	6.4+20240113-1ubuntu2.2
+libncursesw6:amd64	6.4+20240113-1ubuntu2.2
+libnetfilter-conntrack3:amd64	1.0.9-6build1
+libnetplan1:amd64	1.1.2-8ubuntu1~24.04.1
+libnettle8t64:amd64	3.9.1-2.2build1.1
+libnewt0.52:amd64	0.52.24-2ubuntu2
+libnfnetlink0:amd64	1.0.2-2build1
+libnftables1:amd64	1.0.9-1build1
+libnftnl11:amd64	1.2.6-2build1
+libnghttp2-14:amd64	1.59.0-1ubuntu0.4
+libnl-3-200:amd64	3.7.0-0.3build1.1
+libnl-genl-3-200:amd64	3.7.0-0.3build1.1
+libnl-route-3-200:amd64	3.7.0-0.3build1.1
+libnpth0t64:amd64	1.6-3.1build1
+libnspr4:amd64	2:4.35-1.1build1
+libnss-systemd:amd64	255.4-1ubuntu8.18
+libnss3:amd64	2:3.98-1ubuntu0.3
+libntfs-3g89t64:amd64	1:2022.10.3-1.2ubuntu3.2
+libnuma1:amd64	2.0.18-1ubuntu0.24.04.1
+libnvme1t64	1.8-3ubuntu1
+libonig5:amd64	6.9.9-1build1
+libopeniscsiusr	2.1.9-3ubuntu5.4
+libp11-kit0:amd64	0.25.3-4ubuntu2.2
+libpackagekit-glib2-18:amd64	1.2.8-2ubuntu1.5
+libpam-cap:amd64	1:2.66-5ubuntu2.4
+libpam-modules-bin	1.5.3-5ubuntu5.7
+libpam-modules:amd64	1.5.3-5ubuntu5.7
+libpam-runtime	1.5.3-5ubuntu5.7
+libpam-systemd:amd64	255.4-1ubuntu8.18
+libpam0g:amd64	1.5.3-5ubuntu5.7
+libparted2t64:amd64	3.6-4build1
+libpcap0.8t64:amd64	1.10.4-4.1ubuntu3.1
+libpci3:amd64	1:3.10.0-2build1
+libpcre2-8-0:amd64	10.42-4ubuntu2.2
+libperl5.38t64:amd64	5.38.2-3.2ubuntu0.7
+libpipeline1:amd64	1.5.7-2
+libplist-2.0-4:amd64	2.3.0-1~exp2build2
+libplymouth5:amd64	24.004.60-1ubuntu7.1
+libpng16-16t64:amd64	1.6.43-5ubuntu0.7
+libpolkit-agent-1-0:amd64	124-2ubuntu1.24.04.4
+libpolkit-gobject-1-0:amd64	124-2ubuntu1.24.04.4
+libpopt0:amd64	1.19+dfsg-1build1
+libproc-processtable-perl:amd64	0.636-1build3
+libproc2-0:amd64	2:4.0.4-4ubuntu3.2
+libprotobuf-c1:amd64	1.4.1-1ubuntu4
+libpsl5t64:amd64	0.21.2-1.1build1
+libpython3-stdlib:amd64	3.12.3-0ubuntu2.1
+libpython3.12-minimal:amd64	3.12.3-1ubuntu0.17
+libpython3.12-stdlib:amd64	3.12.3-1ubuntu0.17
+libpython3.12t64:amd64	3.12.3-1ubuntu0.17
+libqmi-glib5:amd64	1.35.2-0ubuntu2
+libqmi-proxy	1.35.2-0ubuntu2
+libqmi-utils	1.35.2-0ubuntu2
+libqrtr-glib0:amd64	1.2.2-1ubuntu4
+libquadmath0:amd64	14.2.0-4ubuntu2~24.04.1
+libreadline8t64:amd64	8.2-4build1
+libreiserfscore0t64	1:3.6.27-7.1build1
+librtmp1:amd64	2.4+20151223.gitfa8646d.1-2build7
+libsasl2-2:amd64	2.1.28+dfsg1-5ubuntu3.1
+libsasl2-modules-db:amd64	2.1.28+dfsg1-5ubuntu3.1
+libsasl2-modules:amd64	2.1.28+dfsg1-5ubuntu3.1
+libseccomp2:amd64	2.5.5-1ubuntu3.1
+libselinux1:amd64	3.5-2ubuntu2.1
+libsemanage-common	3.5-1build5
+libsemanage2:amd64	3.5-1build5
+libsensors-config	1:3.6.0-9build1
+libsensors5:amd64	1:3.6.0-9build1
+libsepol2:amd64	3.5-2build1
+libsframe1:amd64	2.42-4ubuntu2.8
+libsgutils2-1.46-2:amd64	1.46-3ubuntu4.1
+libsharpyuv0:amd64	1.3.2-0.4build3
+libsigc++-2.0-0v5:amd64	2.12.1-2
+libsigsegv2:amd64	2.14-1ubuntu2
+libslang2:amd64	2.3.3-3build2
+libsmartcols1:amd64	2.39.3-9ubuntu6.6
+libsnappy1v5:amd64	1.1.10-1build1
+libsodium23:amd64	1.0.18-1ubuntu0.24.04.1
+libsort-naturally-perl	1.03-4
+libsqlite3-0:amd64	3.45.1-1ubuntu2.8
+libss2:amd64	1.47.0-2.4~exp1ubuntu4.1
+libssh-4:amd64	0.10.6-2ubuntu0.5
+libssl-dev:amd64	3.0.13-0ubuntu3.16
+libssl3t64:amd64	3.0.13-0ubuntu3.16
+libstdc++6:amd64	14.2.0-4ubuntu2~24.04.1
+libstemmer0d:amd64	2.2.0-4build1
+libsystemd-shared:amd64	255.4-1ubuntu8.18
+libsystemd0:amd64	255.4-1ubuntu8.18
+libtasn1-6:amd64	4.19.0-3ubuntu0.24.04.2
+libtcl8.6:amd64	8.6.14+dfsg-1build1
+libterm-readkey-perl	2.38-2build4
+libtext-charwidth-perl:amd64	0.04-11build3
+libtext-iconv-perl:amd64	1.7-8build3
+libtext-wrapi18n-perl	0.06-10
+libtiff6:amd64	4.5.1+git230720-4ubuntu2.5
+libtinfo6:amd64	6.4+20240113-1ubuntu2.2
+libtirpc-common	1.3.4+ds-1.1build1
+libtirpc3t64:amd64	1.3.4+ds-1.1build1
+libtraceevent1-plugin:amd64	1:1.8.2-1ubuntu2.1
+libtraceevent1:amd64	1:1.8.2-1ubuntu2.1
+libtracefs1:amd64	1.8.0-1ubuntu1
+libtsan2:amd64	14.2.0-4ubuntu2~24.04.1
+libtss2-esys-3.0.2-0t64:amd64	4.0.1-7.1ubuntu5.1
+libtss2-mu-4.0.1-0t64:amd64	4.0.1-7.1ubuntu5.1
+libtss2-sys1t64:amd64	4.0.1-7.1ubuntu5.1
+libtss2-tcti-cmd0t64:amd64	4.0.1-7.1ubuntu5.1
+libtss2-tcti-device0t64:amd64	4.0.1-7.1ubuntu5.1
+libtss2-tcti-mssim0t64:amd64	4.0.1-7.1ubuntu5.1
+libtss2-tcti-swtpm0t64:amd64	4.0.1-7.1ubuntu5.1
+libubsan1:amd64	14.2.0-4ubuntu2~24.04.1
+libuchardet0:amd64	0.0.8-1build1
+libudev1:amd64	255.4-1ubuntu8.18
+libudisks2-0:amd64	2.10.1-6ubuntu1.5
+libunistring5:amd64	1.1-2build1.1
+libunwind8:amd64	1.6.2-3build1.1
+libupower-glib3:amd64	1.90.3-1
+liburcu8t64:amd64	0.14.0-3.1build1
+libusb-1.0-0:amd64	2:1.0.27-1
+libusbmuxd6:amd64	2.0.2-4build3
+libutempter0:amd64	1.2.1-3build1
+libuuid1:amd64	2.39.3-9ubuntu6.6
+libuv1t64:amd64	1.48.0-1.1build1
+libvolume-key1:amd64	0.3.12-7build2
+libwebp7:amd64	1.3.2-0.4build3
+libwrap0:amd64	7.6.q-33
+libx11-6:amd64	2:1.8.7-1ubuntu0.1
+libx11-data	2:1.8.7-1ubuntu0.1
+libxapian30:amd64	1.4.22-1build1
+libxau6:amd64	1:1.0.9-1build6
+libxcb1:amd64	1.15-1ubuntu2
+libxdmcp6:amd64	1:1.1.3-0ubuntu6
+libxext6:amd64	2:1.3.4-1build2
+libxkbcommon0:amd64	1.6.0-1build1
+libxml2:amd64	2.9.14+dfsg-1.3ubuntu3.10
+libxmlb2:amd64	0.3.18-1
+libxmlsec1t64-openssl:amd64	1.2.39-5build2
+libxmlsec1t64:amd64	1.2.39-5build2
+libxmuu1:amd64	2:1.1.3-3build2
+libxpm4:amd64	1:3.5.17-1ubuntu0.24.04.2
+libxslt1.1:amd64	1.1.39-0exp1ubuntu0.24.04.3
+libxtables12:amd64	1.8.10-3ubuntu2
+libxxhash0:amd64	0.8.2-2build1
+libyaml-0-2:amd64	0.2.5-1build1
+libzstd1:amd64	1.5.5+dfsg2-2build1.1
+linux-base	4.5ubuntu9+24.04.1
+linux-firmware	20240318.git3b128b60-0ubuntu2.26
+linux-generic	6.8.0-149.149
+linux-headers-6.8.0-138	6.8.0-138.138
+linux-headers-6.8.0-138-generic	6.8.0-138.138
+linux-headers-6.8.0-149	6.8.0-149.149
+linux-headers-6.8.0-149-generic	6.8.0-149.149
+linux-headers-generic	6.8.0-149.149
+linux-image-6.8.0-138-generic	6.8.0-138.138
+linux-image-6.8.0-149-generic	6.8.0-149.149
+linux-image-generic	6.8.0-149.149
+linux-libc-dev:amd64	6.8.0-149.149
+linux-modules-6.8.0-138-generic	6.8.0-138.138
+linux-modules-6.8.0-149-generic	6.8.0-149.149
+linux-modules-extra-6.8.0-138-generic	6.8.0-138.138
+linux-modules-extra-6.8.0-149-generic	6.8.0-149.149
+linux-tools-6.8.0-138	6.8.0-138.138
+linux-tools-6.8.0-138-generic	6.8.0-138.138
+linux-tools-6.8.0-149	6.8.0-149.149
+linux-tools-6.8.0-149-generic	6.8.0-149.149
+linux-tools-common	6.8.0-149.149
+locales	2.39-0ubuntu8.12
+login	1:4.13+dfsg1-4ubuntu3.2
+logrotate	3.21.0-2build1
+logsave	1.47.0-2.4~exp1ubuntu4.1
+lrzsz	0.12.21-11build1
+lsb-base	11.6
+lsb-release	12.0-2
+lshw	02.19.git.2021.06.19.996aaad9c7-2build3
+lsof	4.95.0-1build3
+lvm2	2.03.16-3ubuntu3.2
+lxd-agent-loader	0.7ubuntu0.1
+lxd-installer	4ubuntu0.1
+make	4.3-4.1build2
+makedumpfile	1:1.7.5-1
+man-db	2.12.0-4build2
+manpages	6.7-2
+manpages-dev	6.7-2
+mawk	1.3.4.20240123-1build1
+mdadm	4.3-1ubuntu2.1
+media-types	10.1.0
+modemmanager	1.23.4-0ubuntu2
+motd-news-config	13ubuntu10.4
+mount	2.39.3-9ubuntu6.6
+mtr-tiny	0.95-1.1ubuntu0.1
+multipath-tools	0.9.4-5ubuntu8.1
+nano	7.2-2ubuntu0.2
+ncurses-base	6.4+20240113-1ubuntu2.2
+ncurses-bin	6.4+20240113-1ubuntu2.2
+ncurses-term	6.4+20240113-1ubuntu2.2
+needrestart	3.6-7ubuntu4.5
+net-tools	2.10-0.1ubuntu4.4
+netbase	6.4
+netcat-openbsd	1.226-1ubuntu2
+netplan-generator	1.1.2-8ubuntu1~24.04.1
+netplan.io	1.1.2-8ubuntu1~24.04.1
+networkd-dispatcher	2.2.4-1
+nftables	1.0.9-1build1
+ntfs-3g	1:2022.10.3-1.2ubuntu3.2
+numactl	2.0.18-1ubuntu0.24.04.1
+open-iscsi	2.1.9-3ubuntu5.4
+open-vm-tools	2:12.5.0-1~ubuntu0.24.04.2
+openssh-client	1:9.6p1-3ubuntu13.20
+openssh-server	1:9.6p1-3ubuntu13.20
+openssh-sftp-server	1:9.6p1-3ubuntu13.20
+openssl	3.0.13-0ubuntu3.16
+os-prober	1.81ubuntu4
+overlayroot	0.49~24.04.1
+packagekit	1.2.8-2ubuntu1.5
+packagekit-tools	1.2.8-2ubuntu1.5
+parted	3.6-4build1
+passwd	1:4.13+dfsg1-4ubuntu3.2
+pastebinit	1.6.2-1
+patch	2.7.6-7build3
+pci.ids	0.0~2024.03.31-1ubuntu0.1
+pciutils	1:3.10.0-2build1
+perl	5.38.2-3.2ubuntu0.7
+perl-base	5.38.2-3.2ubuntu0.7
+perl-modules-5.38	5.38.2-3.2ubuntu0.7
+pinentry-curses	1.2.1-3ubuntu5
+plymouth	24.004.60-1ubuntu7.1
+plymouth-theme-ubuntu-text	24.004.60-1ubuntu7.1
+policycoreutils	3.5-2
+polkitd	124-2ubuntu1.24.04.4
+pollinate	4.33-3.1ubuntu1.3
+powermgmt-base	1.37ubuntu0.1
+procps	2:4.0.4-4ubuntu3.2
+psmisc	23.7-1build1
+publicsuffix	20231001.0357-0.1
+python-apt-common	2.7.7ubuntu5.2
+python-babel-localedata	2.10.3-3build1
+python3	3.12.3-0ubuntu2.1
+python3-apport	2.28.1-0ubuntu3.8
+python3-apt	2.7.7ubuntu5.2
+python3-attr	23.2.0-2
+python3-automat	22.10.0-2
+python3-babel	2.10.3-3build1
+python3-bcrypt	3.2.2-1build1
+python3-blinker	1.7.0-1
+python3-boto3	1.34.46+dfsg-1ubuntu1
+python3-botocore	1.34.46+repack-1ubuntu1
+python3-bpfcc	0.29.1+ds-1ubuntu7
+python3-certifi	2023.11.17-1
+python3-cffi-backend:amd64	1.16.0-2build1
+python3-chardet	5.2.0+dfsg-1
+python3-click	8.1.6-2
+python3-colorama	0.4.6-4
+python3-commandnotfound	23.04.0
+python3-configobj	5.0.8-3
+python3-constantly	23.10.4-1
+python3-cryptography	41.0.7-4ubuntu0.4
+python3-dateutil	2.8.2-3ubuntu1
+python3-dbus	1.3.2-5build3
+python3-debconf	1.5.86ubuntu1
+python3-debian	0.1.49ubuntu2
+python3-distro	1.9.0-1
+python3-distro-info	1.7build1
+python3-distupgrade	1:24.04.28
+python3-gdbm:amd64	3.12.3-0ubuntu1
+python3-gi	3.48.2-1
+python3-hamcrest	2.1.0-1
+python3-httplib2	0.20.4-3ubuntu0.1
+python3-hyperlink	21.0.0-5
+python3-idna	3.6-2ubuntu0.2
+python3-incremental	22.10.0-1
+python3-jinja2	3.1.2-1ubuntu1.3
+python3-jmespath	1.0.1-1
+python3-jwt	2.7.0-1ubuntu0.4
+python3-launchpadlib	1.11.0-6
+python3-lazr.restfulclient	0.14.6-1
+python3-lazr.uri	1.0.6-3
+python3-magic	2:0.4.27-3
+python3-markdown-it	3.0.0-2
+python3-markupsafe	2.1.5-1build2
+python3-mdurl	0.1.2-1
+python3-minimal	3.12.3-0ubuntu2.1
+python3-netaddr	0.8.0-2ubuntu1
+python3-netifaces:amd64	0.11.0-2build3
+python3-netplan	1.1.2-8ubuntu1~24.04.1
+python3-newt:amd64	0.52.24-2ubuntu2
+python3-oauthlib	3.2.2-1
+python3-openssl	23.2.0-1ubuntu0.1
+python3-packaging	24.0-1
+python3-pexpect	4.9-2
+python3-pkg-resources	68.1.2-2ubuntu1.2
+python3-problem-report	2.28.1-0ubuntu3.8
+python3-ptyprocess	0.7.0-5
+python3-pyasn1	0.4.8-4ubuntu0.4
+python3-pyasn1-modules	0.2.8-1
+python3-pyasyncore	1.0.2-2
+python3-pygments	2.17.2+dfsg-1
+python3-pyparsing	3.1.1-1
+python3-requests	2.31.0+dfsg-1ubuntu1.2
+python3-rich	13.7.1-1
+python3-s3transfer	0.10.1-1ubuntu2
+python3-serial	3.5-2
+python3-service-identity	24.1.0-1
+python3-setuptools	68.1.2-2ubuntu1.2
+python3-six	1.16.0-4
+python3-software-properties	0.99.49.4
+python3-systemd	235-1build4
+python3-twisted	24.3.0-1ubuntu0.3
+python3-tz	2024.1-2
+python3-update-manager	1:24.04.12
+python3-urllib3	2.0.7-1ubuntu0.8
+python3-wadllib	1.3.6-5
+python3-xkit	0.5.0ubuntu6
+python3-yaml	6.0.1-2build2
+python3-zope.interface	6.1-1build1
+python3.12	3.12.3-1ubuntu0.17
+python3.12-minimal	3.12.3-1ubuntu0.17
+readline-common	8.2-4build1
+rpcsvc-proto	1.4.2-0ubuntu7
+rsync	3.2.7-1ubuntu1.5
+rsyslog	8.2312.0-3ubuntu9.4
+run-one	1.17-0ubuntu2
+sbsigntool	0.9.4-3.1ubuntu7
+screen	4.9.1-1ubuntu1
+secureboot-db	1.9build1
+sed	4.9-2ubuntu0.24.04.1
+selinux-utils	3.5-2ubuntu2.1
+sensible-utils	0.0.22
+sg3-utils	1.46-3ubuntu4.1
+sg3-utils-udev	1.46-3ubuntu4.1
+sgml-base	1.31
+shared-mime-info	2.4-4
+snapd	2.76+ubuntu24.04.1
+software-properties-common	0.99.49.4
+sosreport	4.9.2-0ubuntu0~24.04.1
+squashfs-tools	1:4.6.1-1build1
+ssh-import-id	5.11-0ubuntu2.24.04.1
+strace	6.8-0ubuntu2
+sudo	1.9.15p5-3ubuntu5.24.04.4
+sysstat	12.6.1-2
+systemd	255.4-1ubuntu8.18
+systemd-dev	255.4-1ubuntu8.18
+systemd-hwe-hwdb	255.1.7
+systemd-resolved	255.4-1ubuntu8.18
+systemd-sysv	255.4-1ubuntu8.18
+systemd-timesyncd	255.4-1ubuntu8
+sysvinit-utils	3.08-6ubuntu3
+tar	1.35+dfsg-3ubuntu0.4
+tcl	8.6.14build1
+tcl8.6	8.6.14+dfsg-1build1
+tcpd	7.6.q-33
+tcpdump	4.99.4-3ubuntu4.24.04.1
+telnet	0.17+2.5-3ubuntu4.2
+thermald	2.5.6-2ubuntu0.24.04.3
+thin-provisioning-tools	0.9.0-2ubuntu5.1
+time	1.9-0.2build1
+tmux	3.4-1ubuntu0.1
+tnftp	20230507-2build3
+tpm-udev	0.6ubuntu1
+trace-cmd	3.2-1ubuntu2
+tzdata	2026e-0ubuntu0.24.04.1
+tzdata-legacy	2026e-0ubuntu0.24.04.1
+ubuntu-drivers-common	1:0.9.7.6ubuntu3.5
+ubuntu-kernel-accessories	1.539.2
+ubuntu-keyring	2023.11.28.1
+ubuntu-minimal	1.539.2
+ubuntu-pro-client	37.2ubuntu~24.04.1
+ubuntu-pro-client-l10n	37.2ubuntu~24.04.1
+ubuntu-release-upgrader-core	1:24.04.28
+ubuntu-server	1.539.2
+ubuntu-standard	1.539.2
+ucf	3.0043+nmu1
+udev	255.4-1ubuntu8.18
+udisks2	2.10.1-6ubuntu1.5
+ufw	0.36.2-6
+unattended-upgrades	2.9.1+nmu4ubuntu1
+unzip	6.0-28ubuntu4.1
+update-inetd	4.53
+update-manager-core	1:24.04.12
+update-notifier-common	3.192.68.2
+upower	1.90.3-1
+usb-modeswitch	2.6.1-3ubuntu3
+usb-modeswitch-data	20191128-6
+usb.ids	2024.03.18-1
+usbmuxd	1.1.1-5~exp3ubuntu2.1
+usbutils	1:017-3build1
+util-linux	2.39.3-9ubuntu6.6
+uuid-runtime	2.39.3-9ubuntu6.6
+vim	2:9.1.0016-1ubuntu7.20
+vim-common	2:9.1.0016-1ubuntu7.20
+vim-runtime	2:9.1.0016-1ubuntu7.20
+vim-tiny	2:9.1.0016-1ubuntu7.20
+wget	1.21.4-1ubuntu4.5
+whiptail	0.52.24-2ubuntu2
+wireless-regdb	2026.05.30-0ubuntu1~24.04.1
+xauth	1:1.1.2-1build1
+xdg-user-dirs	0.18-1build1
+xfsprogs	6.6.0-1ubuntu2.1
+xkb-data	2.41-2ubuntu1.1
+xml-core	0.19
+xxd	2:9.1.0016-1ubuntu7.20
+xz-utils	5.6.1+really5.4.5-1ubuntu0.4
+zerofree	1.1.1-1build5
+zlib1g-dev:amd64	1:1.3.dfsg-3.1ubuntu2.3
+zlib1g:amd64	1:1.3.dfsg-3.1ubuntu2.3
+zstd	1.5.5+dfsg2-2build1.1
+
+##### 21-apt-sources #####
+--- /etc/apt/sources.list and /etc/apt/sources.list.d (active lines, masked)
+-- /etc/apt/sources.list
+-- /etc/apt/sources.list.d/ubuntu.sources
+Types: deb
+URIs: http://mirrors.tencentyun.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+Types: deb
+URIs: http://mirrors.tencentyun.com/ubuntu/
+Suites: noble-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+-- /etc/apt/sources.list.d/ubuntu.sources.curtin.orig
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+Types: deb
+URIs: http://security.ubuntu.com/ubuntu/
+Suites: noble-security
+Components: main universe restricted multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+--- apt-cache policy for the first-batch packages
+fail2ban:
+  Installed: 1.0.2-3ubuntu0.1
+  Candidate: 1.0.2-3ubuntu0.1
+  Version table:
+ *** 1.0.2-3ubuntu0.1 500
+        500 http://mirrors.tencentyun.com/ubuntu noble-updates/universe amd64 Packages
+        100 /var/lib/dpkg/status
+     1.0.2-3 500
+        500 http://mirrors.tencentyun.com/ubuntu noble/universe amd64 Packages
+python3-systemd:
+  Installed: 235-1build4
+  Candidate: 235-1build4
+  Version table:
+ *** 235-1build4 500
+        500 http://mirrors.tencentyun.com/ubuntu noble/main amd64 Packages
+        100 /var/lib/dpkg/status
+chrony:
+  Installed: 4.5-1ubuntu4.2
+  Candidate: 4.5-1ubuntu4.2
+  Version table:
+ *** 4.5-1ubuntu4.2 500
+        500 http://mirrors.tencentyun.com/ubuntu noble-updates/main amd64 Packages
+        100 /var/lib/dpkg/status
+     4.5-1ubuntu4 500
+        500 http://mirrors.tencentyun.com/ubuntu noble/main amd64 Packages
+ufw:
+  Installed: 0.36.2-6
+  Candidate: 0.36.2-6
+  Version table:
+ *** 0.36.2-6 500
+        500 http://mirrors.tencentyun.com/ubuntu noble/main amd64 Packages
+        100 /var/lib/dpkg/status
+unattended-upgrades:
+  Installed: 2.9.1+nmu4ubuntu1
+  Candidate: 2.9.1+nmu4ubuntu1
+  Version table:
+ *** 2.9.1+nmu4ubuntu1 500
+        500 http://mirrors.tencentyun.com/ubuntu noble/main amd64 Packages
+        100 /var/lib/dpkg/status
+
+##### 30-services-running #####
+ModemManager.service
+chrony.service
+cron.service
+dbus.service
+fail2ban.service
+fwupd.service
+getty@tty1.service
+multipathd.service
+networkd-dispatcher.service
+polkit.service
+rsyslog.service
+serial-getty@ttyS0.service
+ssh.service
+systemd-journald.service
+systemd-logind.service
+systemd-networkd.service
+systemd-resolved.service
+systemd-udevd.service
+tat_agent.service
+udisks2.service
+unattended-upgrades.service
+upower.service
+user@1000.service
+
+##### 31-services-enabled #####
+ModemManager.service enabled
+acpid.socket enabled
+apparmor.service enabled
+apport-autoreport.timer enabled
+apport-forward.socket enabled
+apport.service enabled
+apt-daily-upgrade.timer enabled
+apt-daily.timer enabled
+blk-availability.service enabled
+chrony.service enabled
+cloud-config.service enabled
+cloud-final.service enabled
+cloud-init-local.service enabled
+cloud-init.service enabled
+console-setup.service enabled
+cron.service enabled
+dm-event.socket enabled
+dmesg.service enabled
+dpkg-db-backup.timer enabled
+e2scrub_all.timer enabled
+e2scrub_reap.service enabled
+fail2ban.service enabled
+finalrd.service enabled
+fstrim.timer enabled
+fwupd-refresh.timer enabled
+getty@.service enabled
+gpu-manager.service enabled
+grub-common.service enabled
+grub-initrd-fallback.service enabled
+inetutils-inetd.service enabled
+iscsid.socket enabled
+kdump-tools.service enabled
+keyboard-setup.service enabled
+logrotate.timer enabled
+lvm2-lvmpolld.socket enabled
+lvm2-monitor.service enabled
+lxd-installer.socket enabled
+man-db.timer enabled
+mdcheck_continue.timer enabled
+mdcheck_start.timer enabled
+mdmonitor-oneshot.timer enabled
+motd-news.timer enabled
+multipathd.service enabled
+multipathd.socket enabled
+networkd-dispatcher.service enabled
+nv_gpu_shutdown_pm.service enabled
+open-iscsi.service enabled
+open-vm-tools.service enabled
+pollinate.service enabled
+rsyslog.service enabled
+secureboot-db.service enabled
+setvtrgb.service enabled
+snapd.apparmor.service enabled
+snapd.autoimport.service enabled
+snapd.core-fixup.service enabled
+snapd.recovery-chooser-trigger.service enabled
+snapd.seeded.service enabled
+snapd.service enabled
+snapd.snap-repair.timer enabled
+snapd.socket enabled
+snapd.system-shutdown.service enabled
+ssh.service enabled
+ssh.socket enabled
+sysstat-collect.timer enabled
+sysstat-summary.timer enabled
+sysstat.service enabled
+systemd-networkd-wait-online.service enabled
+systemd-networkd.service enabled
+systemd-networkd.socket enabled
+systemd-pstore.service enabled
+systemd-resolved.service enabled
+tat_agent.service enabled
+thermald.service enabled
+ua-reboot-cmds.service enabled
+ua-timer.timer enabled
+ubuntu-advantage.service enabled
+udisks2.service enabled
+ufw.service enabled
+unattended-upgrades.service enabled
+update-notifier-download.timer enabled
+update-notifier-motd.timer enabled
+uuidd.socket enabled
+vgauth.service enabled
+
+##### 32-services-failed #####
+(none)
+
+##### 33-timers #####
+apport-autoreport.timer inactive dead
+apt-daily-upgrade.timer active waiting
+apt-daily.timer active waiting
+dpkg-db-backup.timer active waiting
+e2scrub_all.timer active waiting
+fstrim.timer active waiting
+fwupd-refresh.timer active waiting
+logrotate.timer active waiting
+man-db.timer active waiting
+motd-news.timer active waiting
+snapd.snap-repair.timer inactive dead
+sysstat-collect.timer active waiting
+sysstat-summary.timer active waiting
+systemd-tmpfiles-clean.timer active waiting
+ua-timer.timer inactive dead
+update-notifier-download.timer active waiting
+update-notifier-motd.timer active waiting
+
+##### 40-ports #####
+proto port bind process
+tcp 22 any sshd
+tcp 53 loopback systemd-resolve
+udp 323 loopback chronyd
+udp 53 loopback systemd-resolve
+udp 68 specific systemd-network
+
+##### 50-ufw #####
+ufw.service: enabled=enabled active=active
+--- ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere                   # wm ssh
+22/tcp (v6)                ALLOW IN    Anywhere (v6)              # wm ssh
+
+--- ufw show added
+Added user rules (see 'ufw status' for running firewall):
+ufw allow 22/tcp comment 'wm ssh'
+--- /etc/default/ufw (active lines)
+IPV6=yes
+DEFAULT_INPUT_POLICY="DROP"
+DEFAULT_OUTPUT_POLICY="ACCEPT"
+DEFAULT_FORWARD_POLICY="DROP"
+DEFAULT_APPLICATION_POLICY="SKIP"
+MANAGE_BUILTINS=no
+IPT_SYSCTL=/etc/ufw/sysctl.conf
+IPT_MODULES=""
+
+##### 51-nftables #####
+# Warning: table ip filter is managed by iptables-nft, do not touch!
+# Warning: table ip6 filter is managed by iptables-nft, do not touch!
+table ip filter {
+	chain ufw-before-logging-input {
+	}
+
+	chain ufw-before-logging-output {
+	}
+
+	chain ufw-before-logging-forward {
+	}
+
+	chain ufw-before-input {
+		iifname "lo" counter packets 8190 bytes 728824 accept
+		ct state related,established counter packets 355090 bytes 198925649 accept
+		ct state invalid counter packets 2561 bytes 131680 jump ufw-logging-deny
+		ct state invalid counter packets 2561 bytes 131680 drop
+		ip protocol icmp icmp type destination-unreachable counter packets 0 bytes 0 accept
+		ip protocol icmp icmp type time-exceeded counter packets 0 bytes 0 accept
+		ip protocol icmp icmp type parameter-problem counter packets 0 bytes 0 accept
+		ip protocol icmp icmp type echo-request counter packets 71096 bytes 2156340 accept
+		udp sport 67 udp dport 68 counter packets 0 bytes 0 accept
+		counter packets 2274 bytes 95820 jump ufw-not-local
+		ip daddr <ipv4> udp dport 5353 counter packets 0 bytes 0 accept
+		ip daddr <ipv4> udp dport 1900 counter packets 0 bytes 0 accept
+		counter packets 2274 bytes 95820 jump ufw-user-input
+	}
+
+	chain ufw-before-output {
+		oifname "lo" counter packets 8210 bytes 730424 accept
+		ct state related,established counter packets 365973 bytes 56774102 accept
+		counter packets 55930 bytes 3428778 jump ufw-user-output
+	}
+
+	chain ufw-before-forward {
+		ct state related,established counter packets 0 bytes 0 accept
+		ip protocol icmp icmp type destination-unreachable counter packets 0 bytes 0 accept
+		ip protocol icmp icmp type time-exceeded counter packets 0 bytes 0 accept
+		ip protocol icmp icmp type parameter-problem counter packets 0 bytes 0 accept
+		ip protocol icmp icmp type echo-request counter packets 0 bytes 0 accept
+		counter packets 0 bytes 0 jump ufw-user-forward
+	}
+
+	chain ufw-after-input {
+		udp dport 137 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+		udp dport 138 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+		tcp dport 139 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+		tcp dport 445 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+		udp dport 67 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+		udp dport 68 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+		fib daddr type broadcast counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+	}
+
+	chain ufw-after-output {
+	}
+
+	chain ufw-after-forward {
+	}
+
+	chain ufw-after-logging-input {
+		limit rate 3/minute burst 10 packets counter packets 1559 bytes 57254 log prefix "[UFW BLOCK] "
+	}
+
+	chain ufw-after-logging-output {
+	}
+
+	chain ufw-after-logging-forward {
+		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW BLOCK] "
+	}
+
+	chain ufw-reject-input {
+	}
+
+	chain ufw-reject-output {
+	}
+
+	chain ufw-reject-forward {
+	}
+
+	chain ufw-track-input {
+	}
+
+	chain ufw-track-output {
+		ip protocol tcp ct state new counter packets 50708 bytes 3042480 accept
+		ip protocol udp ct state new counter packets 5217 bytes 381570 accept
+	}
+
+	chain ufw-track-forward {
+	}
+
+	chain INPUT {
+		type filter hook input priority filter; policy drop;
+		counter packets 439211 bytes 202038313 jump ufw-before-logging-input
+		counter packets 439211 bytes 202038313 jump ufw-before-input
+		counter packets 1563 bytes 57410 jump ufw-after-input
+		counter packets 1563 bytes 57410 jump ufw-after-logging-input
+		counter packets 1563 bytes 57410 jump ufw-reject-input
+		counter packets 1563 bytes 57410 jump ufw-track-input
+	}
+
+	chain OUTPUT {
+		type filter hook output priority filter; policy accept;
+		counter packets 430113 bytes 60933304 jump ufw-before-logging-output
+		counter packets 430113 bytes 60933304 jump ufw-before-output
+		counter packets 55930 bytes 3428778 jump ufw-after-output
+		counter packets 55930 bytes 3428778 jump ufw-after-logging-output
+		counter packets 55930 bytes 3428778 jump ufw-reject-output
+		counter packets 55930 bytes 3428778 jump ufw-track-output
+	}
+
+	chain FORWARD {
+		type filter hook forward priority filter; policy drop;
+		counter packets 0 bytes 0 jump ufw-before-logging-forward
+		counter packets 0 bytes 0 jump ufw-before-forward
+		counter packets 0 bytes 0 jump ufw-after-forward
+		counter packets 0 bytes 0 jump ufw-after-logging-forward
+		counter packets 0 bytes 0 jump ufw-reject-forward
+		counter packets 0 bytes 0 jump ufw-track-forward
+	}
+
+	chain ufw-logging-deny {
+		ct state invalid limit rate 3/minute burst 10 packets counter packets 1782 bytes 96736 return
+		limit rate 3/minute burst 10 packets counter packets 321 bytes 16388 log prefix "[UFW BLOCK] "
+	}
+
+	chain ufw-logging-allow {
+		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW ALLOW] "
+	}
+
+	chain ufw-skip-to-policy-input {
+		counter packets 0 bytes 0 drop
+	}
+
+	chain ufw-skip-to-policy-output {
+		counter packets 0 bytes 0 accept
+	}
+
+	chain ufw-skip-to-policy-forward {
+		counter packets 0 bytes 0 drop
+	}
+
+	chain ufw-not-local {
+		fib daddr type local counter packets 861 bytes 44952 return
+		fib daddr type multicast counter packets 1413 bytes 50868 return
+		fib daddr type broadcast counter packets 0 bytes 0 return
+		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 jump ufw-logging-deny
+		counter packets 0 bytes 0 drop
+	}
+
+	chain ufw-user-input {
+		tcp dport 22 counter packets 711 bytes 38410 accept
+	}
+
+	chain ufw-user-output {
+	}
+
+	chain ufw-user-forward {
+	}
+
+	chain ufw-user-logging-input {
+	}
+
+	chain ufw-user-logging-output {
+	}
+
+	chain ufw-user-logging-forward {
+	}
+
+	chain ufw-user-limit {
+		limit rate 3/minute burst 5 packets counter packets 0 bytes 0 log prefix "[UFW LIMIT BLOCK] "
+		counter packets 0 bytes 0 reject
+	}
+
+	chain ufw-user-limit-accept {
+		counter packets 0 bytes 0 accept
+	}
+}
+table ip6 filter {
+	chain ufw6-before-logging-input {
+	}
+
+	chain ufw6-before-logging-output {
+	}
+
+	chain ufw6-before-logging-forward {
+	}
+
+	chain ufw6-before-input {
+		iifname "lo" counter packets 2 bytes 140 accept
+		rt type 0 counter packets 0 bytes 0 drop
+		ct state related,established counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type echo-reply counter packets 0 bytes 0 accept
+		ct state invalid counter packets 0 bytes 0 jump ufw6-logging-deny
+		ct state invalid counter packets 0 bytes 0 drop
+		meta l4proto ipv6-icmp icmpv6 type destination-unreachable counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type packet-too-big counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type time-exceeded counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type parameter-problem counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type echo-request counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type nd-router-solicit ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type nd-router-advert ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type nd-neighbor-solicit ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type nd-neighbor-advert ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-query counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-report counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-done counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 ip6 daddr <ipv6>/10 udp sport 547 udp dport 546 counter packets 0 bytes 0 accept
+		ip6 daddr <ipv6> udp dport 5353 counter packets 0 bytes 0 accept
+		ip6 daddr <ipv6> udp dport 1900 counter packets 0 bytes 0 accept
+		counter packets 0 bytes 0 jump ufw6-user-input
+	}
+
+	chain ufw6-before-output {
+		oifname "lo" counter packets 2 bytes 140 accept
+		rt type 0 counter packets 0 bytes 0 drop
+		ct state related,established counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type destination-unreachable counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type packet-too-big counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type time-exceeded counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type parameter-problem counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type echo-request counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type echo-reply counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type nd-router-solicit ip6 hoplimit 255 counter packets 37 bytes 2072 accept
+		meta l4proto ipv6-icmp icmpv6 type nd-neighbor-advert ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type nd-neighbor-solicit ip6 hoplimit 255 counter packets 1 bytes 72 accept
+		meta l4proto ipv6-icmp icmpv6 type nd-router-advert ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-query counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-report counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-done counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" counter packets 2 bytes 152 accept
+		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+		counter packets 2 bytes 152 jump ufw6-user-output
+	}
+
+	chain ufw6-before-forward {
+		rt type 0 counter packets 0 bytes 0 drop
+		ct state related,established counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type destination-unreachable counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type packet-too-big counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type time-exceeded counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type parameter-problem counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type echo-request counter packets 0 bytes 0 accept
+		meta l4proto ipv6-icmp icmpv6 type echo-reply counter packets 0 bytes 0 accept
+		counter packets 0 bytes 0 jump ufw6-user-forward
+	}
+
+	chain ufw6-after-input {
+		udp dport 137 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+		udp dport 138 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+		tcp dport 139 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+		tcp dport 445 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+		udp dport 546 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+		udp dport 547 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+	}
+
+	chain ufw6-after-output {
+	}
+
+	chain ufw6-after-forward {
+	}
+
+	chain ufw6-after-logging-input {
+		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW BLOCK] "
+	}
+
+	chain ufw6-after-logging-output {
+	}
+
+	chain ufw6-after-logging-forward {
+		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW BLOCK] "
+	}
+
+	chain ufw6-reject-input {
+	}
+
+	chain ufw6-reject-output {
+	}
+
+	chain ufw6-reject-forward {
+	}
+
+	chain ufw6-track-input {
+	}
+
+	chain ufw6-track-output {
+		meta l4proto tcp ct state new counter packets 0 bytes 0 accept
+		meta l4proto udp ct state new counter packets 0 bytes 0 accept
+	}
+
+	chain ufw6-track-forward {
+	}
+
+	chain INPUT {
+		type filter hook input priority filter; policy drop;
+		counter packets 2 bytes 140 jump ufw6-before-logging-input
+		counter packets 2 bytes 140 jump ufw6-before-input
+		counter packets 0 bytes 0 jump ufw6-after-input
+		counter packets 0 bytes 0 jump ufw6-after-logging-input
+		counter packets 0 bytes 0 jump ufw6-reject-input
+		counter packets 0 bytes 0 jump ufw6-track-input
+	}
+
+	chain OUTPUT {
+		type filter hook output priority filter; policy accept;
+		counter packets 44 bytes 2588 jump ufw6-before-logging-output
+		counter packets 44 bytes 2588 jump ufw6-before-output
+		counter packets 2 bytes 152 jump ufw6-after-output
+		counter packets 2 bytes 152 jump ufw6-after-logging-output
+		counter packets 2 bytes 152 jump ufw6-reject-output
+		counter packets 2 bytes 152 jump ufw6-track-output
+	}
+
+	chain FORWARD {
+		type filter hook forward priority filter; policy drop;
+		counter packets 0 bytes 0 jump ufw6-before-logging-forward
+		counter packets 0 bytes 0 jump ufw6-before-forward
+		counter packets 0 bytes 0 jump ufw6-after-forward
+		counter packets 0 bytes 0 jump ufw6-after-logging-forward
+		counter packets 0 bytes 0 jump ufw6-reject-forward
+		counter packets 0 bytes 0 jump ufw6-track-forward
+	}
+
+	chain ufw6-logging-deny {
+		ct state invalid limit rate 3/minute burst 10 packets counter packets 0 bytes 0 return
+		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW BLOCK] "
+	}
+
+	chain ufw6-logging-allow {
+		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW ALLOW] "
+	}
+
+	chain ufw6-skip-to-policy-input {
+		counter packets 0 bytes 0 drop
+	}
+
+	chain ufw6-skip-to-policy-output {
+		counter packets 0 bytes 0 accept
+	}
+
+	chain ufw6-skip-to-policy-forward {
+		counter packets 0 bytes 0 drop
+	}
+
+	chain ufw6-user-input {
+		tcp dport 22 counter packets 0 bytes 0 accept
+	}
+
+	chain ufw6-user-output {
+	}
+
+	chain ufw6-user-forward {
+	}
+
+	chain ufw6-user-logging-input {
+	}
+
+	chain ufw6-user-logging-output {
+	}
+
+	chain ufw6-user-logging-forward {
+	}
+
+	chain ufw6-user-limit {
+		limit rate 3/minute burst 5 packets counter packets 0 bytes 0 log prefix "[UFW LIMIT BLOCK] "
+		counter packets 0 bytes 0 reject
+	}
+
+	chain ufw6-user-limit-accept {
+		counter packets 0 bytes 0 accept
+	}
+}
+nftables.service: enabled=disabled active=inactive
+
+##### 60-sshd-T #####
+acceptenv LANG
+acceptenv LC_*
+addressfamily any
+allowagentforwarding no
+allowstreamlocalforwarding yes
+allowtcpforwarding yes
+authenticationmethods any
+authorizedkeyscommand none
+authorizedkeyscommanduser none
+authorizedkeysfile .ssh/authorized_keys .ssh/authorized_keys2
+authorizedprincipalscommand none
+authorizedprincipalscommanduser none
+authorizedprincipalsfile none
+banner none
+casignaturealgorithms ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256
+channeltimeout none
+chrootdirectory none
+ciphers chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com
+clientalivecountmax 3
+clientaliveinterval 0
+compression yes
+debianbanner yes
+disableforwarding no
+exposeauthinfo no
+fingerprinthash SHA256
+forcecommand none
+gatewayports no
+gssapiauthentication no
+gssapicleanupcredentials yes
+gssapikexalgorithms gss-group14-sha256-,gss-group16-sha512-,gss-nistp256-sha256-,gss-curve25519-sha256-,gss-group14-sha1-,gss-gex-sha1-
+gssapikeyexchange no
+gssapistorecredentialsonrekey no
+gssapistrictacceptorcheck yes
+hostbasedacceptedalgorithms ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256
+hostbasedauthentication no
+hostbasedusesnamefrompacketonly no
+hostkey /etc/ssh/ssh_host_ecdsa_key
+hostkey /etc/ssh/ssh_host_ed25519_key
+hostkey /etc/ssh/ssh_host_rsa_key
+hostkeyagent none
+hostkeyalgorithms ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256
+ignorerhosts yes
+ignoreuserknownhosts no
+ipqos lowdelay throughput
+kbdinteractiveauthentication no
+kerberosauthentication no
+kerberosorlocalpasswd yes
+kerberosticketcleanup yes
+kexalgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256
+listenaddress 0.0.0.0:22
+listenaddress [::]:22
+logingracetime 30
+loglevel INFO
+macs umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1
+maxauthtries 6
+maxsessions 10
+maxstartups 10:30:100
+modulifile /etc/ssh/moduli
+passwordauthentication no
+permitemptypasswords no
+permitlisten any
+permitopen any
+permitrootlogin no
+permittty yes
+permittunnel no
+permituserenvironment no
+permituserrc yes
+persourcemaxstartups none
+persourcenetblocksize 32:128
+pidfile /run/sshd.pid
+port 22
+printlastlog yes
+printmotd no
+pubkeyacceptedalgorithms ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256
+pubkeyauthentication yes
+pubkeyauthoptions none
+rekeylimit 0 0
+requiredrsasize 1024
+revokedkeys none
+securitykeyprovider internal
+streamlocalbindmask 0177
+streamlocalbindunlink no
+strictmodes yes
+subsystem sftp /usr/lib/openssh/sftp-server 
+syslogfacility AUTH
+tcpkeepalive yes
+trustedusercakeys none
+unusedconnectiontimeout none
+usedns no
+usepam yes
+versionaddendum none
+x11displayoffset 10
+x11forwarding no
+x11uselocalhost yes
+xauthlocation /usr/bin/xauth
+
+##### 61-sshd-files #####
+== /etc/ssh/sshd_config  (mode/owner 644 root:root, sha256 b4e537e273f9125e7dc0de8e8dcf81593c8c69dcbf738fc7dcc55acd7187a05d)
+Include /etc/ssh/sshd_config.d/*.conf
+AddressFamily any
+PermitRootLogin yes
+KbdInteractiveAuthentication no
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
+UseDNS no
+AcceptEnv LANG LC_*
+Subsystem sftp	/usr/lib/openssh/sftp-server
+PasswordAuthentication no
+PermitEmptyPasswords no
+== /etc/ssh/sshd_config.d/00-wm-hardening.conf  (mode/owner 644 root:root, sha256 f919f80c48975a3f6b7c7a7d9efe53ee08a37f8596472f89915df55f85ed6d14)
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PermitRootLogin no
+PubkeyAuthentication yes
+PermitEmptyPasswords no
+X11Forwarding no
+AllowAgentForwarding no
+LoginGraceTime 30
+== /etc/ssh/sshd_config.d/50-cloud-init.conf  (mode/owner 600 root:root, sha256 6bf43c7543d384fe7c3442bd97b1c91b9da62b51521184b6c1e421a7ef8bac1d)
+PasswordAuthentication yes
+
+##### 62-ssh-socket #####
+ssh.socket: enabled=enabled active=active
+ssh.service: enabled=enabled active=active
+sshd.service: enabled=alias active=active
+--- systemctl cat ssh.socket
+# /usr/lib/systemd/system/ssh.socket
+[Unit]
+Description=OpenBSD Secure Shell server socket
+Before=sockets.target ssh.service
+ConditionPathExists=!/etc/ssh/sshd_not_to_be_run
+
+[Socket]
+ListenStream=0.0.0.0:22
+ListenStream=[::]:22
+BindIPv6Only=ipv6-only
+Accept=no
+FreeBind=yes
+
+[Install]
+WantedBy=sockets.target
+RequiredBy=ssh.service
+
+##### 70-nginx-T #####
+(nginx is not installed)
+
+##### 80-crontabs #####
+== /etc/crontab (active lines, masked)
+SHELL=/bin/sh
+17 *	* * *	root	cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.daily; }
+47 6	* * 7	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.weekly; }
+52 6	1 * *	root	test -x /usr/sbin/anacron || { cd / && run-parts --report /etc/cron.monthly; }
+== /etc/cron.d/* (active lines, masked)
+-- /etc/cron.d/e2scrub_all
+30 3 * * 0 root test -e /run/systemd/system || SERVICE_MODE=1 /usr/lib/x86_64-linux-gnu/e2fsprogs/e2scrub_all_cron
+10 3 * * * root test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r
+-- /etc/cron.d/sgagenttask
+* * * * * root flock -xn /tmp/stargate.lock -c '/usr/local/qcloud/stargate/admin/start.sh > /dev/null 2>&1 &'
+-- /etc/cron.d/sysstat
+PATH=/usr/lib/sysstat:/usr/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+5-55/10 * * * * root command -v debian-sa1 > /dev/null && debian-sa1 1 1
+59 23 * * * root command -v debian-sa1 > /dev/null && debian-sa1 60 2
+-- /etc/cron.d/yunjing
+*/30 * * * * root /usr/local/qcloud/YunJing/YDCrontab.sh > /dev/null 2>&1
+@reboot root sleep 30 && /usr/local/qcloud/YunJing/YDCrontab.sh > /dev/null 2>&1
+== /etc/cron.{hourly,daily,weekly,monthly}: sha256 and name only
+ece406240beddfd8d262a9f0f2ffd5aa40cae4bf5401e7641db3ae1aca737a39  /etc/cron.daily/apport
+1983c659b042b1ec26127e7874954d83cd97eb8dcfd03238a7d2031ea0182fbe  /etc/cron.daily/apt-compat
+084bb52a8e77986a9f7efa8ef7c2dcdfd537b2cb5249945d7f7daa5c9c378022  /etc/cron.daily/aptitude
+9f2fdd4b4e7706dda74e8e443e1e1da0fbbb19c62a58e230e90d648b69177c35  /etc/cron.daily/dpkg
+12b36ff7068d3932f428e6eba07cbc9b9b2f7f7d37756d86ce13ddfcc6cd875f  /etc/cron.daily/logrotate
+8436d3109f24a1a4e221e765c42b3cc34a455bd30478ad3a09d793c736a8a2e7  /etc/cron.daily/man-db
+bf4e40f5cbe6a073dbd2b7148a8f4c574e33729426d44b0ef852d78f12c8a0c9  /etc/cron.daily/sysstat
+292aa5e844ae053ede690e31806c0a1f0451789555b3655a1a93221f7df4bfd5  /etc/cron.weekly/man-db
+== per-user crontabs (masked)
+-- root
+*/5 * * * * flock -xn /tmp/stargate.lock -c '/usr/local/qcloud/stargate/admin/start.sh > /dev/null 2>&1 &'
+== systemd timers: see block 33-timers
+
+##### 81-sudoers #####
+== /etc/sudoers (active lines; #include and #includedir count as active)
+Defaults	env_reset
+Defaults	mail_badpass
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+Defaults	use_pty
+root	ALL=(ALL:ALL) ALL
+%admin ALL=(ALL) ALL
+%sudo	ALL=(ALL:ALL) ALL
+@includedir /etc/sudoers.d
+#includedir /etc/sudoers.d
+lighthouse ALL=(ALL) NOPASSWD: ALL
+ubuntu  ALL=(ALL:ALL) NOPASSWD: ALL
+== /etc/sudoers.d: every file with its mode, owner, sha256 and full text
+-- /etc/sudoers.d/90-cloud-init-users  (440 root:root, sha256 da7c3243af845db2ca05c7cf1faa74cfb32ee86537fcf7d6e6f0d6057335d43d)
+# Created by cloud-init v. 20.1 on Sat, 14 Nov 2026 07:36:03 +0000
+
+# User rules for ubuntu
+ubuntu ALL=(ALL) NOPASSWD:ALL
+-- /etc/sudoers.d/README  (440 root:root, sha256 b428c9b673c3c806370f2aa28a98293a9cb578c70c3a8a2d1a39031861b3dbd8)
+#
+# The default /etc/sudoers file created on installation of the
+# sudo  package now includes the directive:
+# 
+# 	@includedir /etc/sudoers.d
+# 
+# This will cause sudo to read and parse any files in the /etc/sudoers.d 
+# directory that do not end in '~' or contain a '.' character, if it
+# exists. It is not an error if the directory does not exist.
+# 
+# Note also, that because sudoers contents can vary widely, no attempt is 
+# made to add this directive to existing sudoers files on upgrade.  Feel free
+# to add the above directive to the end of your /etc/sudoers file to enable 
+# this functionality for existing installations if you wish!
+# Sudo versions older than 1.9.1 will only support the old syntax
+# #includedir. That means that the sudo versions in Debian bullseye (11)
+# and later will happily accept both @includedir and #includedir.
+#
+# Finally, please note that using the visudo command is the recommended way
+# to update sudoers content, since it protects against many failure modes.
+# See the man page for visudo and sudoers for more information.
+#
+
+##### 82-users-groups #####
+== accounts that can log in (name:uid:gid:home:shell)
+lighthouse:1001:1002:/home/lighthouse:/bin/bash
+root:0:0:/root:/bin/bash
+ubuntu:1000:1001:/home/ubuntu:/bin/bash
+== number of accounts in total: 37
+== accounts with uid 0
+root
+== groups that matter (name:x:gid:members)
+sudo:x:27:ubuntu
+admin: (absent)
+adm:x:4:syslog,ubuntu
+docker: (absent)
+lxd:x:101:ubuntu
+systemd-journal:x:999:
+wm:x:988:
+
+##### 83-authorized-keys #####
+user file key_lines
+root /root/.ssh/authorized_keys 0
+  permissions: home 700 root:root | .ssh 700 root:root | file 600 root:root
+ubuntu /home/ubuntu/.ssh/authorized_keys 1
+  permissions: home 750 ubuntu:ubuntu | .ssh 700 ubuntu:ubuntu | file 600 ubuntu:ubuntu
+
+##### 84-host-keys #####
+/etc/ssh/ssh_host_dsa_key.pub  1024 SHA256:z7VafCDswyX7YHdi1GW+7wCXBrvcxgPjpIUj6O7nouU (DSA)
+/etc/ssh/ssh_host_ecdsa_key.pub  256 SHA256:2xrItfTxlFhQHIkgBCZMKIaTicCXtpHK057M90TRNOE (ECDSA)
+/etc/ssh/ssh_host_ed25519_key.pub  256 SHA256:rkL93Ue3qn3QLjG8b55lkbUTEAFZUYWbZGb/hJCRo4U (ED25519)
+/etc/ssh/ssh_host_rsa_key.pub  3072 SHA256:AfQhDMn9Ttqf79zidKIeP+jNzFKHbMBwA0N0v9H7mf4 (RSA)
+
+##### 85-agents #####
+process | owner | service
+barad_agent | root | cron.service
+barad_agent | root | cron.service
+barad_agent | root | cron.service
+sgagent | root | cron.service
+tat_agent | root | tat_agent.service
+YDService | root | -
+YDLive | root | -
+--- unit files that look like cloud-vendor agents (enabled / active)
+tat_agent.service: enabled=enabled active=active
+
+##### 90-srv-listing #####
+== type mode owner:group size path
+d 2750 ubuntu:wm 4096 /srv/worldmodel
+d 2750 ubuntu:wm 4096 /srv/worldmodel/releases
+d 2770 ubuntu:wm 4096 /srv/worldmodel/shared
+
+##### 91-srv-hashes #####
+== files with a sensitive-looking name: listed, NOT hashed
+== files larger than 268435456 bytes: listed, NOT hashed
+== symlinks
+== sha256 of the remaining regular files
+
+##### 92-wm-ops #####
+755 root:root 549501fa4e03067fc8f4a04124719019be250feadb98e88afd78db0b37a7b3d4 /usr/local/sbin/wm-harden
+755 root:root 8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2 /usr/local/sbin/wm-snapshot
+755 root:root 16f2429aef165d813cc25c74f44e58d38aec60dcc90fab6d028944f16e8ca9c3 /usr/local/sbin/wm-snapshot-diff
+755 root:root 2aed8c9f5089f8a031da12038bf911accbbe90dbd359ffc0dbc2a158e526b59a /usr/local/sbin/wm-verify
+
+##### 93-journald #####
+--- effective journald configuration (active lines, with the file each part comes from)
+# /etc/systemd/journald.conf
+# /etc/ if the original file is shipped in /usr/), or by creating "drop-ins" in
+[Journal]
+# /etc/systemd/journald.conf.d/00-wm.conf
+[Journal]
+Storage=persistent
+SystemMaxUse=1G
+SystemKeepFree=2G
+SystemMaxFileSize=64M
+MaxFileSec=1day
+MaxRetentionSec=90day
+# /usr/lib/systemd/journald.conf.d/syslog.conf
+[Journal]
+ForwardToSyslog=yes
+--- /var/log/journal (mode owner group)
+drwxr-sr-x+ root systemd-journal
+rsyslog.service: enabled=enabled active=active
+systemd-journald.service: enabled=static active=active
+
+##### 94-autoupdate-config #####
+--- /etc/apt/apt.conf.d/20auto-upgrades
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+--- /etc/apt/apt.conf.d/50unattended-upgrades (active lines)
+Unattended-Upgrade::Allowed-Origins {
+	"${distro_id}:${distro_codename}";
+};
+Unattended-Upgrade::Package-Blacklist {
+};
+Unattended-Upgrade::DevRelease "auto";
+--- files in /etc/apt/apt.conf.d (sha256, name)
+364d5eeac5475b7dddfd629899ea88b91ed8d8e8e319c29bb9dbd6772e87ed55  /etc/apt/apt.conf.d/01-vendor-ubuntu
+35b4360d9126e5e5efc1ce42cea8a957ba42921de749ad8502922d536c9f385c  /etc/apt/apt.conf.d/01autoremove
+82d9ce0d3f5d2c66945d8a1267445e9955409d1ef3cb9934107adccb46bf5f6a  /etc/apt/apt.conf.d/10periodic
+174cdb519fd06372847e23c20db869b2ff4b593252c0d2a6274d770eae2d92c9  /etc/apt/apt.conf.d/15update-stamp
+f7ab45bab1355711fcd031d78299cc3c7767654e7bf3f66a716ee3f2eae93733  /etc/apt/apt.conf.d/20apt-esm-hook.conf
+4a569793b6a530904ff0dfd160bbc069c8a5b247d72f5756d62e6aeb31eabfdc  /etc/apt/apt.conf.d/20archive
+b81a3a01864d5ed7f8d023f3fa86d65087ad6b85706d399dc229a60b1c784807  /etc/apt/apt.conf.d/20auto-upgrades
+549185db9256e57eaa25406d25ff52c339155cba1e5318148f1893bf728463c3  /etc/apt/apt.conf.d/20packagekit
+4f1a710936d83d53caa575af269db4311d7b461bdb1bb94ced5b1d331b0886ac  /etc/apt/apt.conf.d/20snapd.conf
+8e89df0e4cfa24c7db4a165e776f40af7e0477f0d290bea4334edf6655db72bd  /etc/apt/apt.conf.d/50appstream
+3a6f9f5244e49bee66ce65101fb73e16ba90f7a6cbd19befeefdf2c63209e2f1  /etc/apt/apt.conf.d/50command-not-found
+783a98629d2833eb3beecd84b68b5ff79c98a145a27e3e034423ba92b4fd8d35  /etc/apt/apt.conf.d/50unattended-upgrades
+47793adc7efd5c7d0afdf1c616386d0cad50fc6056f9b7172f4a48b3705d1749  /etc/apt/apt.conf.d/52wm-unattended-upgrades
+db749e19baf3b72ca2c157c70c52522cae23d94bc8b2dc5793fd43d427445367  /etc/apt/apt.conf.d/70debconf
+d453d945957bf2fb33a26cb74eacd38244291919715a1bb1d6179d0290c95c52  /etc/apt/apt.conf.d/99needrestart
+c01bac21ce3df26d6a5ef0bcd6fae53c924d6915121f20f1d412824367bfe930  /etc/apt/apt.conf.d/99update-notifier
+--- effective apt-config (APT::Periodic and Unattended-Upgrade keys)
+APT::Periodic::AutocleanInterval "0";
+APT::Periodic::Download-Upgradeable-Packages "0";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::Update-Package-Lists "1";
+Unattended-Upgrade::Allowed-Origins "";
+Unattended-Upgrade::Allowed-Origins:: "${distro_id}:${distro_codename}-security";
+Unattended-Upgrade::Allowed-Origins:: "${distro_id}ESM:${distro_codename}-infra-security";
+Unattended-Upgrade::Allowed-Origins:: "${distro_id}ESMApps:${distro_codename}-apps-security";
+Unattended-Upgrade::Automatic-Reboot "false";
+Unattended-Upgrade::DevRelease "auto";
+--- units
+apt-daily.timer: enabled=enabled active=active
+apt-daily-upgrade.timer: enabled=enabled active=active
+unattended-upgrades.service: enabled=enabled active=active
+--- package
+unattended-upgrades 2.9.1+nmu4ubuntu1 install ok installed
+
+##### 95-disk #####
+Filesystem     Type  Size  Used Avail Use% Mounted on
+/dev/vda2      ext4  118G  5.9G  108G   6% /
+--- memory (free -m)
+               total        used        free      shared  buff/cache   available
+Mem:            7685         612        6325           2         998        7072
+Swap:           1987           0        1987
+--- swap
+NAME      TYPE SIZE USED PRIO
+/swap.img file 1.9G   0B   -2
+--- cpus: 4
+--- journal size
+Archived and active journals take up 45.2M in the file system.
+--- du (sizes of the places we write to or care about)
+12K	/srv/worldmodel
+55M	/var/log
+332K	/var/lib/wm-ops
+
+##### 96-fail2ban #####
+fail2ban.service: enabled=enabled active=active
+Status
+|- Number of jail:	1
+`- Jail list:	sshd
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed:	0
+|  |- Total failed:	6
+|  `- Journal matches:	_SYSTEMD_UNIT=sshd.service + _COMM=sshd
+`- Actions
+   |- Currently banned:	0
+   |- Total banned:	0
+(the list of banned addresses is left out on purpose)
+
+##### 97-time #####
+               Local time: Tue 2026-11-17 01:48:35 CST
+           Universal time: Mon 2026-11-16 17:48:35 UTC
+                 RTC time: Mon 2026-11-16 17:48:35
+                Time zone: Asia/Shanghai (CST, +0800)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+--- units (enabled / active)
+chrony.service: enabled=enabled active=active
+chronyd.service: enabled=alias active=active
+--- chrony configuration files (active lines, addresses masked)
+-- /etc/chrony/chrony.conf
+keyfile /etc/chrony/chrony.keys
+driftfile /var/lib/chrony/chrony.drift
+logdir /var/log/chrony
+maxupdateskew 100.0
+rtcsync
+makestep 1 3
+server time1.tencentyun.com iburst
+server time2.tencentyun.com iburst
+server time3.tencentyun.com iburst
+server time4.tencentyun.com iburst
+server time5.tencentyun.com iburst
+-- /etc/chrony/conf.d/README
+Files found under the /etc/chrony/conf.d directory with the .conf suffix are
+parsed in the lexicographical order of the file names when chronyd starts up.
+This enables a fragmented configuration of chronyd.
+Although those files can contain any directives listed in chrony.conf(5),
+it would be wiser to add NTP sources in the /etc/chrony/sources.d
+directory. Please read /etc/chrony/sources.d/README for more information.
+-- /etc/chrony/sources.d/README
+Only NTP sources can be specified in the /etc/chrony/sources.d directory.
+Files in this directory must end with the ".sources" suffix. They can only
+contain the "peer", "pool" and "server" directives and must have all
+lines terminated by a trailing newline.
+There is no need to restart chronyd for these time sources to be usable,
+running 'chronyc reload sources' is sufficient.
+Example:
+--- chronyc tracking
+Reference ID    : A9FE0052 (<ipv4>)
+Stratum         : 3
+Ref time (UTC)  : Mon Nov 16 17:47:38 2026
+System time     : 0.000054603 seconds fast of NTP time
+Last offset     : +0.000031292 seconds
+RMS offset      : 0.000051683 seconds
+Frequency       : 1.091 ppm slow
+Residual freq   : +0.001 ppm
+Skew            : 0.116 ppm
+Root delay      : 0.002523354 seconds
+Root dispersion : 0.017491313 seconds
+Update interval : 257.4 seconds
+Leap status     : Normal
+--- chronyc sources
+MS Name/IP address         Stratum Poll Reach LastRx Last sample               
+===============================================================================
+^+ <ipv4>                  2  10   377   777   +326us[ +374us] +/-   30ms
+^+ <ipv4>                  2  10   377   297   +408us[ +438us] +/-   35ms
+^+ <ipv4>                  2   8   377   188   +611us[ +642us] +/-   27ms
+^* <ipv4>                  2   8   377    56   +214us[ +245us] +/-   24ms
+^+ <ipv4>                  2   8   377    83   +146us[ +177us] +/-   24ms
+
+##### 98-updates #####
+--- timers (next / last run)
+NEXT                           LEFT LAST                              PASSED UNIT                    ACTIVATES
+Tue 2026-11-17 06:50:51 CST 5h 2min Mon 2026-11-16 06:37:20 CST      19h ago apt-daily-upgrade.timer apt-daily-upgrade.service
+Tue 2026-11-17 09:34:39 CST      7h Mon 2026-11-16 20:12:01 CST 5h 36min ago apt-daily.timer         apt-daily.service
+
+2 timers listed.
+--- /var/lib/apt/periodic (date time name)
+2026-11-16 12:31 download-upgradeable-stamp
+2026-11-16 06:37 unattended-upgrades-stamp
+2026-11-16 12:31 update-stamp
+2026-11-16 12:31 update-success-stamp
+2026-11-16 06:37 upgrade-stamp
+--- unattended-upgrades log, last 15 lines
+2026-11-15 21:41:12,813 INFO Allowed origins are: o=Ubuntu,a=noble-security, o=UbuntuESMApps,a=noble-apps-security, o=UbuntuESM,a=noble-infra-security
+2026-11-15 21:41:12,813 INFO Initial blacklist: 
+2026-11-15 21:41:12,813 INFO Initial whitelist (not strict): 
+2026-11-15 21:42:43,656 INFO Packages that will be upgraded: apt apt-utils bind9-dnsutils bind9-host bind9-libs bsdextrautils bsdutils bzip2 ca-certificates coreutils cpio curl diffutils dirmngr distro-info-data dracut-install eject fdisk gawk gir1.2-glib-2.0 gir1.2-packagekitglib-1.0 git git-man gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpgconf gpgsm gpgv keyboxd krb5-locales libaom3 libapt-pkg6.0t64 libarchive13t64 libattr1 libblkid1 libbrotli1 libbz2-1.0 libc-bin libc-dev-bin libc-devtools libc6 libc6-dev libcurl3t64-gnutls libcurl4t64 libde265-0 libdrm-common libdrm2 libevent-core-2.1-7t64 libexpat1 libfdisk1 libfreetype6 libgcrypt20 libglib2.0-0t64 libglib2.0-bin libglib2.0-data libgssapi-krb5-2 libheif-plugin-aomdec libheif-plugin-aomenc libheif-plugin-libde265 libheif1 libisns0t64 libk5crypto3 libkrb5-3 libkrb5support0 liblzma5 libmount1 libmspack0t64 libncurses6 libncursesw6 libnss-systemd libnss3 libp11-kit0 libpackagekit-glib2-18 libpam-modules libpam-modules-bin libpam-runtime libpam-systemd libpam0g libpcap0.8t64 libpcre2-8-0 libperl5.38t64 libpng16-16t64 libpolkit-agent-1-0 libpolkit-gobject-1-0 libpython3.12-minimal libpython3.12-stdlib libpython3.12t64 libsgutils2-1.46-2 libsmartcols1 libsqlite3-0 libssh-4 libssl-dev libssl3t64 libsystemd-shared libsystemd0 libtinfo6 libudev1 libudisks2-0 libuuid1 libx11-6 libx11-data libxml2 libxpm4 linux-firmware linux-generic linux-headers-generic linux-image-generic linux-libc-dev linux-tools-common locales mount ncurses-base ncurses-bin ncurses-term openssh-client openssh-server openssh-sftp-server openssl packagekit packagekit-tools perl perl-base perl-modules-5.38 polkitd pollinate python3-jwt python3-pyasn1 python3-requests python3-twisted python3-urllib3 python3.12 python3.12-minimal rsync rsyslog sg3-utils sg3-utils-udev snapd sudo systemd systemd-dev systemd-resolved systemd-sysv tzdata tzdata-legacy udev udisks2 util-linux uuid-runtime wireless-regdb xz-utils zlib1g zlib1g-dev
+2026-11-15 21:42:43,656 INFO Writing dpkg log to /var/log/unattended-upgrades/unattended-upgrades-dpkg.log
+2026-11-15 21:50:46,834 INFO All upgrades installed
+2026-11-16 06:37:23,385 INFO Starting unattended upgrades script
+2026-11-16 06:37:23,386 INFO Allowed origins are: o=Ubuntu,a=noble-security, o=UbuntuESMApps,a=noble-apps-security, o=UbuntuESM,a=noble-infra-security
+2026-11-16 06:37:23,387 INFO Initial blacklist: 
+2026-11-16 06:37:23,387 INFO Initial whitelist (not strict): 
+2026-11-16 06:37:25,746 INFO No packages found that can be upgraded unattended and no pending auto-removals
+2026-11-16 12:31:10,312 INFO Starting unattended upgrades script
+2026-11-16 12:31:10,312 INFO Allowed origins are: o=Ubuntu,a=noble-security, o=UbuntuESMApps,a=noble-apps-security, o=UbuntuESM,a=noble-infra-security
+2026-11-16 12:31:10,313 INFO Initial blacklist: 
+2026-11-16 12:31:10,313 INFO Initial whitelist (not strict): 
+--- reboot required
+absent
+--- apt list --upgradable (count only)
+upgradable packages: 72
+
+##### 99-ssh-failures #####
+window: last 24 hours
+log lines read: 57
+failed password: 0
+failed publickey: 0
+invalid user: 6
+authentication failure: 0
+closed before login: 2
+max attempts exceeded: 0
+
+##### END (secret_hits=0) #####

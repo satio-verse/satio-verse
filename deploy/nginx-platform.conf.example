@@ -1,0 +1,22 @@
+# Put inside nginx's http context. Replace the domain and existing certificate paths.
+limit_req_zone $binary_remote_addr zone=worldmodel_platform:10m rate=30r/m;
+server {
+    listen 443 ssl;
+    server_name community.example.com;
+    ssl_certificate /etc/ssl/worldmodel/fullchain.pem;
+    ssl_certificate_key /etc/ssl/worldmodel/privkey.pem;
+    client_max_body_size 2m;
+    location / {
+        limit_req zone=worldmodel_platform burst=20 nodelay;
+        proxy_pass http://127.0.0.1:8792;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_read_timeout 35s;
+    }
+    # Only release JSON goes here. Never alias the private or collector directories.
+    location /releases/ {
+        alias /srv/worldmodel-releases/;
+        default_type application/json;
+        add_header Cache-Control "no-cache";
+    }
+}

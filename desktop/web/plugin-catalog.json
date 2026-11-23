@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "source": "bundled",
+  "categories": [
+    {
+      "id": "workspace",
+      "name": "工作区"
+    },
+    {
+      "id": "code",
+      "name": "代码"
+    },
+    {
+      "id": "writing",
+      "name": "写作"
+    }
+  ],
+  "entries": [
+    {
+      "id": "wm-project-orientation",
+      "name": "项目速览",
+      "category": "workspace",
+      "description": "快速读懂一个工作区：入口、目录、运行方式与接手重点。",
+      "features": [
+        "按用途整理目录与关键入口",
+        "从现有文档提取启动和验证方式",
+        "标出尚未确认的信息与下一步"
+      ],
+      "example": "帮我了解这个工作区，给我一份可核对的项目速览。",
+      "tags": [
+        "工作区",
+        "项目",
+        "目录",
+        "接手",
+        "README"
+      ],
+      "version": "1.0.0",
+      "author": "WorldModel 项目内容",
+      "license": "CC0-1.0",
+      "skills": [
+        "wm-project-orientation"
+      ],
+      "file": "wm-project-orientation.wmext",
+      "sha256": "6b406857fee5af04a3f125461b0cbfd43dc734dcdf056b13e1c601a861948fc4",
+      "size_bytes": 2499
+    },
+    {
+      "id": "wm-change-review",
+      "name": "改动检查",
+      "category": "code",
+      "description": "围绕实际改动查找回归风险，给出可定位、可验证的反馈。",
+      "features": [
+        "从改动目标追踪受影响的调用路径",
+        "优先报告具体错误与回归风险",
+        "区分已验证问题和需要进一步确认的疑点"
+      ],
+      "example": "检查这次改动是否有回归风险，先给我最需要修复的问题。",
+      "tags": [
+        "代码",
+        "审查",
+        "回归",
+        "差异",
+        "测试"
+      ],
+      "version": "1.0.0",
+      "author": "WorldModel 项目内容",
+      "license": "CC0-1.0",
+      "skills": [
+        "wm-change-review"
+      ],
+      "file": "wm-change-review.wmext",
+      "sha256": "8cfa48eec4ec696bbfba292e08b9274137e8fc6e6a83d3943bf06118a2074d12",
+      "size_bytes": 2379
+    },
+    {
+      "id": "wm-writing-polish",
+      "name": "文字精修",
+      "category": "writing",
+      "description": "保留原意与个人语气，让说明、邮件草稿和长段文字更清楚。",
+      "features": [
+        "先识别读者与表达目标",
+        "删掉重复表达，调整段落顺序",
+        "保留事实和语气，不补造依据"
+      ],
+      "example": "帮我把这段话改得更清楚，保留我的语气，不要增加新事实。",
+      "tags": [
+        "写作",
+        "润色",
+        "说明",
+        "草稿",
+        "表达"
+      ],
+      "version": "1.0.0",
+      "author": "WorldModel 项目内容",
+      "license": "CC0-1.0",
+      "skills": [
+        "wm-writing-polish"
+      ],
+      "file": "wm-writing-polish.wmext",
+      "sha256": "234f3dcb5c7f07733477260d44664b68f8c42b375d579e16b1e222722b91a1e9",
+      "size_bytes": 2250
+    }
+  ]
+}

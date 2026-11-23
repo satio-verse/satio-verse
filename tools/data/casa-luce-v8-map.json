@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "scene_id": "casa-luce-v8",
+  "note": "Selectors refer only to the frozen Casa Luce V8 geometry. Positions are computed, never copied from petal-oak.",
+  "objects": {
+    "bed": {"name": "床", "kind": "bed", "node": "Asset_Bed", "collider_prefixes": ["Bed ", "Pillow | sleeping"], "front": [1, 0]},
+    "desk": {"name": "电脑桌", "kind": "desk", "node": "Asset_Desk", "collider_prefixes": ["Furniture | Desk |"], "front": [1, 0]},
+    "desk_chair": {"name": "电脑椅", "kind": "chair", "node": "Asset_Chair", "collider_prefixes": ["Furniture | Chair |"], "front": [1, 0]},
+    "reading_chair": {"name": "阅读椅", "kind": "armchair", "collider_prefixes": ["Reading linen ", "Reading chestnut arm", "Reading turned oak leg"], "front": [0, 1], "seat_collider": "Reading linen seat"},
+    "bookcase": {"name": "书架", "kind": "shelf", "node": "Asset_Bookshelf", "collider_prefixes": ["Library left", "Library right", "Library rear", "Library supporting", "Library top", "V5 bronze"], "front": [0, 1]},
+    "coffee": {"name": "咖啡角", "kind": "counter", "collider_prefixes": ["Coffee bar |", "Coffee shelf |", "Fridge |", "Espresso |", "Grinder |"], "front": [0, 1]},
+    "preparation": {"name": "备料台", "kind": "counter", "collider_prefixes": ["Preparation "], "front": [0, 1]},
+    "reading_table": {"name": "阅读边桌", "kind": "sidetable", "collider_prefixes": ["Reading round table"], "front": [0, 1]},
+    "nightstand": {"name": "床头柜", "kind": "counter", "node": "V5_BedsideCabinet", "collider_prefixes": ["V5_BedsideCabinet "], "front": [0, 1]}
+  },
+  "unsupported_features": [
+    "Godot rigid-body/living-state synchronization", "articulated VRM control in Godot", "physical water/electric/thermal simulation in browser",
+    "device applications and live screens in browser", "reading actual library page text", "drawer opening and hidden-content observations in browser",
+    "movable furniture without a reviewed node binding", "surface-grasp solver (experimental and disabled)",
+    "food freshness, digestion, garden/cooking and state-derived reinforcement rewards"
+  ]
+}

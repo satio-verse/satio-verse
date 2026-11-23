@@ -1,0 +1,110 @@
+安装包里随带的许可原文: 来源清单
+================================
+这个文件夹里的许可原文都是各家官方网站上的纯文本, 原样放进来, 没有改过一个字. 取的日期、大小、SHA-256 如下.
+
+文件: 7-Zip-license.txt
+  来源: https://www.7-zip.org/license.txt
+  大小: 6031 字节
+  SHA-256: 3a184aa13dc8ad30734e28ff901b478ccbcb5b41be52427a5e7609c8fd9e5ddb
+  取的日期: 2026-11-16
+  说明: 7-Zip 官网许可文件
+
+文件: LGPL-2.1.txt
+  来源: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+  大小: 26419 字节
+  SHA-256: 20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95
+  取的日期: 2026-11-16
+  说明: GNU 官方 LGPL 2.1 全文
+
+文件: NVIDIA-CUDA-EULA.txt
+  来源: https://developer.download.nvidia.com/compute/cuda/redist/cuda_cudart/LICENSE.txt
+  大小: 63021 字节
+  SHA-256: e2c71babfd18a8e69542dd7e9ca018f9caa438094001a58e6bc4d8c999bf0d07
+  取的日期: 2026-11-16
+  说明: NVIDIA 官方 redist 包目录里的 LICENSE.txt
+
+文件: Apache-2.0.txt
+  来源: https://www.apache.org/licenses/LICENSE-2.0.txt
+  大小: 11358 字节
+  SHA-256: cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
+  取的日期: 2026-11-16
+  说明: Apache 官方全文
+
+文件: llama.cpp-LICENSE-MIT.txt
+  来源: https://raw.githubusercontent.com/ggml-org/llama.cpp/master/LICENSE
+  大小: 1078 字节
+  SHA-256: 94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d
+  取的日期: 2026-11-16
+  说明: llama.cpp 仓库 LICENSE
+
+文件: silero-vad-LICENSE-MIT.txt
+  来源: https://raw.githubusercontent.com/snakers4/silero-vad/master/LICENSE
+  大小: 1075 字节
+  SHA-256: 2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b
+  取的日期: 2026-11-16
+  说明: silero-vad 仓库 LICENSE
+
+文件: Qwen-LICENSE-Apache-2.0.txt
+  来源: https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/main/LICENSE
+  大小: 11544 字节
+  SHA-256: bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a
+  取的日期: 2026-11-16
+  说明: Qwen 官方模型仓库 LICENSE
+
+文件: MediaPipe-LICENSE.txt
+  来源: https://raw.githubusercontent.com/google-ai-edge/mediapipe/master/LICENSE
+  大小: 12331 字节
+  SHA-256: 8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8
+  取的日期: 2026-11-16
+  说明: MediaPipe 仓库 LICENSE
+
+文件: FunASR-MODEL_LICENSE-v1.1.txt
+  来源: https://raw.githubusercontent.com/modelscope/FunASR/main/MODEL_LICENSE
+  大小: 5306 字节
+  SHA-256: 7dba975a2069691db4992b0592d70828b330d2f8a30a71450f4e152a554e84f8
+  取的日期: 2026-11-16
+  说明: FunASR 模型开源协议 v1.1 原文
+
+文件: jieba-LICENSE-MIT.txt
+  来源: https://raw.githubusercontent.com/fxsjy/jieba/master/LICENSE
+  大小: 1075 字节
+  SHA-256: 18ba0984839f85853b29fadaf992f7dba8fd0ca0fbeae34de2b8735222dc7a37
+  取的日期: 2026-11-16
+  说明: jieba 仓库 LICENSE
+
+文件: flatbuffers-LICENSE-Apache-2.0.txt
+  来源: https://raw.githubusercontent.com/google/flatbuffers/master/LICENSE
+  大小: 11358 字节
+  SHA-256: cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
+  取的日期: 2026-11-16
+  说明: flatbuffers 仓库 LICENSE
+
+文件: StayStill-LICENSE-MIT.txt
+  来源: https://zenodo.org/records/18741736/files/LICENSE.txt?download=1
+  大小: 1076 字节
+  SHA-256: 8576bac1dc9f045837d8f2d43286f255a85e85200cbc0841afa642ea31b9998a
+  取的日期: 2026-11-16
+  说明: StayStill 官方 Zenodo 记录里的 LICENSE.txt
+
+文件: Microsoft.AI.DirectML-1.15.4-LICENSE.txt
+  来源: https://www.nuget.org/packages/Microsoft.AI.DirectML/1.15.4/License
+  大小: 10436 字节
+  SHA-256: 8675779670875d206716e39b599056492acc308c19887d8734c1073f4a2a9fc8
+  取的日期: 2026-11-16
+  说明: 本地 DirectML.dll 文件版本 1.15.4+241025-1615.1.dml-1.15.fac7597, 与包版本 1.15.4 对得上; 从 nuget.org 许可页的 <pre> 取出并还原 HTML 转义
+
+文件: Microsoft.Web.WebView2-1.0.4314.35-LICENSE.txt
+  来源: https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.4314.35/License
+  大小: 1487 字节
+  SHA-256: 0af8f1b807512aae39c2ac1aa4d0cae65cabecb6fd554b8439a5162a0d6eca55
+  取的日期: 2026-11-16
+  说明: 本地 WebView2Loader.dll 文件版本 1.0.4314.35, 与包版本 1.0.4314.35 完全一致; 从 nuget.org 许可页的 <pre> 取出并还原 HTML 转义
+
+没有取到、没有放在这里的 (原因)
+------------------------------
+- (Microsoft.AI.DirectML、Microsoft.Web.WebView2 两个包的 LICENSE.txt 不是整包下的: 取的是 nuget.org 对应版本的许可页, 页面显示的就是包里 LICENSE.txt 的全文;
+  从页面的 <pre> 里取出并还原了 HTML 转义, 字节上不一定和包里那份完全相同, 文字内容相同.)
+- cobble (Python 包): 上游仓库没有 LICENSE 文件, 许可只写在它的 README 里 (BSD-2-Clause).
+- CMU 动作捕捉库 (mocap.cs.cmu.edu): 官方网站证书打不开, 使用条款原文没有读到.
+- Vocos 上游 (BSC-LT/vocos-mel-22khz) 没有单独的 LICENSE 文件, 许可只写在模型页上 (Apache-2.0, 全文见 Apache-2.0.txt).
+- pywin32、onnxruntime-directml 里的 onnxruntime: 它们自己的许可文件已经在 runtime\python\Lib\site-packages\ 对应的目录里, 没有重复放.

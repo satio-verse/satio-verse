@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>桌宠设置</title>
+  <link rel="stylesheet" href="/pet/ui-kit.css">
+  <link rel="stylesheet" href="/pet/panel.css">
+  <link rel="stylesheet" href="/pet/ui-preferences.css">
+  <link rel="stylesheet" href="/pet/panel-design.css">
+  <link rel="stylesheet" href="/pet/workbench-platform.css">
+  <link rel="stylesheet" href="/pet/ui-material.css">
+  <link rel="icon" href="/pet/brand/icon-64.png">
+</head>
+<body>
+  <div class="app">
+    <aside class="nav" aria-label="设置导航">
+      <div class="brand"><img src="/pet/brand/icon-64.png" alt="">设置</div>
+      <!-- 分组、图标、搜索 (2026-10-28 用户给的示例: ChatGPT 的设置页) -->
+      <label class="nav-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><input id="navSearch" type="search" placeholder="搜索设置" aria-label="搜索设置"></label>
+      <p class="nav-empty" id="navEmpty" role="status" hidden>没有匹配的设置<br><span>试试「模型」「声音」或「工具」</span></p>
+      <div class="nav-items">
+      <div class="nav-group">偏好设置</div>
+      <button type="button" data-tab="general" class="active"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.5" fill="var(--side)"/><circle cx="15" cy="17" r="2.5" fill="var(--side)"/></svg><span>常规</span></button>
+      <button type="button" data-tab="appearance"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><span>外观</span></button>
+      <button type="button" data-tab="notifications"><svg viewBox="0 0 24 24"><path d="M5 17h14l-2-3V9a5 5 0 00-10 0v5zM10 20h4"/></svg><span>通知</span></button>
+      <button type="button" data-tab="shortcuts"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M7 10h.01M12 10h.01M17 10h.01M7 14h10"/></svg><span>快捷键</span></button>
+      <div class="nav-group">她的陪伴</div>
+      <button type="button" data-tab="life"><svg viewBox="0 0 24 24"><path d="M12 21s-9-6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 12-9 12z"/></svg><span>生活与成长</span></button>
+      <button type="button" data-tab="memory"><svg viewBox="0 0 24 24"><path d="M6 4h10.5A2.5 2.5 0 0 1 19 6.5V20H8a2 2 0 0 1-2-2z"/><path d="M6 16.5A2 2 0 0 1 8 15h11M10 8h5M10 11h3"/></svg><span>记忆</span></button>
+      <button type="button" data-tab="pet"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></svg><span>桌宠与工作台</span></button>
+      <button type="button" data-tab="personas"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.3-3.6 4.2-5.5 7.5-5.5s6.2 1.9 7.5 5.5"/></svg><span>人设预设</span></button>
+      <button type="button" data-tab="models"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><span>模型</span></button>
+      <div class="nav-group">扩展与下载</div>
+      <button type="button" data-tab="community"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 4a3 3 0 0 1 0 6m2 3a6 6 0 0 1 3 5v3"/></svg><span>插件社区</span></button>
+      <button type="button" data-tab="marketplace"><svg viewBox="0 0 24 24"><path d="M4 9l2-5h12l2 5M5 10v10h14V10M9 20v-6h6v6"/><path d="M4 9a2 2 0 004 0 2 2 0 004 0 2 2 0 004 0 2 2 0 004 0"/></svg><span>插件市场</span></button>
+      <button type="button" data-tab="plugins"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><path d="M16.5 13.5v6M13.5 16.5h6"/></svg><span>我的插件</span></button>
+      <button type="button" data-tab="components"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5zM4 12l8 4.5 8-4.5M4 16.5L12 21l8-4.5"/></svg><span>组件</span></button>
+      <div class="nav-group">连接</div>
+      <button type="button" data-tab="qq"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 016.5 4h11A2.5 2.5 0 0120 6.5v7a2.5 2.5 0 01-2.5 2.5H10l-4.5 4v-4h0A1.5 1.5 0 014 14.5z"/></svg><span>外部渠道</span></button>
+      <button type="button" data-tab="im"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><path d="M12 7V4M9 12h.01M15 12h.01M9.5 15h5"/></svg><span>IM 机器人</span></button>
+      <div class="nav-group">系统</div>
+      <button type="button" data-tab="data"><svg viewBox="0 0 24 24"><path d="M12 3 3 7v6c0 5 9 9 9 9s9-4 9-9V7zM8 12l3 3 5-6"/></svg><span>隐私与数据贡献</span></button>
+      <button type="button" data-tab="updates"><svg viewBox="0 0 24 24"><path d="M20 7V2m0 5h-5M4 17v5m0-5h5M20 7a9 9 0 0 0-16 3m0 7a9 9 0 0 0 16-3"/></svg><span>软件更新</span></button>
+      <button type="button" data-tab="billing"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/></svg><span>用量与余额</span></button>
+      <button type="button" data-tab="services"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6" rx="1.6"/><rect x="4" y="14" width="16" height="6" rx="1.6"/><path d="M8 7h.01M8 17h.01"/></svg><span>本地服务</span></button>
+      <button type="button" data-tab="import"><svg viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg><span>导入</span></button>
+      <button type="button" data-tab="storage"><svg viewBox="0 0 24 24"><path d="M3 7h7l2 2h9v11H3zM3 7V4h7l2 3h9v2"/></svg><span>数据与存储</span></button>
+      <button type="button" data-tab="diagnose"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 5 12 2.5-6h4"/></svg><span>诊断</span></button>
+      </div>
+      <button type="button" class="navlink" id="openWorkbench" title="她替你干活的地方 (桌宠的工作台窗口)">工作台 ↗</button>
+      <div class="status" id="status" aria-live="polite"></div>
+    </aside>
+    <main id="main" tabindex="-1" aria-label="设置内容"></main>
+  </div>
+  <script type="module" src="/pet/panel.js"></script>
+</body>
+</html>

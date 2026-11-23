@@ -1,0 +1,43 @@
+{
+  "id": "qq-onebot",
+  "name": "QQ（OneBot）",
+  "description": "把 QQ 私聊和群聊接进来：消息交给核心，回复经出站检查后发出。自带适配器，跑在宿主进程里。",
+  "plugin": {
+    "schema": 2,
+    "version": "1.0.0",
+    "author": "WorldModel",
+    "license": "MIT",
+    "host": ">=0.4",
+    "tier": "builtin",
+    "permissions": {
+      "network": [],
+      "local": ["127.0.0.1:3001"],
+      "notify": true,
+      "channel": {"act_as_owner": true, "answer_cards": true}
+    },
+    "world": {
+      "kind": "chat",
+      "prefix": "qq",
+      "events": [
+        {"type": "message", "sense": "told", "urgency": "batch", "fields": ["mention", "reply_to", "attachments"]},
+        {"type": "send_result", "sense": "receipt", "urgency": "now"},
+        {"type": "friend_request", "sense": "notice"},
+        {"type": "muted_or_kicked", "sense": "notice"}
+      ],
+      "actions": [
+        {"name": "qq_send", "kind": "act", "outward": true, "receipt": "send_result",
+         "params": {"conv": {"type": "string", "required": true, "max_len": 64},
+                    "text": {"type": "string", "required": true, "max_len": 4000}},
+         "why": "把她的回复发到这个 QQ 会话"},
+        {"name": "qq_fetch", "kind": "query",
+         "params": {"ref": {"type": "string", "required": true, "max_len": 128}},
+         "why": "按需取图片、语音、文件或被引用的那条"}
+      ],
+      "leave": {"ack_timeout_s": 5},
+      "trust_from": "platform_id",
+      "trust_max": "owner_remote",
+      "proactive": {"mode": "free"},
+      "caps": {"dm": true, "group": true, "group_sees": "all", "attachments": ["image", "voice", "file"], "max_len": 4000, "needs_proxy": false}
+    }
+  }
+}

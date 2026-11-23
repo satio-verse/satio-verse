@@ -1,0 +1,113 @@
+{
+  "id": "todolist",
+  "name": "待办",
+  "description": "待办清单：todo_add 加一条（文字必填，可带截止提示 due 和来源原话 source），todo_list 列出来（默认只看没做完的），todo_done 标成做完（只写 done_at，不删行），todo_undo 撤销完成标记。勾完成不删待办，撤销幂等，每次做完都回读 todos.jsonl 核对（verified）；回执写在 receipts.jsonl。数据都放插件自己的目录（~/.worldmodel/plugins/todolist/，可用 WM_TODO_HOME 改位置），不写她的记忆库，也不写 vault。它不复制、也不改记忆里的安排事实：记忆负责她说过的安排，本插件负责这条待办做没做（见 docs/roadmap/single-source-of-truth-todo.md）。",
+  "plugin": {
+    "schema": 2,
+    "version": "0.1.0",
+    "author": "WorldModel",
+    "license": "MIT",
+    "host": ">=0.4",
+    "tier": "panel",
+    "permissions": {},
+    "panel": {
+      "entry": "spectate.html"
+    },
+    "world": {
+      "kind": "space",
+      "prefix": "todo",
+      "events": [
+        {
+          "type": "todo_added",
+          "sense": "receipt"
+        },
+        {
+          "type": "todo_done",
+          "sense": "receipt"
+        },
+        {
+          "type": "todo_undone",
+          "sense": "receipt"
+        }
+      ],
+      "actions": [
+        {
+          "name": "todo_add",
+          "kind": "act",
+          "outward": false,
+          "receipt": "todo_added",
+          "why": "加一条待办；文字必填，可带截止提示 due 和来源原话 source，写完回读文件核对",
+          "params": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "max_len": 200
+            },
+            "due": {
+              "type": "string",
+              "required": false,
+              "max_len": 32
+            },
+            "source": {
+              "type": "string",
+              "required": false,
+              "max_len": 200
+            }
+          }
+        },
+        {
+          "name": "todo_list",
+          "kind": "query",
+          "why": "列出待办；默认只看没做完的，include_done=true 连做完的一起列，只读不动文件",
+          "params": {
+            "include_done": {
+              "type": "bool",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "todo_done",
+          "kind": "act",
+          "outward": false,
+          "receipt": "todo_done",
+          "why": "把一条待办标成做完；只写 done_at 不删行，重复调幂等",
+          "params": {
+            "id": {
+              "type": "string",
+              "required": true,
+              "max_len": 64
+            }
+          }
+        },
+        {
+          "name": "todo_undo",
+          "kind": "act",
+          "outward": false,
+          "receipt": "todo_undone",
+          "why": "撤销做完的标记，回到没做完；重复调幂等，不会多写一行",
+          "params": {
+            "id": {
+              "type": "string",
+              "required": true,
+              "max_len": 64
+            }
+          }
+        }
+      ],
+      "perception": {
+        "visible": [
+          "text",
+          "due",
+          "source"
+        ],
+        "twin_fixtures": [
+          "fixtures/twin.json"
+        ]
+      },
+      "spectate": {
+        "panel": "spectate.html"
+      }
+    }
+  }
+}

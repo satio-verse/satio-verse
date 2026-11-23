@@ -1,0 +1,2 @@
+# Tested with the existing Python 3.10 environment; no AI/model runtime needed.
+aiohttp==3.14.4

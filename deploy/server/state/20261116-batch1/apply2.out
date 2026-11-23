@@ -1,0 +1,4 @@
+2026-11-16T17:59:26Z wm-batch1 action=apply sha256(self)=149c306e21c742046d026c1e17b0659db6e02d2451aebef9ab8fd08a1e62a7c6
+2026-11-16T17:59:26Z download https://github.com/tencentyun/coscli/releases/download/v1.0.9/coscli-v1.0.9-linux-amd64
+curl: (56) Failure when receiving data from the peer
+2026-11-16T18:01:33Z ERROR at line 68: curl -fsSL --proto '=https' --max-time 300 -o "$TMP" "$COSCLI_URL"

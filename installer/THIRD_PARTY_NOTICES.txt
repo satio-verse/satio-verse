@@ -1,0 +1,82 @@
+﻿WorldModel 桌宠 —— 第三方组件和许可
+======================================
+
+这个安装包里带了下面这些别人的东西. 各自的许可原文在对应的文件夹里 (LICENSE / LICENSE.txt / NOTICE), 或者按下面的网址查;
+没有自带原文的, 原文取自各家官方网站, 放在安装文件夹的 licenses\ 里 (来源网址、取的日期见 licenses\SOURCES.txt).
+本版本是非商业发布. 默认角色 silvercat 和小屋场景「抹茶樱花」是作者自己做的.
+
+程序和运行库
+------------
+- Python 3.10.11 嵌入版 (python.org) —— PSF License, 见 runtime\python\LICENSE.txt
+- aiohttp (Apache-2.0 / MIT), numpy (BSD-3-Clause), scipy (BSD-3-Clause), qrcode (BSD),
+  psutil (BSD-3-Clause), Pillow (HPND), jieba (MIT, Copyright (c) 2013 Sun Junyi), flatbuffers (Google, Apache-2.0),
+  sherpa-onnx (Apache-2.0; 它的 core 包里带着微软的 onnxruntime, MIT), onnxruntime-directml (MIT)
+  —— 许可原文在 runtime\python\Lib\site-packages\<包名>-*.dist-info 里; 其中自己没带原文的 jieba、flatbuffers、sherpa-onnx 的原文在
+  licenses\ 里 (licenses\jieba-LICENSE-MIT.txt、licenses\flatbuffers-LICENSE-Apache-2.0.txt、licenses\Apache-2.0.txt)
+- pywin32 311 —— 主体是 Mark Hammond 等人的 BSD 风格许可, 原文在 pywin32 各目录的 license 文件里 (它自带的 adodbapi 没有放进这个包)
+- onnxruntime-directml 里的 DirectML (onnxruntime\capi\DirectML.dll, 1.15.4) —— 微软的专有许可 (Microsoft DirectML 软件许可条款,
+  随 NuGet 包 Microsoft.AI.DirectML 1.15.4 的 LICENSE.txt, 全文 licenses\Microsoft.AI.DirectML-1.15.4-LICENSE.txt), 按其条款随应用分发, 仅限 Windows
+- 读 PDF、写和改 Word / PPT / 表格、预览 Word 用的: pypdf (BSD-3-Clause), python-docx (MIT), python-pptx (MIT),
+  lxml (BSD-3-Clause, 内含 libxml2 / libxslt, MIT), mammoth (BSD-2-Clause), cobble (BSD-2-Clause; 上游没有 LICENSE 文件, 依它 README 的声明),
+  XlsxWriter (BSD-2-Clause), openpyxl (MIT), et_xmlfile (MIT) —— 许可原文同样在各自的 *.dist-info 里
+- llama.cpp (ggml-org) —— MIT, Copyright (c) 2023-2026 The ggml authors, https://github.com/ggml-org/llama.cpp , 全文 licenses\llama.cpp-LICENSE-MIT.txt;
+  LLVM OpenMP —— 见 runtime\llama\LICENSE-LLVM-OpenMP
+- NVIDIA CUDA 运行库: cudart64_12.dll、cublas64_12.dll、cublasLt64_12.dll (在 runtime\llama\ 里, 只在装了"N 卡加速"时才装; CUDA 12.4,
+  版权归 NVIDIA Corporation) —— 按 NVIDIA CUDA Toolkit 最终用户许可协议 (EULA) 随本应用分发; 协议全文在安装文件夹的
+  licenses\NVIDIA-CUDA-EULA.txt (取自 NVIDIA 官方 redist 包里的 LICENSE.txt, 也见 https://docs.nvidia.com/cuda/eula/index.html).
+  这三个文件原样没改, 只供本应用调用, 不能单独拿去当产品分发
+- three.js r180 (MIT), @pixiv/three-vrm 3.5.5 (MIT)
+- Rapier 3D 物理引擎 (@dimforge/rapier3d-compat 0.21.0, Dimforge) —— Apache-2.0, LICENSE 原样保留在 web\vendor\rapier
+- SoullinkEmotion3D 表情引擎 (Apache-2.0) —— LICENSE、NOTICE 原样保留在 web\vendor\soullink3d
+- MediaPipe tasks-vision 1.1.1 (Google, 姿态识别) —— Apache-2.0, https://github.com/google-ai-edge/mediapipe , 全文 licenses\MediaPipe-LICENSE.txt
+  (这份 LICENSE 后部另有一段只针对 MediaPipe 里 utf 目录代码的 Lucent Technologies 声明)
+- xterm.js 及 addon-fit、addon-search (终端面板) —— MIT, 许可原文在 desktop\web\vendor\xterm\LICENSE-* 里
+- Microsoft Edge WebView2 运行时引导程序 (只在你的电脑上没有 WebView2 运行时才在安装时用) —— 按微软 WebView2 官方分发文档随安装包提供:
+  https://learn.microsoft.com/microsoft-edge/webview2/concepts/distribution
+- WebView2Loader.dll (随桌宠宿主一起) —— 随 Microsoft.Web.WebView2 SDK 提供, Copyright Microsoft Corporation, BSD 三条款许可, 全文 licenses\Microsoft.Web.WebView2-1.0.4314.35-LICENSE.txt
+- Microsoft Visual C++ 运行库安装程序 (vc_redist.x64.exe, 只在你的电脑上没有它时才在安装过程里临时用, 不留在安装文件夹里) ——
+  按 Microsoft Visual C++ Redistributable 许可随附, 许可见 https://aka.ms/VCRedistLicense
+- 7-Zip 26.04 的 7zr.exe (Copyright (C) 1999-2025 Igor Pavlov, https://www.7-zip.org) —— GNU LGPL (7-Zip 官方许可文件写明 7z.dll 以外的文件都是 GNU LGPL;
+  7zr.exe 不是 7z.dll, 没有 unRAR 限制). 用来解开可选组件的 7z 包, 我们没有改过它. 7-Zip 官方许可文件原文 licenses\7-Zip-license.txt,
+  LGPL 2.1 全文 licenses\LGPL-2.1.txt; 7-Zip 的源代码可以从 https://www.7-zip.org 取得
+
+可选组件 (安装包里没有; 设置里"版本与组件"点了才从各自的官方仓库下, 各按自己的许可)
+----
+- GPT-SoVITS 整合包 (RVC-Boss / lj1995) —— MIT; 包里的底模和依赖各按自己的许可
+- Kokoro v1.1 多语言 (sherpa-onnx 打包, csukuangfj) —— Apache-2.0
+- Audio2Face-3D v2.3 Mark (NVIDIA) —— NVIDIA Open Model License
+- Qwen3-Embedding-0.6B GGUF、Qwen3.5-2B GGUF (Qwen 团队 / unsloth) —— Apache-2.0
+
+模型
+----
+- Qwen3.5-0.8B (Qwen 团队 / Alibaba Cloud, https://huggingface.co/Qwen/Qwen3.5-0.8B) —— Apache-2.0, Copyright 2026 Alibaba Cloud, 全文
+  licenses\Qwen-LICENSE-Apache-2.0.txt. 包里是 GGUF 格式 (Q8_0 量化) 的文件: 文件头写着名称 Qwen3.5-0.8B、许可 apache-2.0 (指向上面那份 LICENSE)、
+  基座 Qwen3.5 0.8B Base; 文件头没有写转换者
+- SenseVoice 语音识别 (sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09) —— 三层来源: 转换打包者 k2-fsa / sherpa-onnx (Apache-2.0);
+  粤语微调版 ASLP-lab/WSYue-ASR 的 sensevoice_small_yue (模型页标 Apache-2.0); 底子 SenseVoiceSmall (FunAudioLLM / FunASR, Alibaba Group), 按
+  FunASR 模型开源协议 v1.1: 使用、复制、修改、分享时须注明出处和作者信息, 并保留模型名称 (SenseVoiceSmall、sensevoice_small_yue); 协议原文
+  licenses\FunASR-MODEL_LICENSE-v1.1.txt. 粤语微调用的数据集 WenetSpeech-Yue 在官方数据集页标 CC BY-NC 4.0
+- silero VAD (snakers4/silero-vad) —— MIT, Copyright (c) 2020-present Silero Team, 全文 licenses\silero-vad-LICENSE-MIT.txt
+- Matcha-TTS 中文 (matcha-icefall-zh-baker, 训练代码 k2-fsa/icefall, Apache-2.0) —— 训练数据是标贝科技 (Data Baker) 的中文标准女声音库, 数据方声明
+  "本次开放的数据仅支持非商用" (https://www.data-baker.com/open_source.html), 模型包里的 README 写了同样的话; 这个模型的权重本身没有找到单独的许可声明
+- Vocos 22kHz 声码器 (vocos-22khz-univ.onnx) —— 来自 BSC-LT/vocos-mel-22khz (Copyright(c) 2024 by Language Technologies Unit, Barcelona
+  Supercomputing Center, Apache-2.0), 经 sherpa-onnx 加了元数据后发布; Apache-2.0 全文 licenses\Apache-2.0.txt
+
+动作
+----
+- 100STYLE 动捕 (The 100STYLE Dataset - Ian Mason; Mason, Starke, Komura, I3D 2022, DOI 10.1145/3522618; https://zenodo.org/record/8127870) ——
+  CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); 本程序把它重采样 (修改) 后放进了 models\motion
+- CMU Graphics Lab Motion Capture Database (mocap.cs.cmu.edu, NSF EIA-0196217) —— 可免费使用, 不得转卖数据
+- StayStill 大规模 3D 待机动画数据集 (Eneko Atxa Landa 等, Computer Graphics Forum 2026; https://github.com/Enekoassets/StayStill ,
+  https://zenodo.org/records/18741736) —— MIT, 全文 licenses\StayStill-LICENSE-MIT.txt; 本程序用的是它的 LaFAN1 骨架版本, 重采样后放进了 models\motion
+
+装在哪、她下载的东西放在哪
+--------
+- 默认只给当前用户装在 %LOCALAPPDATA%\Programs\WorldModel, 不要管理员权限. 你装的时候可以改装到别的文件夹.
+- 她经下载队列下的东西 (每次都要你在卡片上点头) 放在安装文件夹下面的 download-queue 子文件夹. 卸载和升级都不会删它.
+- 如果你自己改装到 Program Files 这类要管理员权限的位置: 普通用户写不进去, 她的下载会被拒绝 (她会告诉你原因, 不会偷偷换别的地方).
+  这时到安装文件夹的 config\local.json 里加一段 "downloads": {"dir": "D:\\你能写的文件夹"} 就行.
+
+安装程序
+--------
+- 用 Inno Setup 制作. Copyright (C) 1997-2026 Jordan Russell. Portions Copyright (C) 2000-2026 Martijn Laan. https://jrsoftware.org

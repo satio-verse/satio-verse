@@ -1,0 +1,100 @@
+2026-11-15T13:37:44Z [INFO] wm-harden 0.2-draft action=apply ops_user=ubuntu
+2026-11-15T13:37:44Z [INFO] sha256 549501fa4e03067fc8f4a04124719019be250feadb98e88afd78db0b37a7b3d4  wm-harden.sh
+2026-11-15T13:37:44Z [INFO] sha256 8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2  wm-snapshot.sh
+2026-11-15T13:37:44Z [INFO] sha256 16f2429aef165d813cc25c74f44e58d38aec60dcc90fab6d028944f16e8ca9c3  wm-snapshot-diff.sh
+2026-11-15T13:37:44Z [INFO] sha256 2aed8c9f5089f8a031da12038bf911accbbe90dbd359ffc0dbc2a158e526b59a  wm-verify.sh
+2026-11-15T13:37:44Z [OK] ops user ubuntu has a usable ssh key
+2026-11-15T13:37:49Z [INFO] snapshot before-harden: /var/lib/wm-ops/20261115T133744Z-before-harden
+2026-11-15T13:37:49Z [INFO] == step: packages (fail2ban python3-systemd chrony ufw unattended-upgrades)
+2026-11-15T13:37:49Z [OK] package installed: python3-systemd
+2026-11-15T13:37:49Z [OK] package installed: chrony
+2026-11-15T13:37:49Z [OK] package installed: ufw
+2026-11-15T13:37:49Z [OK] package installed: unattended-upgrades
+2026-11-15T13:37:49Z [INFO] run: apt-get update -o DPkg::Lock::Timeout=300
+2026-11-15T13:37:50Z [INFO] run: apt-get install -y --no-install-recommends -o DPkg::Lock::Timeout=300 -o Dpkg::Options::=--force-confold fail2ban
+2026-11-15T13:37:57Z [CHANGE] installed: fail2ban
+2026-11-15T13:37:57Z [INFO] == step: sshd drop-in (/etc/ssh/sshd_config.d/00-wm-hardening.conf)
+2026-11-15T13:37:57Z [INFO] other drop-in: 50-cloud-init.conf: PasswordAuthentication yes
+2026-11-15T13:37:57Z [WARN] 50-cloud-init.conf enables password login; it sorts after 00-wm-hardening.conf, so ours wins (first value wins). Check with: sshd -T
+2026-11-15T13:37:57Z [CHANGE] wrote: /etc/ssh/sshd_config.d/00-wm-hardening.conf
+2026-11-15T13:37:57Z [OK] sshd -t passed and sshd -T shows the four required values
+2026-11-15T13:37:57Z [INFO] run: systemctl reload ssh.service
+2026-11-15T13:37:57Z [CHANGE] reloaded ssh.service
+2026-11-15T13:37:57Z [INFO] REMINDER: open a SECOND ssh window and log in with your key BEFORE closing this one.
+2026-11-15T13:37:57Z [INFO] == step: ufw (ssh allowed first, default deny incoming / allow outgoing; Tencent agents untouched)
+2026-11-15T13:37:57Z [INFO] run: ufw allow 22/tcp comment wm ssh
+2026-11-15T13:37:57Z [CHANGE] ufw: allowed 22/tcp
+2026-11-15T13:37:57Z [OK] ufw defaults: deny incoming, allow outgoing
+2026-11-15T13:37:57Z [INFO] run: ufw --force enable
+2026-11-15T13:37:57Z [CHANGE] ufw enabled
+2026-11-15T13:37:57Z [INFO] == step: fail2ban (sshd jail, mode normal, maxretry 5, findtime 10m, bantime 10m, backend systemd)
+2026-11-15T13:37:57Z [CHANGE] wrote: /etc/fail2ban/jail.d/90-wm-sshd.local
+2026-11-15T13:37:58Z [INFO] run: systemctl enable fail2ban
+2026-11-15T13:37:59Z [INFO] run: systemctl restart fail2ban
+2026-11-15T13:38:00Z [INFO] fail2ban jail sshd:
+    | Status for the jail: sshd
+    | |- Filter
+    | |  |- Currently failed:	0
+    | |  |- Total failed:	0
+    | |  `- Journal matches:	_SYSTEMD_UNIT=sshd.service + _COMM=sshd
+    | `- Actions
+    |    |- Currently banned:	0
+    |    |- Total banned:	0
+    |    `- Banned IP list:	
+2026-11-15T13:38:00Z [INFO] == step: unattended-upgrades (security pockets only, no automatic reboot)
+2026-11-15T13:38:00Z [CHANGE] wrote: /etc/apt/apt.conf.d/52wm-unattended-upgrades
+2026-11-15T13:38:00Z [INFO] NOTE: the image restricts unattended-upgrades to the plain release pocket, so no security update has been installed so far (baseline 2026-11-14: 216 upgradable packages).
+2026-11-15T13:38:00Z [INFO] NOTE: --security-updates-now was given: the pile is installed at the end of this run (step: security updates now), not by the timer.
+2026-11-15T13:38:00Z [INFO] NOTE: the pile can contain a kernel, openssh or systemd update. A reboot is never done automatically; whether and when to reboot is the owner's decision. Take a console snapshot before --apply.
+2026-11-15T13:38:00Z [OK] apt-daily and apt-daily-upgrade timers are enabled
+2026-11-15T13:38:00Z [INFO] == step: chrony (Tencent servers; stock Ubuntu pools commented out unless WM_CHRONY_KEEP_POOLS=1)
+2026-11-15T13:38:00Z [OK] time1..time5.tencentyun.com are already configured as servers; the chrony source configuration is left as it is
+2026-11-15T13:38:00Z [OK] no active pool/server line other than the Tencent servers in /etc/chrony/chrony.conf
+2026-11-15T13:38:00Z [OK] systemd-timesyncd is not installed
+2026-11-15T13:38:00Z [INFO] == step: journald (persistent, size limited)
+2026-11-15T13:38:00Z [CHANGE] wrote: /etc/systemd/journald.conf.d/00-wm.conf
+2026-11-15T13:38:00Z [OK] /var/log/journal exists
+2026-11-15T13:38:00Z [INFO] run: systemd-tmpfiles --create --prefix=/var/log/journal
+2026-11-15T13:38:00Z [INFO] run: systemctl restart systemd-journald
+2026-11-15T13:38:00Z [INFO] run: journalctl --flush
+2026-11-15T13:38:00Z [INFO] == step: /srv/worldmodel and the no-login service user wm
+2026-11-15T13:38:00Z [INFO] run: useradd --system --user-group --no-create-home --home-dir /srv/worldmodel --shell /usr/sbin/nologin --comment WorldModel service user wm
+2026-11-15T13:38:00Z [CHANGE] created system user wm
+2026-11-15T13:38:00Z [CHANGE] directory: /srv/worldmodel (2750 ubuntu:wm)
+2026-11-15T13:38:00Z [CHANGE] directory: /srv/worldmodel/releases (2750 ubuntu:wm)
+2026-11-15T13:38:00Z [CHANGE] directory: /srv/worldmodel/shared (2770 ubuntu:wm)
+2026-11-15T13:38:00Z [INFO] == step: tools in /usr/local/sbin (owned by root)
+2026-11-15T13:38:00Z [CHANGE] wrote: /usr/local/sbin/wm-harden
+2026-11-15T13:38:00Z [CHANGE] wrote: /usr/local/sbin/wm-snapshot
+2026-11-15T13:38:00Z [CHANGE] wrote: /usr/local/sbin/wm-snapshot-diff
+2026-11-15T13:38:00Z [CHANGE] wrote: /usr/local/sbin/wm-verify
+2026-11-15T13:38:00Z [CHANGE] wrote: /etc/logrotate.d/wm-ops
+2026-11-15T13:38:00Z [CHANGE] recorded baseline of /etc/ssh/sshd_config
+2026-11-15T13:38:00Z [INFO] == step: security updates now (--security-updates-now)
+2026-11-15T13:38:00Z [INFO] run: apt-get update -o DPkg::Lock::Timeout=300
+2026-11-15T13:41:12Z [INFO] dry run: 156 package(s) would be upgraded: apt apt-utils bind9-dnsutils bind9-host bind9-libs bsdextrautils bsdutils bzip2 ca-certificates coreutils cpio curl diffutils dirmngr distro-info-data dracut-install eject fdisk gawk gir1.2-glib-2.0 gir1.2-packagekitglib-1.0 git git-man gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpgconf gpgsm gpgv keyboxd krb5-locales libaom3 libapt-pkg6.0t64 libarchive13t64 libattr1 libblkid1 libbrotli1 libbz2-1.0 libc-bin libc-dev-bin libc-devtools libc6 libc6-dev libcurl3t64-gnutls libcurl4t64 libde265-0 libdrm-common libdrm2 libevent-core-2.1-7t64 libexpat1 libfdisk1 libfreetype6 libgcrypt20 libglib2.0-0t64 libglib2.0-bin libglib2.0-data libgssapi-krb5-2 libheif-plugin-aomdec libheif-plugin-aomenc libheif-plugin-libde265 libheif1 libisns0t64 libk5crypto3 libkrb5-3 libkrb5support0 liblzma5 libmount1 libmspack0t64 libncurses6 libncursesw6 libnss-systemd libnss3 libp11-kit0 libpackagekit-glib2-18 libpam-modules libpam-modules-bin libpam-runtime libpam-systemd libpam0g libpcap0.8t64 libpcre2-8-0 libperl5.38t64 libpng16-16t64 libpolkit-agent-1-0 libpolkit-gobject-1-0 libpython3.12-minimal libpython3.12-stdlib libpython3.12t64 libsgutils2-1.46-2 libsmartcols1 libsqlite3-0 libssh-4 libssl-dev libssl3t64 libsystemd-shared libsystemd0 libtinfo6 libudev1 libudisks2-0 libuuid1 libx11-6 libx11-data libxml2 libxpm4 linux-firmware linux-generic linux-headers-generic linux-image-generic linux-libc-dev linux-tools-common locales mount ncurses-base ncurses-bin ncurses-term openssh-client openssh-server openssh-sftp-server openssl packagekit packagekit-tools perl perl-base perl-modules-5.38 polkitd pollinate python3-jwt python3-pyasn1 python3-requests python3-twisted python3-urllib3 python3.12 python3.12-minimal rsync rsyslog sg3-utils sg3-utils-udev snapd sudo systemd systemd-dev systemd-resolved systemd-sysv tzdata tzdata-legacy udev udisks2 util-linux uuid-runtime wireless-regdb xz-utils zlib1g zlib1g-dev
+2026-11-15T13:41:12Z [INFO] installing in the transient unit wm-security-updates (survives a dropped ssh connection); follow it with: journalctl -u wm-security-updates
+2026-11-15T13:41:12Z [INFO] run: systemd-run --unit=wm-security-updates --wait --collect --quiet --setenv=DEBIAN_FRONTEND=noninteractive --setenv=NEEDRESTART_MODE=l unattended-upgrade -v
+    |  systemctl restart getty@tty1.service
+    |  systemctl restart networkd-dispatcher.service
+    |  systemctl restart serial-getty@ttyS0.service
+    |  systemctl restart systemd-logind.service
+    |  systemctl restart unattended-upgrades.service
+    |  systemctl restart wm-security-updates.service
+    | No containers need to be restarted.
+    | User sessions running outdated binaries:
+    |  ubuntu @ session #2460: bash[419919], sshd[419845,419918]
+    |  ubuntu @ session #2463: bash[420468], sshd[420413]
+    |  ubuntu @ user manager service: systemd[419850]
+    | No VM guests are running outdated hypervisor (qemu) binaries on this host.
+    | All upgrades installed
+    | wm-security-updates.service: Deactivated successfully.
+    | wm-security-updates.service: Consumed 9min 15.355s CPU time, 2.2G memory peak, 0B memory swap peak.
+2026-11-15T13:50:47Z [INFO] REBOOT REQUIRED: /var/run/reboot-required exists (packages: libc6 linux-image-6.8.0-149-generic linux-base ). Nothing was rebooted; whether and when to reboot is the owner's decision.
+2026-11-15T13:50:52Z [INFO] snapshot after-harden: /var/lib/wm-ops/20261115T135047Z-after-harden
+2026-11-15T13:50:52Z [INFO] == summary
+2026-11-15T13:50:52Z [INFO] changes (made): 17   warnings: 1   log: /var/log/wm-ops/harden.log
+2026-11-15T13:50:52Z [INFO] NEXT 1: open a NEW ssh window and log in with your key. Only then close this one.
+2026-11-15T13:50:52Z [INFO] NEXT 2: sudo /usr/local/sbin/wm-verify          (every line should say PASS; MANUAL lines are for you in the console)
+2026-11-15T13:50:52Z [INFO] NEXT 3: console (you): close port 80 in the Lighthouse firewall, take a snapshot, set budget and traffic alerts.
+2026-11-15T13:50:52Z [INFO] REMINDER: ubuntu keeps passwordless sudo, so anything run as ubuntu is root-equivalent (README section 2).

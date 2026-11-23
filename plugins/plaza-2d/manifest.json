@@ -1,0 +1,184 @@
+{
+  "id": "plaza-2d",
+  "name": "2D 广场",
+  "description": "宠物串门的二维广场：本机中继转来谁进出、谁在附近说了什么。她能走动、说话、做表情；只看得到离她够近的。只做邀请码房间。",
+  "plugin": {
+    "schema": 2,
+    "version": "0.1.0",
+    "author": "WorldModel",
+    "license": "MIT",
+    "host": ">=0.4",
+    "tier": "process",
+    "permissions": {
+      "local": [
+        "127.0.0.1:8801"
+      ],
+      "notify": false
+    },
+    "service": {
+      "cmd": [
+        "python",
+        "relay_client.py"
+      ],
+      "health": "/health",
+      "start": "on-demand",
+      "stop_with_host": true
+    },
+    "panel": {
+      "entry": "spectate.html",
+      "tools": [
+        "plaza_look"
+      ]
+    },
+    "budget": {
+      "minutes_per_day": 120
+    },
+    "world": {
+      "kind": "space",
+      "prefix": "plaza",
+      "events": [
+        {
+          "type": "pet_entered",
+          "sense": "saw",
+          "urgency": "batch",
+          "fields": [
+            "pet_name",
+            "distance_bucket",
+            "direction"
+          ]
+        },
+        {
+          "type": "pet_left",
+          "sense": "saw",
+          "urgency": "piggyback",
+          "fields": [
+            "pet_name"
+          ]
+        },
+        {
+          "type": "pet_moved",
+          "sense": "saw",
+          "urgency": "piggyback",
+          "fields": [
+            "pet_name",
+            "distance_bucket",
+            "direction"
+          ]
+        },
+        {
+          "type": "pet_said",
+          "sense": "heard",
+          "urgency": "now",
+          "fields": [
+            "pet_name",
+            "distance_bucket",
+            "direction"
+          ]
+        },
+        {
+          "type": "pet_emoted",
+          "sense": "saw",
+          "urgency": "piggyback",
+          "fields": [
+            "pet_name",
+            "emote"
+          ]
+        },
+        {
+          "type": "act_result",
+          "sense": "receipt",
+          "urgency": "now",
+          "fields": [
+            "ok",
+            "why",
+            "own_position"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "name": "plaza_move",
+          "kind": "act",
+          "outward": true,
+          "receipt": "act_result",
+          "params": {
+            "direction": {
+              "type": "enum",
+              "required": true,
+              "values": [
+                "left",
+                "right",
+                "up",
+                "down"
+              ]
+            }
+          },
+          "why": "在广场里走一步"
+        },
+        {
+          "name": "plaza_say",
+          "kind": "act",
+          "outward": true,
+          "receipt": "act_result",
+          "params": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "max_len": 200
+            }
+          },
+          "why": "对附近的宠物说一句话"
+        },
+        {
+          "name": "plaza_emote",
+          "kind": "act",
+          "outward": true,
+          "receipt": "act_result",
+          "params": {
+            "emote": {
+              "type": "enum",
+              "required": true,
+              "values": [
+                "wave",
+                "smile",
+                "nod"
+              ]
+            }
+          },
+          "why": "做一个表情或手势"
+        },
+        {
+          "name": "plaza_look",
+          "kind": "query",
+          "why": "看一眼附近有谁、离多远"
+        }
+      ],
+      "perception": {
+        "visible": [
+          "pet_name",
+          "distance_bucket",
+          "direction",
+          "emote",
+          "ok",
+          "why",
+          "own_position"
+        ],
+        "hidden": [
+          "all_positions",
+          "room_roster"
+        ],
+        "twin_fixtures": [
+          "fixtures/twin-far-pet.json",
+          "fixtures/twin-near-pet.json"
+        ]
+      },
+      "env_prompt": "ENV_PROMPT.md",
+      "leave": {
+        "ack_timeout_s": 3
+      },
+      "spectate": {
+        "panel": "spectate.html"
+      }
+    }
+  }
+}

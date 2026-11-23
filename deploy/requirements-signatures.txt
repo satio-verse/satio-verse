@@ -1,0 +1,2 @@
+# Optional, only for Ed25519 release signing/verification. SHA256 pinning needs no extra package.
+cryptography==49.0.0

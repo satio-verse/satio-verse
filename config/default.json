@@ -1,0 +1,322 @@
+{
+  "server": {"host": "127.0.0.1", "port": 8790, "allowed_origins": []},
+
+  "llm": {
+    "engine": "mock",
+    "endpoint": "http://127.0.0.1:8784",
+    "model_label": "Qwen3.5-0.8B-Q8_0",
+    "temperature": 0.3,
+    "max_tokens": 160,
+    "logprobs": 20,
+    "id_slot": 0,
+    "session_slots": [0, 3],
+    "history_turns": 3,
+    "history_chars": 1600,
+    "long": {"max_tokens": 400, "min_chars": 200, "temperature": 0.7, "id_slot": 1, "lora_scale": 0.0,
+             "params": {"repeat_penalty": 1.1}},
+    "prewarm": true,
+    "keepalive_ms": 700,
+    "keepalive_tokens": 24,
+    "keepalive_max_s": 10,
+    "timeout_s": 60,
+    "mock": {"ttft_ms": 120, "tokens_per_s": 40},
+    "cloud": {"connect_timeout_s": 10, "read_timeout_s": 30, "max_tool_calls": 4, "tool_timeout_s": 90,
+              "tool_max_tokens": 512, "tool_result_chars": 8000, "persona_chars": 2400, "logprobs": 0},
+    "local_api": {"base_url": "", "model": "", "read_timeout_s": 300, "connect_timeout_s": 5, "thinking": false, "ctx": 0, "near": true,
+                  "server": {"model": "", "port": 8788, "ctx": 32768, "parallel": 2, "threads": 8, "gpu_layers": 0,
+                             "device": "CPU", "cache_ram": 2048}},
+    "server": {
+      "exe": "runtime/llama/llama-server.exe",
+      "model": "models/llm/Qwen3.5-0.8B-Q8_0.gguf",
+      "port": 8784,
+      "ctx": 16384,
+      "parallel": 4,
+      "threads": 6,
+      "gpu_layers": 99,
+      "device": "CUDA0"
+    },
+    "escalate": {
+      "endpoint": "",
+      "model_label": "Qwen3.5-2B-Q4_K_M",
+      "temperature": 0.2,
+      "id_slot": 0,
+      "server": {"model": "models/llm-escalate/Qwen3.5-2B-Q4_K_M.gguf", "port": 8785, "ctx": 6144, "parallel": 1}
+    }
+  },
+
+  "asr": {
+    "engine": "none",
+    "sample_rate": 16000,
+    "vad_threshold_db": -42,
+    "sherpa": {
+      "model_type": "zipformer2_ctc",
+      "tokens": "models/asr/sherpa-onnx-streaming-zipformer-small-ctc-zh-int8-2025-04-01/tokens.txt",
+      "model": "models/asr/sherpa-onnx-streaming-zipformer-small-ctc-zh-int8-2025-04-01/model.int8.onnx",
+      "encoder": "",
+      "decoder": "",
+      "joiner": "",
+      "num_threads": 2,
+      "provider": "cpu",
+      "rule1_min_trailing_silence": 2.4,
+      "rule2_min_trailing_silence": 0.4,
+      "rule3_min_utterance_length": 20
+    },
+    "vad_sensevoice": {
+      "model": "models/asr/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09/model.int8.onnx",
+      "tokens": "models/asr/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09/tokens.txt",
+      "vad_model": "models/asr/silero_vad.onnx",
+      "num_threads": 4,
+      "language": "zh",
+      "use_itn": true,
+      "vad_threshold": 0.5,
+      "min_speech_ms": 120,
+      "pause_ms": 150,
+      "endpoint_ms": 400,
+      "preroll_ms": 500,
+      "interim_ms": 0
+    },
+    "echo": {
+      "enabled": true,
+      "text_check": true
+    }
+  },
+
+  "tts": {
+    "engine": "mock",
+    "mock": {"sample_rate": 24000, "first_chunk_ms": 80, "rtf": 0.15, "syllable_s": 0.17},
+    "sherpa": {
+      "model_type": "matcha",
+      "acoustic_model": "models/tts/matcha-icefall-zh-baker/model-steps-3.onnx",
+      "vocoder": "models/tts/vocos-22khz-univ.onnx",
+      "model": "",
+      "voices": "",
+      "lexicon": "models/tts/matcha-icefall-zh-baker/lexicon.txt",
+      "tokens": "models/tts/matcha-icefall-zh-baker/tokens.txt",
+      "data_dir": "",
+      "dict_dir": "",
+      "rule_fsts": "models/tts/matcha-icefall-zh-baker/phone.fst,models/tts/matcha-icefall-zh-baker/date.fst,models/tts/matcha-icefall-zh-baker/number.fst",
+      "num_threads": 2,
+      "provider": "cpu",
+      "sid": 0,
+      "speed": 1.0
+    },
+    "kokoro": {
+      "model_type": "kokoro",
+      "model": "models/tts/kokoro-multi-lang-v1_1/model.onnx",
+      "voices": "models/tts/kokoro-multi-lang-v1_1/voices.bin",
+      "tokens": "models/tts/kokoro-multi-lang-v1_1/tokens.txt",
+      "lexicon": "models/tts/kokoro-multi-lang-v1_1/lexicon-us-en.txt,models/tts/kokoro-multi-lang-v1_1/lexicon-zh.txt",
+      "data_dir": "models/tts/kokoro-multi-lang-v1_1/espeak-ng-data",
+      "dict_dir": "",
+      "rule_fsts": "models/tts/kokoro-multi-lang-v1_1/date-zh.fst,models/tts/kokoro-multi-lang-v1_1/phone-zh.fst,models/tts/kokoro-multi-lang-v1_1/number-zh.fst",
+      "num_threads": 4,
+      "provider": "cpu",
+      "sid": 5,
+      "speed": 1.0
+    },
+    "http": {
+      "preset": "gpt_sovits",
+      "base_url": "http://127.0.0.1:9880",
+      "sample_rate": 32000,
+      "ref_audio_path": "",
+      "prompt_text": "",
+      "prompt_lang": "zh",
+      "text_lang": "zh",
+      "speed": 1.0,
+      "streaming_mode": true,
+      "spk_id": "",
+      "timeout_s": 60,
+      "server": {
+        "dir": "runtime/gpt-sovits",
+        "version": "v2ProPlus",
+        "gpt": "",
+        "sovits": ""
+      }
+    }
+  },
+
+  "face": {
+    "engine": "a2f",
+    "a2f": {"model_dir": "models/a2f/v2.3-mark", "provider": "auto", "fps": 30, "max_batch": 32,
+            "cpu_threads": 4, "emotion_strength": 1.0, "stream": true}
+  },
+
+  "memory": {
+    "vault": "",
+    "character": "绫音",
+    "renamed_from": ["小流"],
+    "top_k": 3,
+    "min_score": 0.5,
+    "rel_ratio": 0.35,
+    "exclude": ["WorldModel知识库", "外部渠道"],
+    "digest": {"enabled": true, "idle_s": 90, "check_s": 15, "batch": 12, "slot": 2, "veto": 0.3, "rescue": 0.85},
+    "freshness": {"half_life_days": 30, "bm25_floor": 0.5, "vector_penalty": 0.08, "refresh_on_recall": true, "promote_days": 3},
+    "confirm": {"mode": "candidates", "daily_max": 8},
+    "graph_notes": true,
+    "core": "off",
+    "core_path": "",
+    "relay": {"enabled": true, "gap_min": 20, "urgent_extra": 0, "urgent_min": 0.6},
+    "seed": "on", "seed_off": [],
+    "affect": {"mode": "off", "max_halflife_x": 3, "max_bias": 0.1, "mood": "off"},
+    "strength": {"mode": "off", "sigma0": 0.5, "g_min": 0.2, "g_max": 1.2, "a": 0.35, "b": 0.5, "max_x": 6, "eta_use": 0.06, "eta_repeat": 0.15, "eta_confirm": 0.3, "eta_down": 0.35, "dormant": 0.25},
+    "diary_gate": "slots",
+    "sleep_max_s": 60,
+    "room_care_daily": 10,
+    "embed": {
+      "engine": "none",
+      "bge_dir": "models/embed/bge-small-zh-v1.5",
+      "threads": 4,
+      "endpoint": "http://127.0.0.1:8786",
+      "query_timeout_ms": 60,
+      "min_sim": {"bge": 0.48, "qwen": 0.46},
+      "server": {"model": "models/embed/Qwen3-Embedding-0.6B-Q8_0.gguf", "port": 8786, "ctx": 1024, "parallel": 1}
+    }
+  },
+
+  "rvc": {
+    "engine": "none",
+    "mock": {"base_ms": 30, "rtf": 0.15},
+    "http": {
+      "preset": "rvc_python",
+      "base_url": "http://127.0.0.1:5050",
+      "timeout_s": 30
+    }
+  },
+
+  "pipeline": {
+    "first_clause_min_chars": 4,
+    "clause_min_chars": 10,
+    "clause_max_chars": 40,
+    "barge_in": true,
+    "barge_in_min_chars": 2,
+    "merge_window_s": 3.0,
+    "speculate": true,
+    "spec_stable_ms": 150,
+    "spec_min_chars": 2,
+    "audio_frame_ms": 200,
+    "confidence_threshold": 0.5,
+    "escalate_timeout_ms": 800,
+    "memory_timeout_ms": 80,
+    "soften_min_samples": 20,
+    "soften_risk": 0.5,
+    "soften_amp": 0.7,
+    "client_done_timeout_s": 20
+  },
+
+  "avatar": {"dir": "models/vrm", "default": "AvatarSample_B.vrm"},
+
+  "motion": {"engine": "hast", "hast_dir": "third_party/hast-sec", "locomotion_dir": "models/motion"},
+
+  "room": {
+    "think": {
+      "enabled": true,
+      "scene": "desktop/web/room-scenes/petal-oak.json",
+      "min_interval_s": 150,
+      "max_options": 4,
+      "timeout_s": 8,
+      "max_tokens": 60,
+      "temperature": 0.7,
+      "id_slot": 1,
+      "mock_ms": 150
+    },
+    "cognition": {
+      "enabled": true,
+      "policy": "experience",
+      "learn_after": 2,
+      "data_dir": ""
+    }
+  },
+
+  "watch_along": {
+    "enabled": true,
+    "extension": "creator:video-sense",
+    "ramp_s": [60, 120, 180, 240],
+    "segment_s": 300,
+    "cells": 5,
+    "lead_s": 15,
+    "late_drop_s": 20,
+    "max_video_s": 3600,
+    "player_check": true,
+    "vision": "auto"
+  },
+
+  "channels": {
+    "qq": {
+      "enabled": false,
+      "endpoint": "ws://127.0.0.1:3001/",
+      "token": "",
+      "snowluma_dir": "",
+      "snowluma_autostart": true,
+      "self_id": 0,
+      "owner_id": 0,
+      "names": ["绫音"],
+      "convs": [],
+      "block": [],
+      "persona": "",
+      "persona_file": "config/personas/绫音.md",
+      "proactive": {"enabled": false, "idle_h": 3, "max_per_day": 2, "max_unanswered": 1, "quiet": "", "tick_s": 60,
+                    "life": true, "life_per_day": 8, "share_per_day": 3, "video": true, "video_per_day": 4},
+      "digest": {"enabled": true, "report_gap_min": 120, "max_items": 8, "my_names": [], "keywords": [],
+                 "important_from": [], "ignore_from": [], "ignore_groups": []},
+      "bili_cookie_file": "~/.worldmodel/bili_cookie.txt",
+      "bili_comment": {"send": "check", "per_day": 5,"inbox": true, "check_s": 1800, "per_check": 3, "like_per_day": 20,
+                       "hate_per_day": 3},
+      "xhs": {"enabled": false, "base": "https://www.xiaohongshu.com",
+              "cookie_file": "~/.worldmodel/xhs_cookie.txt", "per_day": 2, "timeout_s": 10},
+      "xhh": {"enabled": false, "base": "https://www.xiaoheihe.cn",
+              "cookie_file": "~/.worldmodel/xiaoheihe_cookie.txt", "per_day": 2, "timeout_s": 10},
+      "qzone": {"enabled": false, "per_day": 1, "window": "19:00-23:00", "right": 4, "send": "draft", "tick_s": 60},
+      "hum": {"send": "owner", "per_day": 12},
+      "dir": "外部渠道/qq",
+      "api_dir": "外部渠道/api",
+      "api_log_raw": false,
+      "log_days": 30,
+      "slot": 2,
+      "group": {"trigger": "mention", "send": "draft", "min_gap_s": 20, "per_hour": 12, "look_gap_s": 120, "log_raw": false},
+      "private": {"trigger": "always", "send": "draft", "min_gap_s": 2, "per_hour": 40},
+      "owner_send": "auto",
+      "reply_chars": 120,
+      "segment_chars": 40,
+      "daily_tokens": 200000,
+      "draft_expire_s": 600,
+      "debounce_s": 2.0,
+      "flush_s": 0.3,
+      "history_turns": 24,
+      "history_chars": 12000,
+      "context_lines": 12,
+      "max_tokens": 160,
+      "video_max_mb": 30,
+      "video_max_s": 180,
+      "video_frames": 6,
+      "video_timeout_s": 20,
+      "heartbeat_s": 30,
+      "status_s": 60
+    },
+    "weixin": {"base_url": "https://ilinkai.weixin.qq.com", "bot_type": "3", "reply_window_s": 1800}
+  },
+
+  "agent": {"workspace": "", "home": "", "read_timeout_s": 120, "max_tokens": 8192, "search_fee_cny": 0.005, "experience": "on", "procedures": "off", "goal_budget_cny": 2},
+
+  "billing": {
+    "prices": [
+      {"provider": "deepseek", "match": "pro", "name": "deepseek-v4-pro", "hit": 0.30, "miss": 9.0, "out": 27.0, "peak": "deepseek"},
+      {"provider": "deepseek", "match": "", "name": "deepseek-flash", "hit": 0.04, "miss": 2.0, "out": 8.0, "peak": "deepseek"}
+    ],
+    "peak": {
+      "deepseek": {"weekdays": [["09:00", "12:00"], ["14:00", "18:00"]], "off_ratio": 0.5, "holidays": ["2027-01-01"]}
+    },
+    "balance_url": "https://api.deepseek.com/user/balance",
+    "env_key": "DEEPSEEK_API_KEY",
+    "balance_every_s": 300,
+    "low_balance": 5,
+    "budget": {"unit": "tokens", "warn": 0.8, "limits": {"qq": 0, "bili": 0, "pet": 0, "other": 0, "total": 0}}
+  },
+
+  "services": {"llm": "auto", "tts": "auto", "embed": "off", "escalate": "off", "restart_max": 5},
+
+  "clock": {"tz": ""},
+
+  "heartbeat": {"enabled": true, "budget_cny": 0.5, "idle_notify": false, "seal_days": 7},
+
+  "trace": {"log_dir": "logs"}
+}

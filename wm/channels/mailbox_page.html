@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>连接邮箱</title>
+<!-- 连接邮箱 (wm/channels/mailbox_http.py 的 /mail): 不用开终端就能加邮箱、改怎么汇报、看读信记录.
+     接口是 /api/mail; 授权码只在"连接"那一下经过 (本机), 页面不存它. 邮件里来的字一律用 textContent 放, 不当 HTML. -->
+<style>
+:root {
+  --bg: #f4f5f8; --card: #ffffff; --text: #1d2129; --muted: #6b7280; --line: #e6e8ee; --soft: #f1f3f7;
+  --accent: #4b6bfb; --accent-ink: #ffffff; --ok: #15803d; --ok-bg: #ecfdf3; --bad: #c2410c; --bad-bg: #fff4ed;
+  --warn: #92400e; --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 4px 16px rgba(16, 24, 40, .04);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171c; --card: #1d2026; --text: #e8eaf0; --muted: #9aa1ae; --line: #2c3039; --soft: #252932;
+    --accent: #7d95ff; --accent-ink: #0f1115; --ok: #4ade80; --ok-bg: #12261a; --bad: #fb923c; --bad-bg: #2a1a10;
+    --warn: #fbbf24; --shadow: none;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+       font: 14px/1.6 "Segoe UI", "Microsoft YaHei UI", "PingFang SC", system-ui, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 28px 18px 56px; }
+h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: .2px; }
+h2 { font-size: 15px; margin: 0 0 12px; }
+.sub { color: var(--muted); margin: 0 0 18px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 14px 0;
+        box-shadow: var(--shadow); }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; }
+label.field { display: block; margin: 12px 0 0; }
+label.field > span { display: block; font-weight: 600; margin-bottom: 6px; }
+input[type=email], input[type=text], input[type=password], input[type=number], input[type=time], select {
+  width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--card);
+  color: var(--text); font: inherit; outline: none; }
+input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.grow { flex: 1 1 auto; min-width: 0; }
+button { font: inherit; border-radius: 9px; padding: 8px 14px; border: 1px solid var(--line); background: var(--soft);
+         color: var(--text); cursor: pointer; }
+button:hover { filter: brightness(.97); }
+button:disabled { opacity: .55; cursor: default; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; font-weight: 600;
+                 padding: 9px 20px; }
+button.ghost { background: transparent; }
+button.danger { color: var(--bad); }
+a.open { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 7px 12px; border-radius: 9px;
+         background: var(--soft); border: 1px solid var(--line); color: var(--text); text-decoration: none; font-weight: 600; }
+a.open:hover { border-color: var(--accent); }
+.guide { margin-top: 12px; padding: 12px 14px; border-radius: 11px; background: var(--soft); }
+.guide p { margin: 0; }
+.chip { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 12px; background: var(--soft);
+        border: 1px solid var(--line); color: var(--muted); }
+.chip.ok { color: var(--ok); background: var(--ok-bg); border-color: transparent; }
+.chip.bad { color: var(--bad); background: var(--bad-bg); border-color: transparent; }
+.result { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; display: none; white-space: pre-wrap; }
+.result.ok { display: block; background: var(--ok-bg); color: var(--ok); }
+.result.bad { display: block; background: var(--bad-bg); color: var(--bad); }
+.result.busy { display: block; background: var(--soft); color: var(--muted); }
+.account { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--line); }
+.account:first-child { border-top: 0; padding-top: 2px; }
+.badge { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex: none; font-weight: 700;
+         background: color-mix(in srgb, var(--accent) 14%, var(--card)); color: var(--accent); }
+.account .name { font-weight: 600; }
+.account .line { color: var(--muted); font-size: 12.5px; }
+.account .err { color: var(--bad); font-size: 12.5px; }
+.account .acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.account .acts button, .account .acts select { padding: 4px 10px; font-size: 12.5px; width: auto; }
+.empty { color: var(--muted); padding: 4px 0; }
+details { margin-top: 12px; }
+details summary { cursor: pointer; color: var(--muted); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+.switch { display: flex; align-items: center; gap: 10px; font-weight: 600; margin-top: 4px; }
+.switch input { width: 18px; height: 18px; accent-color: var(--accent); }
+.eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); padding: 3px 8px; font-size: 12px; }
+.pw { position: relative; }
+.pw input { padding-right: 62px; }
+ol.log { list-style: none; margin: 0; padding: 0; }
+ol.log li { padding: 10px 0; border-top: 1px solid var(--line); }
+ol.log li:first-child { border-top: 0; padding-top: 0; }
+ol.log .when { font-weight: 600; margin-right: 8px; }
+ol.log .said { margin: 6px 0 0; padding: 8px 10px; border-radius: 9px; background: var(--soft); white-space: pre-wrap;
+               font-size: 13px; }
+.fine { margin: 12px 0 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>连接邮箱</h1>
+  <p class="sub">绫音会定时只读地看你的收件箱：不标已读、不删、不移动、不发信。要紧的马上告诉你，别的攒着一起说，广告和订阅不打扰你。</p>
+
+  <section class="card" aria-labelledby="h-list">
+    <div class="row"><h2 id="h-list" class="grow">已连接的邮箱</h2><span id="here" class="chip"></span></div>
+    <div id="list"><div class="empty">读取中…</div></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-add">
+    <h2 id="h-add">添加邮箱</h2>
+    <label class="field"><span>1. 邮箱地址</span>
+      <input id="address" type="email" autocomplete="email" spellcheck="false" placeholder="例如 name@qq.com、name@gmail.com">
+    </label>
+    <div id="guide" class="guide" hidden>
+      <p><span id="who" class="chip"></span> <span id="guideText"></span></p>
+      <a id="openGuide" class="open" target="_blank" rel="noopener noreferrer" hidden></a>
+      <p id="proxyNote" class="small muted" style="margin-top:8px" hidden></p>
+    </div>
+    <label class="field"><span>2. 授权码 / 应用专用密码</span>
+      <div class="pw">
+        <input id="secret" type="password" autocomplete="new-password" spellcheck="false" placeholder="生成以后粘贴到这里（不是登录密码）">
+        <button id="eye" class="ghost eye" type="button" aria-label="显示或隐藏">显示</button>
+      </div>
+    </label>
+    <details id="adv"><summary>高级（一般不用改）</summary>
+      <div class="grid">
+        <label class="field"><span>服务器</span><input id="host" type="text" spellcheck="false" placeholder="按邮箱自动填"></label>
+        <label class="field"><span>端口</span><input id="port" type="number" min="1" max="65535" placeholder="993"></label>
+        <label class="field"><span>代理</span>
+          <select id="proxy">
+            <option value="auto">自动（国外的邮箱走这台电脑的代理）</option>
+            <option value="off">不走代理</option>
+            <option value="custom">指定代理地址…</option>
+          </select>
+        </label>
+        <label class="field" id="proxyUrlBox" hidden><span>代理地址</span>
+          <input id="proxyUrl" type="text" spellcheck="false" placeholder="http://127.0.0.1:7890"></label>
+      </div>
+    </details>
+    <div class="row" style="margin-top:16px"><button id="connect" class="primary">连接</button>
+      <span class="small muted">会先只读地试登录一次，成了才保存。</span></div>
+    <div id="result" class="result" role="status" aria-live="polite"></div>
+    <p class="fine small muted">授权码只存在这台电脑上（Windows 加密，只有你这个账户解得开），不进聊天、记忆和日志。不用了可以在下面删掉，也可以去邮箱设置里停用这个授权码。</p>
+  </section>
+
+  <section class="card" aria-labelledby="h-set">
+    <h2 id="h-set">怎么汇报</h2>
+    <label class="switch"><input id="enabled" type="checkbox"> 读邮箱</label>
+    <div class="grid">
+      <label class="field"><span>多久看一次</span>
+        <select id="interval">
+          <option value="10">每 10 分钟</option><option value="20">每 20 分钟</option><option value="30">每 30 分钟</option>
+          <option value="60">每小时</option><option value="120">每两小时</option>
+        </select></label>
+      <label class="field"><span>发到哪</span>
+        <select id="via">
+          <option value="auto">微信 / QQ 私聊 + 桌宠（推荐）</option>
+          <option value="pet">只在桌宠上显示（邮件内容不出这台电脑）</option>
+          <option value="chat">只发微信 / QQ 私聊</option>
+        </select></label>
+      <label class="field"><span>一份汇总最多说几件</span>
+        <select id="maxItems"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+      <label class="field"><span>免打扰（这段时间只攒不说，要紧的照说）</span>
+        <div class="row"><input id="quietFrom" type="time" class="grow" style="width:auto"> 到
+          <input id="quietTo" type="time" class="grow" style="width:auto"></div></label>
+    </div>
+    <div class="row" style="margin-top:16px"><button id="save">保存</button><span id="saved" class="small muted"></span></div>
+    <p class="fine small muted">发到微信 / QQ 的汇报会经过腾讯的服务器，也会成为那段聊天的一部分；不想这样就选"只在桌宠上显示"。用云端模型写一句话摘要默认关着，只能在电脑的命令行里开。</p>
+  </section>
+
+  <section class="card" aria-labelledby="h-log">
+    <div class="row"><h2 id="h-log" class="grow">最近的读信记录</h2><button id="checkNow" class="ghost">马上读一次</button></div>
+    <ol id="log" class="log"><li class="empty">还没有记录</li></ol>
+  </section>
+</main>
+
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+const OAUTH_ONLY = /^(outlook|hotmail|live|msn)\.[a-z.]+$/;
+let state = null;
+
+function el(tag, props = {}, ...kids) {  // 只用 textContent / 属性, 不拼 HTML
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'text') e.textContent = v; else if (k === 'cls') e.className = v; else e[k] = v;
+  }
+  for (const k of kids) if (k != null) e.append(k);
+  return e;
+}
+
+function when(t) {  // 按服务端 (她的时区) 的钟显示
+  if (!t) return '还没有';
+  const d = new Date((t + (state?.utc_offset_min || 0) * 60) * 1000);
+  const p = (n) => String(n).padStart(2, '0');
+  return `${p(d.getUTCMonth() + 1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
+}
+
+async function api(body) {
+  try {
+    const r = await fetch('/api/mail', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok && !data.error) data.error = `出错了 (${r.status})`;
+    return data;
+  } catch (e) {
+    return { ok: false, error: '连不上服务端：看看桌宠的服务开着没有' };
+  }
+}
+
+async function load(withSettings = true) {  // 定时刷新不重画设置: 别把你正在改、还没保存的盖掉
+  try {
+    const r = await fetch('/api/mail?log=8&providers=1', { cache: 'no-store' });
+    state = await r.json();
+  } catch (e) {
+    $('list').replaceChildren(el('div', { cls: 'empty', text: '连不上服务端：看看桌宠的服务开着没有' }));
+    return;
+  }
+  renderList(); renderLog(); detect();
+  if (withSettings) renderSettings();
+}
+
+function providerOf(address) {
+  const domain = (address.split('@')[1] || '').trim().toLowerCase();
+  if (!domain) return { domain };
+  if (OAUTH_ONLY.test(domain)) return { domain, oauth: true };
+  return { domain, p: (state?.providers || []).find((p) => p.domains.includes(domain)) };
+}
+
+function detect() {
+  const address = $('address').value.trim();
+  const { domain, p, oauth } = providerOf(address);
+  const box = $('guide');
+  box.hidden = !domain;
+  $('connect').disabled = !!oauth;
+  if (!domain) return;
+  const who = $('who'), open = $('openGuide'), note = $('proxyNote');
+  open.hidden = true; note.hidden = true;
+  if (oauth) {
+    who.textContent = '微软邮箱'; who.className = 'chip bad';
+    $('guideText').textContent = '暂时连不了：微软的个人邮箱（Outlook / Hotmail / Live）已经不让用授权码登录，只能 OAuth，这一版还没接。';
+    return;
+  }
+  if (!p) {
+    who.textContent = '没认出来'; who.className = 'chip';
+    $('guideText').textContent = `一般在邮箱网页版的设置里开启 IMAP、生成授权码。服务器默认 imap.${domain}，连不上就在「高级」里改。`;
+    return;
+  }
+  who.textContent = p.name; who.className = 'chip ok';
+  $('guideText').textContent = p.steps || p.guide;
+  if (p.url) { open.href = p.url; open.textContent = p.url_label || `打开${p.short}网页版 ↗`; open.hidden = false; }
+  if (p.overseas) {
+    note.hidden = false;
+    note.textContent = state?.system_proxy
+      ? `国外的邮箱，会经这台电脑的代理 ${state.system_proxy} 连接。`
+      : '国外的邮箱：没找到这台电脑设的代理，国内直连可能连不上，可以在「高级」里填代理地址。';
+  }
+}
+
+function show(kind, text, detail = '') {  // detail: 服务器回的原话, 小字放在后面备查
+  const r = $('result');
+  r.className = `result ${kind}`;
+  r.textContent = text;
+  if (detail) r.append(el('div', { cls: 'small', style: 'opacity:.75;margin-top:6px', text: `服务器的原话：${detail}` }));
+}
+
+function failed(res, what) {  // 没成: 先一句人话, 再怎么办, 原话最后
+  show('bad', `${what}：${res.error || '不知道为什么'}。` + (res.hint ? `\n${res.hint}` : ''), res.detail || '');
+}
+
+async function connect() {
+  const address = $('address').value.trim(), secret = $('secret').value;
+  if (!address) return show('bad', '先填邮箱地址');
+  if (!secret.trim()) return show('bad', '先把授权码粘贴进来');
+  let proxy = $('proxy').value;
+  if (proxy === 'custom') proxy = $('proxyUrl').value.trim();
+  const overseas = providerOf(address).p?.overseas;
+  $('connect').disabled = true;
+  show('busy', overseas ? '正在只读地试登录（国外的邮箱经代理，可能要十几秒）…' : '正在只读地试登录…');
+  const res = await api({ action: 'connect', address, secret, host: $('host').value.trim(), port: $('port').value.trim(), proxy });
+  $('connect').disabled = false;
+  if (res.ok) {
+    $('secret').value = '';
+    $('address').value = '';
+    const junk = res.junk?.length ? `；${res.junk.join('、')} 不读，只数个数` : '';
+    show('ok', `连上了 ${res.account.label} ${res.account.address}：收件箱里有 ${res.inbox} 封${junk}。` +
+      (res.enabled ? '一分钟内开始读，第一次只看最近一天的。' : '读邮箱现在是关着的，在下面打开就开始读。') +
+      (res.protected ? '' : `\n注意：${res.protect_note}`));
+    await load();
+  } else {
+    failed({ ...res, hint: `${res.hint ? res.hint + '\n' : ''}什么都没保存。` }, '没连上');
+  }
+}
+
+function renderList() {
+  const rows = state?.accounts || [];
+  const here = $('here');
+  here.textContent = state?.here ? '在读' : (state?.why_off ? '这个服务端不读邮箱' : '');
+  here.className = state?.here ? 'chip ok' : 'chip';
+  here.title = state?.why_off || '';
+  if (!rows.length) {
+    $('list').replaceChildren(el('div', { cls: 'empty', text: '还没连邮箱。在下面加一个吧。' }));
+    return;
+  }
+  $('list').replaceChildren(...rows.map((a) => {
+    const line = [`上次读 ${when(a.last_poll_at)}`, a.proxy_now ? `经代理 ${a.proxy_now}` : '直连'];
+    const err = a.broken || (a.error ? (a.waiting_for_owner ? `${a.error.text}（在等你重新连接一次）` : a.error.text) : '');
+    const proxy = el('select', { ariaLabel: `${a.label} 走不走代理` },
+      el('option', { value: 'auto', text: '代理：自动' }), el('option', { value: 'off', text: '代理：不走' }));
+    proxy.value = a.proxy === 'off' ? 'off' : 'auto';
+    if (a.proxy !== 'auto' && a.proxy !== 'off') {
+      proxy.append(el('option', { value: a.proxy, text: `代理：${a.proxy}` }));
+      proxy.value = a.proxy;
+    }
+    proxy.onchange = async () => {
+      const r = await api({ action: 'proxy', id: a.id, proxy: proxy.value });
+      if (r.ok) show('ok', `改好了：${a.label} 现在${r.proxy_now ? `经代理 ${r.proxy_now}` : '直连'}，下次读信就用新的。`);
+      else failed(r, '没改成');
+      load(false);
+    };
+    const test = el('button', { text: '测试' });  // 用存好的授权码只读地登录一次
+    test.onclick = async () => {
+      test.disabled = true; test.textContent = '测试中…';
+      const r = await api({ action: 'test', id: a.id });
+      test.disabled = false; test.textContent = '测试';
+      if (r.ok) show('ok', `${a.label} 登上了：收件箱 ${r.inbox} 封`); else failed(r, `${a.label} 没登上`);
+    };
+    const del = el('button', { cls: 'danger', text: '删除' });
+    let armed = null;  // 不弹系统对话框: 第一下变成"再点一次确认删除", 4 秒不点就恢复
+    del.onclick = async () => {
+      if (!armed) {
+        del.textContent = '再点一次确认删除'; del.style.fontWeight = '700';
+        armed = setTimeout(() => { armed = null; del.textContent = '删除'; del.style.fontWeight = ''; }, 4000);
+        return;
+      }
+      clearTimeout(armed);
+      const r = await api({ action: 'forget', id: a.id });
+      if (r.ok) show('ok', `删掉了 ${a.label} ${a.address}（读信记录留着；授权码本身在邮箱那边还有效，不用了可以去邮箱设置里停用）。`);
+      else failed(r, '没删成');
+      load();  // 删光了读信会自动关: 设置也重画
+    };
+    return el('div', { cls: 'account' },
+      el('div', { cls: 'badge', text: (a.label || '?').slice(0, 1).toUpperCase() }),
+      el('div', { cls: 'grow' },
+        el('div', { cls: 'name', text: `${a.label}  ${a.address}` }),
+        el('div', { cls: 'line', text: line.join(' · ') }),
+        err ? el('div', { cls: 'err', text: err }) : null,
+        el('div', { cls: 'acts' }, test, proxy, del)));
+  }));
+}
+
+function renderSettings() {
+  const s = state?.settings;
+  if (!s) return;
+  $('enabled').checked = !!s.enabled;
+  $('interval').value = String(s.interval_min);
+  if (!$('interval').value) {  // 命令行改成了不在下拉框里的间隔: 加一项
+    $('interval').append(el('option', { value: String(s.interval_min), text: `每 ${s.interval_min} 分钟` }));
+    $('interval').value = String(s.interval_min);
+  }
+  $('via').value = s.via;
+  $('maxItems').value = String(Math.min(5, s.max_items));
+  const [from, to] = (s.quiet || '').split('-');
+  $('quietFrom').value = from ? from.padStart(5, '0') : '';
+  $('quietTo').value = to ? to.padStart(5, '0') : '';
+}
+
+async function save() {
+  const from = $('quietFrom').value, to = $('quietTo').value;
+  const changes = { enabled: $('enabled').checked, interval_min: Number($('interval').value), via: $('via').value,
+                    max_items: Number($('maxItems').value), quiet: from && to ? `${from}-${to}` : '' };
+  const r = await api({ action: 'settings', changes });
+  $('saved').textContent = r.ok ? '保存好了，一分钟内生效' : `没保存：${r.error}`;
+  if (r.ok) setTimeout(() => { $('saved').textContent = ''; }, 4000);
+}
+
+function renderLog() {
+  const recs = state?.log || [];
+  if (!recs.length) { $('log').replaceChildren(el('li', { cls: 'empty', text: '还没有记录' })); return; }
+  $('log').replaceChildren(...recs.map((rec) => {
+    const parts = [];
+    for (const sub of (rec.kind === 'poll' ? (rec.accounts?.length ? rec.accounts : [rec]) : [])) {
+      const who = sub.label ? `${sub.label} ` : '';
+      if (sub.ok === false) parts.push(`${who}没读成：${sub.error?.text || ''}`);
+      else {
+        const ig = sub.ignored || {};
+        parts.push(`${who}读了 ${sub.read || 0} 封，要看 ${(sub.important || 0) + (sub.urgent || 0)} 封，` +
+          `普通 ${sub.low || 0} 封，广告和垃圾 ${(ig.junk || 0) + (ig.promo || 0) + (ig.junk_folder || 0)} 封`);
+      }
+    }
+    if (rec.kind === 'report') parts.push('攒着的到时间了，说了一次');
+    const li = el('li', {}, el('span', { cls: 'when', text: when(rec.at) }), el('span', { cls: 'muted', text: parts.join('；') }));
+    for (const r of rec.reported || []) li.append(el('div', { cls: 'said', text: r.text }));
+    return li;
+  }));
+}
+
+$('address').addEventListener('input', detect);
+$('connect').addEventListener('click', connect);
+$('secret').addEventListener('keydown', (e) => { if (e.key === 'Enter') connect(); });
+$('eye').addEventListener('click', () => {
+  const s = $('secret'); const hidden = s.type === 'password';
+  s.type = hidden ? 'text' : 'password'; $('eye').textContent = hidden ? '隐藏' : '显示';
+});
+$('proxy').addEventListener('change', () => { $('proxyUrlBox').hidden = $('proxy').value !== 'custom'; });
+$('save').addEventListener('click', save);
+$('checkNow').addEventListener('click', async () => {
+  $('checkNow').disabled = true; $('checkNow').textContent = '读着…';
+  const r = await api({ action: 'check' });
+  $('checkNow').disabled = false; $('checkNow').textContent = '马上读一次';
+  if (!r.ok) show('bad', `没读成：${r.error || '不知道为什么'}`);
+  load(false);
+});
+setInterval(() => { if (!document.hidden) load(false); }, 30000);
+load();
+</script>
+</body>
+</html>

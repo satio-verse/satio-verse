@@ -1,0 +1,129 @@
+{
+  "sceneId": "casa-luce-v8",
+  "things": {
+    "books": {
+      "name": "书架上的书",
+      "nodes": [
+        "Book_01",
+        "Book_02",
+        "Book_03",
+        "Book_04",
+        "Book_05",
+        "Book_06",
+        "Book_07",
+        "Book_08",
+        "Book_09",
+        "Book_10",
+        "Book_11",
+        "Book_12",
+        "Book_13",
+        "Book_14",
+        "Book_15",
+        "Book_16",
+        "Book_17",
+        "Book_18",
+        "Book_19",
+        "Book_20",
+        "Book_21",
+        "Book_22",
+        "Book_23",
+        "Book_24",
+        "Book_25",
+        "Book_26",
+        "Book_27",
+        "Book_28",
+        "Book_29",
+        "Book_30",
+        "Book_31",
+        "Book_32",
+        "Book_33",
+        "Book_34",
+        "Book_35",
+        "Book_36",
+        "Book_37",
+        "Book_38",
+        "Book_39"
+      ],
+      "grip": "book",
+      "see": 2.4,
+      "seats": [
+        "reading_chair",
+        "bed_side"
+      ]
+    },
+    "phone": {
+      "name": "手机",
+      "nodes": [
+        "IR_Item_iPhone18ProMax"
+      ],
+      "grip": "book",
+      "see": 1.8,
+      "seats": [
+        "reading_chair",
+        "bed_side"
+      ]
+    },
+    "bunny": {
+      "name": "小兔子",
+      "nodes": [
+        "IR_Item_Bunny"
+      ],
+      "see": 2.2,
+      "seats": [
+        "bed_side"
+      ]
+    }
+  },
+  "spots": {
+    "bed": [
+      -1.65,
+      -2.05
+    ],
+    "desk": [
+      -2.95,
+      1.1500000000000004
+    ],
+    "reading_chair": [
+      -1.4499999999999997,
+      2.95
+    ],
+    "bookcase": [
+      -3.05,
+      0.9500000000000002
+    ],
+    "coffee": [
+      3.1500000000000004,
+      -2.65
+    ],
+    "center": [
+      -0.04999999999999982,
+      3.1500000000000004
+    ],
+    "yoga": [
+      2.45,
+      2.0500000000000007
+    ],
+    "window": [
+      -3.05,
+      2.3500000000000005
+    ]
+  },
+  "acts": [
+    {
+      "id": "explore",
+      "name": "四处看看",
+      "going": "在新房间四处看看",
+      "doing": "在观察房间",
+      "verb": "explore",
+      "needs": [],
+      "prior": {
+        "fun": 2
+      }
+    }
+  ],
+  "disabledCapabilities": {
+    "read_book": "V8 pick/read/return path not yet qualified; no real page-reading adapter",
+    "phone": "live device UI remains Godot-only",
+    "hug_bunny": "new geometry reach path pending qualification"
+  }
+}

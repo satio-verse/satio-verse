@@ -1,0 +1,718 @@
+{
+  "schema": 1,
+  "started_at": "2026-11-16T12:06:13-08:00",
+  "finished_at": "2026-11-16T12:06:26-08:00",
+  "exit_code": 0,
+  "environment": {
+    "python": "3.10.2",
+    "bits": 64,
+    "windows": "10.0.26200"
+  },
+  "uac_settings": {
+    "EnableLUA": 1,
+    "ConsentPromptBehaviorAdmin": 0,
+    "PromptOnSecureDesktop": 0
+  },
+  "elevation": {
+    "tried": true,
+    "valid": true,
+    "conclusion": "测法成立 (对照写了 ELEVATED); 应用容器 要不到; 受限令牌·只降级、受限令牌·加限制SID 没验 (规格里的配法没把 Python 起起来)",
+    "choice": "用户输入 y，真试",
+    "command": "C:\\WINDOWS\\System32\\cmd.exe /d /s /c \"C:\\WINDOWS\\System32\\whoami.exe /groups | C:\\WINDOWS\\System32\\findstr.exe /c:S-1-16-12288 >nul && (>G:\\RunProgram\\WorldModel_v1\\prototypes\\isolation\\results\\20261116-120613\\elev_<关法>.txt echo ELEVATED) || (>G:\\RunProgram\\WorldModel_v1\\prototypes\\isolation\\results\\20261116-120613\\elev_<关法>.txt echo NOT_ELEVATED)\""
+  },
+  "appcontainer": {
+    "name": "wm.ayane.isolation.proto",
+    "summary": "这次登记了沙箱身份（这次新建的），登记后起来了；收尾：已删",
+    "registered_before_this_run": false
+  },
+  "steps": [
+    {
+      "n": 1,
+      "name": "自查",
+      "ms": 4
+    },
+    {
+      "n": 2,
+      "name": "建东西",
+      "ms": 4176
+    },
+    {
+      "n": 3,
+      "name": "登记沙箱身份、加权限",
+      "ms": 197
+    },
+    {
+      "n": 4,
+      "name": "起探针",
+      "ms": 7283
+    },
+    {
+      "n": 5,
+      "name": "提权那一条",
+      "ms": 1
+    },
+    {
+      "n": 6,
+      "name": "收尾",
+      "ms": 564
+    }
+  ],
+  "modes": [
+    {
+      "id": "control",
+      "label": "对照(不关)",
+      "variant": "不关",
+      "tries": [
+        {
+          "配法": "不关",
+          "创建进程用时ms": 15.5,
+          "起来了吗": "起来了",
+          "到第一句回话ms": 139
+        }
+      ],
+      "items": {
+        "python": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "read_fake": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "read_decoy": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_work": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_temp": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_home": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "connect": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "elevate": {
+          "state": "can",
+          "code": null,
+          "note": "拿到了管理员权限 (结果文件写着 ELEVATED)"
+        }
+      },
+      "start_ms": 139,
+      "token": {
+        "是不是提权的": "否",
+        "提权类型": "受限(未提权)",
+        "完整性级别": "中",
+        "是不是应用容器": "否",
+        "有没有限制SID(受限令牌)": "否"
+      },
+      "elevate_detail": {
+        "请求返回值": 1,
+        "请求错误码": 0,
+        "结果文件": "ELEVATED",
+        "拿到进程句柄": true,
+        "等它退出": "exited",
+        "这次试出来的进程已经没有了": "是",
+        "结果文件夹里多出的文件": "只多了预期的那一个"
+      },
+      "close": {
+        "exited": true,
+        "active_in_job": 0,
+        "exit_code": 0
+      },
+      "verdict": {
+        "ok": true,
+        "text": "对照正常: 这几样平时都做得到",
+        "problems": [],
+        "undetermined": []
+      }
+    },
+    {
+      "id": "appcontainer",
+      "label": "应用容器",
+      "variant": "登记后再起, 环境里多几个变量",
+      "tries": [
+        {
+          "配法": "只按名字算出 SID, 没登记",
+          "起来了吗": "没起来",
+          "错误": "CreateProcessW 失败, 错误码 2",
+          "同一个身份起系统自带的cmd(exit 7)": "没起来: CreateProcessW 失败, 错误码 2"
+        },
+        {
+          "配法": "只按名字算出 SID, 没登记, 环境里多几个变量",
+          "环境变量": "最小五个 + LOCALAPPDATA、APPDATA、USERPROFILE、ProgramData、SystemDrive",
+          "起来了吗": "没起来",
+          "错误": "CreateProcessW 失败, 错误码 2",
+          "同一个身份起系统自带的cmd(exit 7)": "没起来: CreateProcessW 失败, 错误码 2"
+        },
+        {
+          "配法": "登记后再起",
+          "起来了吗": "没起来",
+          "错误": "CreateProcessW 失败, 错误码 203",
+          "同一个身份起系统自带的cmd(exit 7)": "没起来: CreateProcessW 失败, 错误码 203"
+        },
+        {
+          "配法": "登记后再起, 环境里多几个变量",
+          "环境变量": "最小五个 + LOCALAPPDATA、APPDATA、USERPROFILE、ProgramData、SystemDrive",
+          "创建进程用时ms": 5.4,
+          "起来了吗": "起来了",
+          "到第一句回话ms": 117
+        }
+      ],
+      "items": {
+        "python": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "read_fake": {
+          "state": "cannot",
+          "code": 13,
+          "note": "拒绝访问"
+        },
+        "read_decoy": {
+          "state": "cannot",
+          "code": 13,
+          "note": "拒绝访问"
+        },
+        "write_work": {
+          "state": "cannot",
+          "code": 13,
+          "note": "拒绝访问"
+        },
+        "write_temp": {
+          "state": "cannot",
+          "code": 13,
+          "note": "拒绝访问"
+        },
+        "write_home": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "connect": {
+          "state": "cannot",
+          "code": null,
+          "note": "TimeoutError"
+        },
+        "elevate": {
+          "state": "cannot",
+          "code": 5,
+          "note": "要不到 (请求被拒)"
+        }
+      },
+      "start_ms": 117,
+      "token": {
+        "是不是提权的": "否",
+        "提权类型": "受限(未提权)",
+        "完整性级别": "低",
+        "是不是应用容器": "是",
+        "有没有限制SID(受限令牌)": "否"
+      },
+      "elevate_detail": {
+        "请求返回值": 0,
+        "请求错误码": 5,
+        "结果文件": "没出现",
+        "拿到进程句柄": false,
+        "等它退出": "没有进程可等",
+        "这次试出来的进程已经没有了": "是",
+        "结果文件夹里多出的文件": "没多"
+      },
+      "close": {
+        "exited": true,
+        "active_in_job": 0,
+        "exit_code": 0
+      },
+      "verdict": {
+        "ok": true,
+        "text": "能用",
+        "problems": [],
+        "undetermined": []
+      }
+    },
+    {
+      "id": "restricted_downgrade",
+      "label": "受限令牌·只降级",
+      "variant": "诊断: 只降级, 但完整性级别不降 (中)",
+      "tries": [
+        {
+          "配法": "只降级, 不加限制 SID",
+          "创建进程用时ms": 8.5,
+          "起来了吗": "创建了进程，但没回话",
+          "没回话的原因": "eof",
+          "退出码": "0xC0000135",
+          "stderr": "",
+          "以同一个令牌的身份只读打开这几个文件(0=打得开,其余是错误码: 先是查属性,再是打开)": {
+            "pyrt\\python.exe": [
+              5,
+              5
+            ],
+            "pyrt\\python310.dll": [
+              5,
+              5
+            ],
+            "pyrt\\python3.dll": [
+              5,
+              5
+            ],
+            "pyrt\\vcruntime140.dll": [
+              5,
+              5
+            ],
+            "pyrt\\vcruntime140_1.dll": [
+              5,
+              5
+            ],
+            "pyrt\\Lib\\os.py": [
+              5,
+              5
+            ],
+            "probe\\child_probe.py": [
+              5,
+              5
+            ],
+            "home": [
+              0,
+              5
+            ],
+            "System32\\ucrtbase.dll": [
+              0,
+              0
+            ],
+            "System32\\version.dll": [
+              0,
+              0
+            ],
+            "System32\\ws2_32.dll": [
+              0,
+              0
+            ],
+            "System32\\shlwapi.dll": [
+              0,
+              0
+            ]
+          },
+          "同一个身份起系统自带的cmd(exit 7)": "起来了, 退出码 7 (对)"
+        },
+        {
+          "配法": "诊断: 只降级, 但完整性级别不降 (中)",
+          "完整性级别": "不降(中), 只是诊断",
+          "创建进程用时ms": 4.9,
+          "起来了吗": "起来了",
+          "到第一句回话ms": 98
+        }
+      ],
+      "items": {
+        "python": {
+          "state": "cannot",
+          "code": 3221225781,
+          "note": "规格里的配法都没起来 (只有诊断配法起来了, 它量到的另放, 不算数)"
+        },
+        "read_fake": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "read_decoy": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "write_work": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "write_temp": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "write_home": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "connect": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "elevate": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        }
+      },
+      "start_ms": null,
+      "token": {
+        "是不是提权的": "否",
+        "提权类型": "受限(未提权)",
+        "完整性级别": "中",
+        "是不是应用容器": "否",
+        "有没有限制SID(受限令牌)": "否"
+      },
+      "diagnostic": true,
+      "close": {
+        "exited": true,
+        "active_in_job": 0,
+        "exit_code": 0
+      },
+      "diagnostic_items": {
+        "python": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "read_fake": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "read_decoy": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_work": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_temp": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_home": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "connect": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "elevate": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验 (诊断配法不发提权请求)"
+        }
+      },
+      "diagnostic_start_ms": 98,
+      "verdict": {
+        "ok": false,
+        "text": "Python 没起来, 其余各样都没验: 这一行不能当成“已隔离”, 也不能当成“不行”（只有诊断配法起来了，它量到的另放在“诊断配法量到的”里，不算数）",
+        "problems": [
+          "Python 起不来"
+        ],
+        "undetermined": [
+          "读假保管箱",
+          "读假文件",
+          "写外面(work)",
+          "写外面(临时)",
+          "写自己文件夹",
+          "连本机回环",
+          "要管理员权限"
+        ]
+      }
+    },
+    {
+      "id": "restricted_sids",
+      "label": "受限令牌·加限制SID",
+      "variant": "诊断: 松, 但完整性级别不降 (中)",
+      "tries": [
+        {
+          "配法": "严: 限制 SID = 沙箱令牌 SID + ALL APPLICATION PACKAGES",
+          "限制SID": [
+            "沙箱令牌SID(编出来的)",
+            "S-1-15-2-1"
+          ],
+          "起来了吗": "没起来",
+          "错误": "CreateRestrictedToken 失败, 错误码 87",
+          "逐个限制SID单独试(0=收,其余是错误码)": {
+            "沙箱令牌SID(编出来的)": 0,
+            "S-1-15-2-1": 87,
+            "全部一起(不改组)": 87
+          }
+        },
+        {
+          "配法": "松: 限制 SID = 沙箱令牌 SID + Users + Everyone + RESTRICTED + 登录 SID",
+          "限制SID": [
+            "沙箱令牌SID(编出来的)",
+            "S-1-5-32-545",
+            "S-1-1-0",
+            "S-1-5-12",
+            "登录SID(本次登录, 不写出)"
+          ],
+          "创建进程用时ms": 9.0,
+          "起来了吗": "创建了进程，但没回话",
+          "没回话的原因": "eof",
+          "退出码": "0xC0000135",
+          "stderr": "",
+          "以同一个令牌的身份只读打开这几个文件(0=打得开,其余是错误码: 先是查属性,再是打开)": {
+            "pyrt\\python.exe": [
+              5,
+              5
+            ],
+            "pyrt\\python310.dll": [
+              5,
+              5
+            ],
+            "pyrt\\python3.dll": [
+              5,
+              5
+            ],
+            "pyrt\\vcruntime140.dll": [
+              5,
+              5
+            ],
+            "pyrt\\vcruntime140_1.dll": [
+              5,
+              5
+            ],
+            "pyrt\\Lib\\os.py": [
+              5,
+              5
+            ],
+            "probe\\child_probe.py": [
+              5,
+              5
+            ],
+            "home": [
+              0,
+              5
+            ],
+            "System32\\ucrtbase.dll": [
+              0,
+              0
+            ],
+            "System32\\version.dll": [
+              0,
+              0
+            ],
+            "System32\\ws2_32.dll": [
+              0,
+              0
+            ],
+            "System32\\shlwapi.dll": [
+              0,
+              0
+            ]
+          },
+          "同一个身份起系统自带的cmd(exit 7)": "起来了, 退出码 7 (对)"
+        },
+        {
+          "配法": "诊断: 松, 但完整性级别不降 (中)",
+          "限制SID": [
+            "沙箱令牌SID(编出来的)",
+            "S-1-5-32-545",
+            "S-1-1-0",
+            "S-1-5-12",
+            "登录SID(本次登录, 不写出)"
+          ],
+          "完整性级别": "不降(中), 只是诊断",
+          "创建进程用时ms": 5.1,
+          "起来了吗": "起来了",
+          "到第一句回话ms": 94
+        }
+      ],
+      "items": {
+        "python": {
+          "state": "cannot",
+          "code": 3221225781,
+          "note": "规格里的配法都没起来 (只有诊断配法起来了, 它量到的另放, 不算数)"
+        },
+        "read_fake": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "read_decoy": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "write_work": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "write_temp": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "write_home": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "connect": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        },
+        "elevate": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验: 规格里的配法没起来"
+        }
+      },
+      "start_ms": null,
+      "token": {
+        "是不是提权的": "否",
+        "提权类型": "受限(未提权)",
+        "完整性级别": "中",
+        "是不是应用容器": "否",
+        "有没有限制SID(受限令牌)": "是"
+      },
+      "diagnostic": true,
+      "close": {
+        "exited": true,
+        "active_in_job": 0,
+        "exit_code": 0
+      },
+      "diagnostic_items": {
+        "python": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "read_fake": {
+          "state": "cannot",
+          "code": 13,
+          "note": "拒绝访问"
+        },
+        "read_decoy": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "write_work": {
+          "state": "cannot",
+          "code": 13,
+          "note": "拒绝访问"
+        },
+        "write_temp": {
+          "state": "cannot",
+          "code": 13,
+          "note": "拒绝访问"
+        },
+        "write_home": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "connect": {
+          "state": "can",
+          "code": null,
+          "note": ""
+        },
+        "elevate": {
+          "state": "unknown",
+          "code": null,
+          "note": "没验 (诊断配法不发提权请求)"
+        }
+      },
+      "diagnostic_start_ms": 94,
+      "verdict": {
+        "ok": false,
+        "text": "Python 没起来, 其余各样都没验: 这一行不能当成“已隔离”, 也不能当成“不行”（只有诊断配法起来了，它量到的另放在“诊断配法量到的”里，不算数）",
+        "problems": [
+          "Python 起不来"
+        ],
+        "undetermined": [
+          "读假保管箱",
+          "读假文件",
+          "写外面(work)",
+          "写外面(临时)",
+          "写自己文件夹",
+          "连本机回环",
+          "要管理员权限"
+        ]
+      }
+    }
+  ],
+  "acl": {
+    "临时文件夹(假保管箱所在)": [
+      "<本人>",
+      "SYSTEM",
+      "Administrators"
+    ],
+    "work(假文件所在的上一级)": [
+      "Administrators",
+      "SYSTEM",
+      "Users",
+      "Authenticated Users"
+    ],
+    "假文件所在文件夹 work\\decoy": [
+      "Administrators",
+      "SYSTEM",
+      "Users",
+      "Authenticated Users"
+    ],
+    "work\\pyrt": [
+      "<沙箱SID>",
+      "<沙箱令牌SID>",
+      "Administrators",
+      "SYSTEM",
+      "Users",
+      "Authenticated Users"
+    ],
+    "work\\home": [
+      "<本人>",
+      "<沙箱SID>",
+      "<沙箱令牌SID>",
+      "Administrators",
+      "SYSTEM",
+      "Users",
+      "Authenticated Users"
+    ]
+  },
+  "cleanup": {
+    "起过的探针个数": 8,
+    "全部已退出": true,
+    "作业里没有剩下的进程": true,
+    "提权请求试出来的进程都没有了": "是",
+    "删登记的沙箱身份": "已删",
+    "登记表里还有这个沙箱身份吗": "没有",
+    "AppData\\Local\\Packages 下还有它的文件夹吗": "没有",
+    "临时文件夹里的子目录": "已删",
+    "work 目录": "已删",
+    "迟到出现的提权结果文件": "没有",
+    "原型目录里多出来的东西": "没有 (只剩源文件、tests 和 results)"
+  },
+  "notes": {
+    "home_user_full_control": true,
+    "permission_inherited_by_copied_files": true,
+    "listener_selfcheck": true,
+    "profile_created_by_this_run": true,
+    "restrict_sid_diagnosis": {
+      "严: 限制 SID = 沙箱令牌 SID + ALL APPLICATION PACKAGES": {
+        "沙箱令牌SID(编出来的)": 0,
+        "S-1-15-2-1": 87,
+        "全部一起(不改组)": 87
+      }
+    }
+  },
+  "errors": [],
+  "pii_scan": {
+    "result": "没找到个人信息"
+  }
+}

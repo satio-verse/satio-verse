@@ -1,0 +1,59 @@
+{
+  "id": "local-guest",
+  "name": "本机访客入口",
+  "description": "本机接口 /guest：一句进、一句出，给 AstrBot 这类第三方框架接进来用。没有发信人身份，固定按熟人档。自带适配器，跑在宿主进程里。",
+  "plugin": {
+    "schema": 2,
+    "version": "1.0.0",
+    "author": "WorldModel",
+    "license": "MIT",
+    "host": ">=0.4",
+    "tier": "builtin",
+    "permissions": {},
+    "world": {
+      "kind": "chat",
+      "prefix": "guest",
+      "events": [
+        {
+          "type": "message",
+          "sense": "told",
+          "urgency": "now"
+        },
+        {
+          "type": "reply_sent",
+          "sense": "receipt",
+          "urgency": "now"
+        }
+      ],
+      "actions": [
+        {
+          "name": "guest_reply",
+          "kind": "act",
+          "outward": true,
+          "receipt": "reply_sent",
+          "params": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "max_len": 4000
+            }
+          },
+          "why": "把她的回话作为这一句的返回值交回本机调用方"
+        }
+      ],
+      "leave": {
+        "ack_timeout_s": 5
+      },
+      "trust_from": "local_loopback",
+      "trust_max": "acquaintance",
+      "proactive": {
+        "mode": "never"
+      },
+      "caps": {
+        "dm": true,
+        "group": false,
+        "needs_proxy": false
+      }
+    }
+  }
+}

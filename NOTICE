@@ -1,0 +1,14 @@
+S.A.T.I.O Verse
+Copyright 2026 Tanora Vic and the S.A.T.I.O Verse contributors
+
+本产品包含以下第三方组件，其版权归各自作者所有，遵循各自的许可证：
+
+- three.js — MIT License — https://github.com/mrdoob/three.js
+- @pixiv/three-vrm — MIT License — https://github.com/pixiv/three-vrm
+- Rapier (dimforge/rapier.js) — Apache-2.0 — https://github.com/dimforge/rapier.js
+- MediaPipe (Google) — Apache-2.0 — https://github.com/google-ai-edge/mediapipe
+- HAST-SEC 运动层（third_party/hast-sec/，若存在）— 非商业学习研究授权，商用前必须移除或另行取得书面授权
+- VRM 示例模型与所有美术资源不随本仓库分发，见 docs/许可证与商标说明.md
+
+文档、说明文字与示意图（docs/ 与 *.md 中的文字部分）采用 CC BY-NC 4.0；
+代码采用 Apache License 2.0。两条许可证的边界见 docs/许可证与商标说明.md。

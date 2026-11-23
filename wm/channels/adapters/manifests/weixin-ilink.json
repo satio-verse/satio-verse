@@ -1,0 +1,84 @@
+{
+  "id": "weixin-ilink",
+  "name": "微信（ClawBot）",
+  "description": "和扫码绑定的那一个人一对一聊天。平台不让主动推送，只能接着对方的话回。自带适配器，跑在宿主进程里。",
+  "plugin": {
+    "schema": 2,
+    "version": "1.0.0",
+    "author": "WorldModel",
+    "license": "MIT",
+    "host": ">=0.4",
+    "tier": "builtin",
+    "permissions": {
+      "network": [
+        "ilinkai.weixin.qq.com",
+        "novac2c.cdn.weixin.qq.com"
+      ],
+      "notify": true,
+      "channel": {
+        "act_as_owner": true,
+        "answer_cards": true
+      }
+    },
+    "world": {
+      "kind": "chat",
+      "prefix": "wx",
+      "events": [
+        {
+          "type": "message",
+          "sense": "told",
+          "urgency": "now"
+        },
+        {
+          "type": "send_result",
+          "sense": "receipt",
+          "urgency": "now"
+        }
+      ],
+      "actions": [
+        {
+          "name": "wx_send",
+          "kind": "act",
+          "outward": true,
+          "receipt": "send_result",
+          "params": {
+            "text": {
+              "type": "string",
+              "required": true,
+              "max_len": 2000
+            }
+          },
+          "why": "在回复窗口里回复扫码的那个人"
+        },
+        {
+          "name": "wx_send_image",
+          "kind": "act",
+          "outward": true,
+          "receipt": "send_result",
+          "params": {
+            "caption": {
+              "type": "string",
+              "required": false,
+              "max_len": 500
+            }
+          },
+          "why": "只用来把 QQ 登录二维码发给扫码的那个人(图经过腾讯的服务器)"
+        }
+      ],
+      "leave": {
+        "ack_timeout_s": 5
+      },
+      "trust_from": "paired_owner",
+      "trust_max": "owner_remote",
+      "proactive": {
+        "mode": "reply_window"
+      },
+      "caps": {
+        "dm": true,
+        "group": false,
+        "attachments": [],
+        "needs_proxy": false
+      }
+    }
+  }
+}

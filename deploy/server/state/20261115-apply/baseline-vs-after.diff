@@ -1,0 +1,1162 @@
+3c3
+< utc: 20261115T021536Z
+---
+> utc: 20261115T135156Z
+26c26
+< OpenSSH_9.6p1 Ubuntu-3ubuntu13.18, OpenSSL 3.0.13 30 Jan 2024
+---
+> OpenSSH_9.6p1 Ubuntu-3ubuntu13.20, OpenSSL 3.0.13 30 Jan 2024
+28c28
+< systemd 255 (255.4-1ubuntu8.17)
+---
+> systemd 255 (255.4-1ubuntu8.18)
+31c31
+< count: 730
+---
+> count: 739
+40,41c40,41
+< apt	2.8.3
+< apt-utils	2.8.3
+---
+> apt	2.8.4ubuntu0.1
+> apt-utils	2.8.4ubuntu0.1
+50,52c50,52
+< bind9-dnsutils	1:9.18.39-0ubuntu0.24.04.5
+< bind9-host	1:9.18.39-0ubuntu0.24.04.5
+< bind9-libs:amd64	1:9.18.39-0ubuntu0.24.04.5
+---
+> bind9-dnsutils	1:9.18.39-0ubuntu0.24.04.9
+> bind9-host	1:9.18.39-0ubuntu0.24.04.9
+> bind9-libs:amd64	1:9.18.39-0ubuntu0.24.04.9
+59,60c59,60
+< bsdextrautils	2.39.3-9ubuntu6.4
+< bsdutils	1:2.39.3-9ubuntu6.4
+---
+> bsdextrautils	2.39.3-9ubuntu6.6
+> bsdutils	1:2.39.3-9ubuntu6.6
+65,66c65,66
+< bzip2	1.0.8-5.1build0.1
+< ca-certificates	20240203
+---
+> bzip2	1.0.8-5.1ubuntu0.1
+> ca-certificates	20260816ubuntu0.24.04.2
+74,75c74,75
+< coreutils	9.4-3ubuntu6.1
+< cpio	2.15+dfsg-1ubuntu2
+---
+> coreutils	9.4-3ubuntu6.3
+> cpio	2.15+dfsg-1ubuntu2.1
+86c86
+< curl	8.5.0-2ubuntu10.13
+---
+> curl	8.5.0-2ubuntu10.16
+98,99c98,99
+< diffutils	1:3.10-1build1
+< dirmngr	2.4.4-2ubuntu17.4
+---
+> diffutils	1:3.10-1ubuntu0.1
+> dirmngr	2.4.4-2ubuntu17.6
+101c101
+< distro-info-data	0.60ubuntu0.5
+---
+> distro-info-data	2026.10.12-0ubuntu0.24.04.1
+107c107
+< dracut-install	060+5-1ubuntu3.3
+---
+> dracut-install	060+5-1ubuntu3.4
+111c111
+< eject	2.39.3-9ubuntu6.4
+---
+> eject	2.39.3-9ubuntu6.6
+113c113,114
+< fdisk	2.39.3-9ubuntu6.4
+---
+> fail2ban	1.0.2-3ubuntu0.1
+> fdisk	2.39.3-9ubuntu6.6
+127c128
+< gawk	1:5.2.1-2build3
+---
+> gawk	1:5.2.1-2ubuntu0.1
+137,149c138,150
+< gir1.2-glib-2.0:amd64	2.80.0-6ubuntu3.8
+< gir1.2-packagekitglib-1.0	1.2.8-2ubuntu1.4
+< git	1:2.43.0-1ubuntu7.3
+< git-man	1:2.43.0-1ubuntu7.3
+< gnupg	2.4.4-2ubuntu17.4
+< gnupg-l10n	2.4.4-2ubuntu17.4
+< gnupg-utils	2.4.4-2ubuntu17.4
+< gpg	2.4.4-2ubuntu17.4
+< gpg-agent	2.4.4-2ubuntu17.4
+< gpg-wks-client	2.4.4-2ubuntu17.4
+< gpgconf	2.4.4-2ubuntu17.4
+< gpgsm	2.4.4-2ubuntu17.4
+< gpgv	2.4.4-2ubuntu17.4
+---
+> gir1.2-glib-2.0:amd64	2.80.0-6ubuntu3.9
+> gir1.2-packagekitglib-1.0	1.2.8-2ubuntu1.5
+> git	1:2.43.0-1ubuntu7.4
+> git-man	1:2.43.0-1ubuntu7.4
+> gnupg	2.4.4-2ubuntu17.6
+> gnupg-l10n	2.4.4-2ubuntu17.6
+> gnupg-utils	2.4.4-2ubuntu17.6
+> gpg	2.4.4-2ubuntu17.6
+> gpg-agent	2.4.4-2ubuntu17.6
+> gpg-wks-client	2.4.4-2ubuntu17.6
+> gpgconf	2.4.4-2ubuntu17.6
+> gpgsm	2.4.4-2ubuntu17.6
+> gpgv	2.4.4-2ubuntu17.6
+186c187
+< keyboxd	2.4.4-2ubuntu17.4
+---
+> keyboxd	2.4.4-2ubuntu17.6
+190c191
+< krb5-locales	1.20.1-6ubuntu2.6
+---
+> krb5-locales	1.20.1-6ubuntu2.7
+195c196
+< libaom3:amd64	3.8.2-2ubuntu0.1
+---
+> libaom3:amd64	3.8.2-2ubuntu0.2
+198,199c199,200
+< libapt-pkg6.0t64:amd64	2.8.3
+< libarchive13t64:amd64	3.7.2-2ubuntu0.7
+---
+> libapt-pkg6.0t64:amd64	2.8.4ubuntu0.1
+> libarchive13t64:amd64	3.7.2-2ubuntu0.9
+206c207
+< libattr1:amd64	1:2.5.2-1build1.1
+---
+> libattr1:amd64	1:2.5.2-1ubuntu0.1
+210c211
+< libblkid1:amd64	2.39.3-9ubuntu6.4
+---
+> libblkid1:amd64	2.39.3-9ubuntu6.6
+223c224
+< libbrotli1:amd64	1.1.0-2build2
+---
+> libbrotli1:amd64	1.1.0-2ubuntu0.1
+227,232c228,233
+< libbz2-1.0:amd64	1.0.8-5.1build0.1
+< libc-bin	2.39-0ubuntu8.7
+< libc-dev-bin	2.39-0ubuntu8.7
+< libc-devtools	2.39-0ubuntu8.7
+< libc6-dev:amd64	2.39-0ubuntu8.7
+< libc6:amd64	2.39-0ubuntu8.7
+---
+> libbz2-1.0:amd64	1.0.8-5.1ubuntu0.1
+> libc-bin	2.39-0ubuntu8.12
+> libc-dev-bin	2.39-0ubuntu8.12
+> libc-devtools	2.39-0ubuntu8.12
+> libc6-dev:amd64	2.39-0ubuntu8.12
+> libc6:amd64	2.39-0ubuntu8.12
+246,247c247,248
+< libcurl3t64-gnutls:amd64	8.5.0-2ubuntu10.13
+< libcurl4t64:amd64	8.5.0-2ubuntu10.13
+---
+> libcurl3t64-gnutls:amd64	8.5.0-2ubuntu10.16
+> libcurl4t64:amd64	8.5.0-2ubuntu10.16
+252c253
+< libde265-0:amd64	1.0.15-1build3
+---
+> libde265-0:amd64	1.0.15-1ubuntu0.2
+258,259c259,260
+< libdrm-common	2.4.125-1ubuntu0.1~24.04.1
+< libdrm2:amd64	2.4.125-1ubuntu0.1~24.04.1
+---
+> libdrm-common	2.4.125-1ubuntu0.1~24.04.2
+> libdrm2:amd64	2.4.125-1ubuntu0.1~24.04.2
+269,270c270,271
+< libevent-core-2.1-7t64:amd64	2.1.12-stable-9ubuntu2
+< libexpat1:amd64	2.6.1-2ubuntu0.4
+---
+> libevent-core-2.1-7t64:amd64	2.1.12-stable-9ubuntu2.2
+> libexpat1:amd64	2.6.1-2ubuntu0.6
+273c274
+< libfdisk1:amd64	2.39.3-9ubuntu6.4
+---
+> libfdisk1:amd64	2.39.3-9ubuntu6.6
+280c281
+< libfreetype6:amd64	2.13.2+dfsg-1ubuntu0.1
+---
+> libfreetype6:amd64	2.13.2+dfsg-1ubuntu0.2
+287c288
+< libgcrypt20:amd64	1.10.3-2ubuntu0.1
+---
+> libgcrypt20:amd64	1.10.3-2ubuntu0.2
+292,294c293,295
+< libglib2.0-0t64:amd64	2.80.0-6ubuntu3.8
+< libglib2.0-bin	2.80.0-6ubuntu3.8
+< libglib2.0-data	2.80.0-6ubuntu3.8
+---
+> libglib2.0-0t64:amd64	2.80.0-6ubuntu3.9
+> libglib2.0-bin	2.80.0-6ubuntu3.9
+> libglib2.0-data	2.80.0-6ubuntu3.9
+303c304
+< libgssapi-krb5-2:amd64	1.20.1-6ubuntu2.6
+---
+> libgssapi-krb5-2:amd64	1.20.1-6ubuntu2.7
+307,310c308,311
+< libheif-plugin-aomdec:amd64	1.17.6-1ubuntu4.8
+< libheif-plugin-aomenc:amd64	1.17.6-1ubuntu4.8
+< libheif-plugin-libde265:amd64	1.17.6-1ubuntu4.8
+< libheif1:amd64	1.17.6-1ubuntu4.8
+---
+> libheif-plugin-aomdec:amd64	1.17.6-1ubuntu4.9
+> libheif-plugin-aomenc:amd64	1.17.6-1ubuntu4.9
+> libheif-plugin-libde265:amd64	1.17.6-1ubuntu4.9
+> libheif1:amd64	1.17.6-1ubuntu4.9
+323c324
+< libisns0t64:amd64	0.101-0.3build3
+---
+> libisns0t64:amd64	0.101-0.3ubuntu0.1
+334c335
+< libk5crypto3:amd64	1.20.1-6ubuntu2.6
+---
+> libk5crypto3:amd64	1.20.1-6ubuntu2.7
+338,339c339,340
+< libkrb5-3:amd64	1.20.1-6ubuntu2.6
+< libkrb5support0:amd64	1.20.1-6ubuntu2.6
+---
+> libkrb5-3:amd64	1.20.1-6ubuntu2.7
+> libkrb5support0:amd64	1.20.1-6ubuntu2.7
+350c351
+< liblzma5:amd64	5.6.1+really5.4.5-1ubuntu0.3
+---
+> liblzma5:amd64	5.6.1+really5.4.5-1ubuntu0.4
+363c364
+< libmount1:amd64	2.39.3-9ubuntu6.4
+---
+> libmount1:amd64	2.39.3-9ubuntu6.6
+366,368c367,369
+< libmspack0t64:amd64	0.11-1.1build1
+< libncurses6:amd64	6.4+20240113-1ubuntu2
+< libncursesw6:amd64	6.4+20240113-1ubuntu2
+---
+> libmspack0t64:amd64	0.11-1.1ubuntu0.24.04.1
+> libncurses6:amd64	6.4+20240113-1ubuntu2.2
+> libncursesw6:amd64	6.4+20240113-1ubuntu2.2
+382,383c383,384
+< libnss-systemd:amd64	255.4-1ubuntu8.17
+< libnss3:amd64	2:3.98-1ubuntu0.2
+---
+> libnss-systemd:amd64	255.4-1ubuntu8.18
+> libnss3:amd64	2:3.98-1ubuntu0.3
+389,390c390,391
+< libp11-kit0:amd64	0.25.3-4ubuntu2.1
+< libpackagekit-glib2-18:amd64	1.2.8-2ubuntu1.4
+---
+> libp11-kit0:amd64	0.25.3-4ubuntu2.2
+> libpackagekit-glib2-18:amd64	1.2.8-2ubuntu1.5
+392,396c393,397
+< libpam-modules-bin	1.5.3-5ubuntu5.5
+< libpam-modules:amd64	1.5.3-5ubuntu5.5
+< libpam-runtime	1.5.3-5ubuntu5.5
+< libpam-systemd:amd64	255.4-1ubuntu8.17
+< libpam0g:amd64	1.5.3-5ubuntu5.5
+---
+> libpam-modules-bin	1.5.3-5ubuntu5.7
+> libpam-modules:amd64	1.5.3-5ubuntu5.7
+> libpam-runtime	1.5.3-5ubuntu5.7
+> libpam-systemd:amd64	255.4-1ubuntu8.18
+> libpam0g:amd64	1.5.3-5ubuntu5.7
+398c399
+< libpcap0.8t64:amd64	1.10.4-4.1ubuntu3
+---
+> libpcap0.8t64:amd64	1.10.4-4.1ubuntu3.1
+400,401c401,402
+< libpcre2-8-0:amd64	10.42-4ubuntu2.1
+< libperl5.38t64:amd64	5.38.2-3.2ubuntu0.2
+---
+> libpcre2-8-0:amd64	10.42-4ubuntu2.2
+> libperl5.38t64:amd64	5.38.2-3.2ubuntu0.7
+405,407c406,408
+< libpng16-16t64:amd64	1.6.43-5ubuntu0.6
+< libpolkit-agent-1-0:amd64	124-2ubuntu1.24.04.3
+< libpolkit-gobject-1-0:amd64	124-2ubuntu1.24.04.3
+---
+> libpng16-16t64:amd64	1.6.43-5ubuntu0.7
+> libpolkit-agent-1-0:amd64	124-2ubuntu1.24.04.4
+> libpolkit-gobject-1-0:amd64	124-2ubuntu1.24.04.4
+414,416c415,417
+< libpython3.12-minimal:amd64	3.12.3-1ubuntu0.16
+< libpython3.12-stdlib:amd64	3.12.3-1ubuntu0.16
+< libpython3.12t64:amd64	3.12.3-1ubuntu0.16
+---
+> libpython3.12-minimal:amd64	3.12.3-1ubuntu0.17
+> libpython3.12-stdlib:amd64	3.12.3-1ubuntu0.17
+> libpython3.12t64:amd64	3.12.3-1ubuntu0.17
+436c437
+< libsgutils2-1.46-2:amd64	1.46-3ubuntu4
+---
+> libsgutils2-1.46-2:amd64	1.46-3ubuntu4.1
+441c442
+< libsmartcols1:amd64	2.39.3-9ubuntu6.4
+---
+> libsmartcols1:amd64	2.39.3-9ubuntu6.6
+445c446
+< libsqlite3-0:amd64	3.45.1-1ubuntu2.7
+---
+> libsqlite3-0:amd64	3.45.1-1ubuntu2.8
+447,449c448,450
+< libssh-4:amd64	0.10.6-2ubuntu0.4
+< libssl-dev:amd64	3.0.13-0ubuntu3.15
+< libssl3t64:amd64	3.0.13-0ubuntu3.15
+---
+> libssh-4:amd64	0.10.6-2ubuntu0.5
+> libssl-dev:amd64	3.0.13-0ubuntu3.16
+> libssl3t64:amd64	3.0.13-0ubuntu3.16
+452,453c453,454
+< libsystemd-shared:amd64	255.4-1ubuntu8.17
+< libsystemd0:amd64	255.4-1ubuntu8.17
+---
+> libsystemd-shared:amd64	255.4-1ubuntu8.18
+> libsystemd0:amd64	255.4-1ubuntu8.18
+461c462
+< libtinfo6:amd64	6.4+20240113-1ubuntu2
+---
+> libtinfo6:amd64	6.4+20240113-1ubuntu2.2
+477,478c478,479
+< libudev1:amd64	255.4-1ubuntu8.17
+< libudisks2-0:amd64	2.10.1-6ubuntu1.3
+---
+> libudev1:amd64	255.4-1ubuntu8.18
+> libudisks2-0:amd64	2.10.1-6ubuntu1.5
+486c487
+< libuuid1:amd64	2.39.3-9ubuntu6.4
+---
+> libuuid1:amd64	2.39.3-9ubuntu6.6
+491,492c492,493
+< libx11-6:amd64	2:1.8.7-1build1
+< libx11-data	2:1.8.7-1build1
+---
+> libx11-6:amd64	2:1.8.7-1ubuntu0.1
+> libx11-data	2:1.8.7-1ubuntu0.1
+499c500
+< libxml2:amd64	2.9.14+dfsg-1.3ubuntu3.8
+---
+> libxml2:amd64	2.9.14+dfsg-1.3ubuntu3.10
+504c505
+< libxpm4:amd64	1:3.5.17-1build2
+---
+> libxpm4:amd64	1:3.5.17-1ubuntu0.24.04.2
+511,512c512,513
+< linux-firmware	20240318.git3b128b60-0ubuntu2.25
+< linux-generic	6.8.0-138.138
+---
+> linux-firmware	20240318.git3b128b60-0ubuntu2.26
+> linux-generic	6.8.0-149.149
+515c516,518
+< linux-headers-generic	6.8.0-138.138
+---
+> linux-headers-6.8.0-149	6.8.0-149.149
+> linux-headers-6.8.0-149-generic	6.8.0-149.149
+> linux-headers-generic	6.8.0-149.149
+517,518c520,522
+< linux-image-generic	6.8.0-138.138
+< linux-libc-dev:amd64	6.8.0-138.138
+---
+> linux-image-6.8.0-149-generic	6.8.0-149.149
+> linux-image-generic	6.8.0-149.149
+> linux-libc-dev:amd64	6.8.0-149.149
+519a524
+> linux-modules-6.8.0-149-generic	6.8.0-149.149
+520a526
+> linux-modules-extra-6.8.0-149-generic	6.8.0-149.149
+523,524c529,532
+< linux-tools-common	6.8.0-138.138
+< locales	2.39-0ubuntu8.7
+---
+> linux-tools-6.8.0-149	6.8.0-149.149
+> linux-tools-6.8.0-149-generic	6.8.0-149.149
+> linux-tools-common	6.8.0-149.149
+> locales	2.39-0ubuntu8.12
+546c554
+< mount	2.39.3-9ubuntu6.4
+---
+> mount	2.39.3-9ubuntu6.6
+550,552c558,560
+< ncurses-base	6.4+20240113-1ubuntu2
+< ncurses-bin	6.4+20240113-1ubuntu2
+< ncurses-term	6.4+20240113-1ubuntu2
+---
+> ncurses-base	6.4+20240113-1ubuntu2.2
+> ncurses-bin	6.4+20240113-1ubuntu2.2
+> ncurses-term	6.4+20240113-1ubuntu2.2
+565,568c573,576
+< openssh-client	1:9.6p1-3ubuntu13.18
+< openssh-server	1:9.6p1-3ubuntu13.18
+< openssh-sftp-server	1:9.6p1-3ubuntu13.18
+< openssl	3.0.13-0ubuntu3.15
+---
+> openssh-client	1:9.6p1-3ubuntu13.20
+> openssh-server	1:9.6p1-3ubuntu13.20
+> openssh-sftp-server	1:9.6p1-3ubuntu13.20
+> openssl	3.0.13-0ubuntu3.16
+571,572c579,580
+< packagekit	1.2.8-2ubuntu1.4
+< packagekit-tools	1.2.8-2ubuntu1.4
+---
+> packagekit	1.2.8-2ubuntu1.5
+> packagekit-tools	1.2.8-2ubuntu1.5
+579,581c587,589
+< perl	5.38.2-3.2ubuntu0.2
+< perl-base	5.38.2-3.2ubuntu0.2
+< perl-modules-5.38	5.38.2-3.2ubuntu0.2
+---
+> perl	5.38.2-3.2ubuntu0.7
+> perl-base	5.38.2-3.2ubuntu0.7
+> perl-modules-5.38	5.38.2-3.2ubuntu0.7
+586,587c594,595
+< polkitd	124-2ubuntu1.24.04.3
+< pollinate	4.33-3.1ubuntu1.1
+---
+> polkitd	124-2ubuntu1.24.04.4
+> pollinate	4.33-3.1ubuntu1.3
+630c638
+< python3-jwt	2.7.0-1ubuntu0.1
+---
+> python3-jwt	2.7.0-1ubuntu0.4
+650c658
+< python3-pyasn1	0.4.8-4ubuntu0.2
+---
+> python3-pyasn1	0.4.8-4ubuntu0.4
+651a660
+> python3-pyasyncore	1.0.2-2
+654c663
+< python3-requests	2.31.0+dfsg-1ubuntu1.1
+---
+> python3-requests	2.31.0+dfsg-1ubuntu1.2
+663c672
+< python3-twisted	24.3.0-1ubuntu0.2
+---
+> python3-twisted	24.3.0-1ubuntu0.3
+666c675
+< python3-urllib3	2.0.7-1ubuntu0.7
+---
+> python3-urllib3	2.0.7-1ubuntu0.8
+671,672c680,681
+< python3.12	3.12.3-1ubuntu0.16
+< python3.12-minimal	3.12.3-1ubuntu0.16
+---
+> python3.12	3.12.3-1ubuntu0.17
+> python3.12-minimal	3.12.3-1ubuntu0.17
+675,676c684,685
+< rsync	3.2.7-1ubuntu1.4
+< rsyslog	8.2312.0-3ubuntu9.1
+---
+> rsync	3.2.7-1ubuntu1.5
+> rsyslog	8.2312.0-3ubuntu9.4
+684,685c693,694
+< sg3-utils	1.46-3ubuntu4
+< sg3-utils-udev	1.46-3ubuntu4
+---
+> sg3-utils	1.46-3ubuntu4.1
+> sg3-utils-udev	1.46-3ubuntu4.1
+688c697
+< snapd	2.75.2+ubuntu24.04
+---
+> snapd	2.76+ubuntu24.04.1
+694c703
+< sudo	1.9.15p5-3ubuntu5.24.04.1
+---
+> sudo	1.9.15p5-3ubuntu5.24.04.4
+696,697c705,706
+< systemd	255.4-1ubuntu8.17
+< systemd-dev	255.4-1ubuntu8.17
+---
+> systemd	255.4-1ubuntu8.18
+> systemd-dev	255.4-1ubuntu8.18
+699,700c708,709
+< systemd-resolved	255.4-1ubuntu8.17
+< systemd-sysv	255.4-1ubuntu8.17
+---
+> systemd-resolved	255.4-1ubuntu8.18
+> systemd-sysv	255.4-1ubuntu8.18
+716,717c725,726
+< tzdata	2025b-0ubuntu0.24.04.1
+< tzdata-legacy	2025b-0ubuntu0.24.04.1
+---
+> tzdata	2026e-0ubuntu0.24.04.1
+> tzdata-legacy	2026e-0ubuntu0.24.04.1
+728,729c737,738
+< udev	255.4-1ubuntu8.17
+< udisks2	2.10.1-6ubuntu1.3
+---
+> udev	255.4-1ubuntu8.18
+> udisks2	2.10.1-6ubuntu1.5
+742,743c751,752
+< util-linux	2.39.3-9ubuntu6.4
+< uuid-runtime	2.39.3-9ubuntu6.4
+---
+> util-linux	2.39.3-9ubuntu6.6
+> uuid-runtime	2.39.3-9ubuntu6.6
+750c759
+< wireless-regdb	2025.10.07-0ubuntu1~24.04.1
+---
+> wireless-regdb	2026.05.30-0ubuntu1~24.04.1
+757c766
+< xz-utils	5.6.1+really5.4.5-1ubuntu0.3
+---
+> xz-utils	5.6.1+really5.4.5-1ubuntu0.4
+759,760c768,769
+< zlib1g-dev:amd64	1:1.3.dfsg-3.1ubuntu2.1
+< zlib1g:amd64	1:1.3.dfsg-3.1ubuntu2.1
+---
+> zlib1g-dev:amd64	1:1.3.dfsg-3.1ubuntu2.3
+> zlib1g:amd64	1:1.3.dfsg-3.1ubuntu2.3
+789c798
+<   Installed: (none)
+---
+>   Installed: 1.0.2-3ubuntu0.1
+792c801
+<      1.0.2-3ubuntu0.1 500
+---
+>  *** 1.0.2-3ubuntu0.1 500
+793a803
+>         100 /var/lib/dpkg/status
+831a842
+> fail2ban.service
+835a847
+> packagekit.service
+843a856
+> systemd-timedated.service
+871a885
+> fail2ban.service enabled
+963c977,986
+< Status: inactive
+---
+> Status: active
+> Logging: on (low)
+> Default: deny (incoming), allow (outgoing), disabled (routed)
+> New profiles: skip
+> 
+> To                         Action      From
+> --                         ------      ----
+> 22/tcp                     ALLOW IN    Anywhere                   # wm ssh
+> 22/tcp (v6)                ALLOW IN    Anywhere (v6)              # wm ssh
+> 
+966c989
+< (None)
+---
+> ufw allow 22/tcp comment 'wm ssh'
+977c1000,1394
+< (nft list ruleset: the ruleset is empty)
+---
+> # Warning: table ip filter is managed by iptables-nft, do not touch!
+> # Warning: table ip6 filter is managed by iptables-nft, do not touch!
+> table ip filter {
+> 	chain YJ-FIREWALL-INPUT {
+> 		ip saddr <ipv4> tcp dport 22 counter packets 0 bytes 0 reject
+> 		ip saddr <ipv4> udp dport 22 counter packets 0 bytes 0 reject
+> 	}
+> 
+> 	chain INPUT {
+> 		type filter hook input priority filter; policy drop;
+> 		counter packets 51756 bytes 955156748 jump YJ-FIREWALL-INPUT
+> 		counter packets 46483 bytes 952807892 jump ufw-before-logging-input
+> 		counter packets 46483 bytes 952807892 jump ufw-before-input
+> 		counter packets 25 bytes 1038 jump ufw-after-input
+> 		counter packets 25 bytes 1038 jump ufw-after-logging-input
+> 		counter packets 25 bytes 1038 jump ufw-reject-input
+> 		counter packets 25 bytes 1038 jump ufw-track-input
+> 	}
+> 
+> 	chain ufw-before-logging-input {
+> 	}
+> 
+> 	chain ufw-before-logging-output {
+> 	}
+> 
+> 	chain ufw-before-logging-forward {
+> 	}
+> 
+> 	chain ufw-before-input {
+> 		iifname "lo" counter packets 244 bytes 43291 accept
+> 		ct state related,established counter packets 45582 bytes 952743559 accept
+> 		ct state invalid counter packets 40 bytes 2596 jump ufw-logging-deny
+> 		ct state invalid counter packets 40 bytes 2596 drop
+> 		ip protocol icmp icmp type destination-unreachable counter packets 0 bytes 0 accept
+> 		ip protocol icmp icmp type time-exceeded counter packets 0 bytes 0 accept
+> 		ip protocol icmp icmp type parameter-problem counter packets 0 bytes 0 accept
+> 		ip protocol icmp icmp type echo-request counter packets 583 bytes 16888 accept
+> 		udp sport 67 udp dport 68 counter packets 0 bytes 0 accept
+> 		counter packets 32 bytes 1478 jump ufw-not-local
+> 		ip daddr <ipv4> udp dport 5353 counter packets 0 bytes 0 accept
+> 		ip daddr <ipv4> udp dport 1900 counter packets 0 bytes 0 accept
+> 		counter packets 32 bytes 1478 jump ufw-user-input
+> 	}
+> 
+> 	chain ufw-before-output {
+> 		oifname "lo" counter packets 244 bytes 43291 accept
+> 		ct state related,established counter packets 25225 bytes 6013337 accept
+> 		counter packets 474 bytes 29170 jump ufw-user-output
+> 	}
+> 
+> 	chain ufw-before-forward {
+> 		ct state related,established counter packets 0 bytes 0 accept
+> 		ip protocol icmp icmp type destination-unreachable counter packets 0 bytes 0 accept
+> 		ip protocol icmp icmp type time-exceeded counter packets 0 bytes 0 accept
+> 		ip protocol icmp icmp type parameter-problem counter packets 0 bytes 0 accept
+> 		ip protocol icmp icmp type echo-request counter packets 0 bytes 0 accept
+> 		counter packets 0 bytes 0 jump ufw-user-forward
+> 	}
+> 
+> 	chain ufw-after-input {
+> 		udp dport 137 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+> 		udp dport 138 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+> 		tcp dport 139 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+> 		tcp dport 445 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+> 		udp dport 67 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+> 		udp dport 68 counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+> 		fib daddr type broadcast counter packets 0 bytes 0 jump ufw-skip-to-policy-input
+> 	}
+> 
+> 	chain ufw-after-output {
+> 	}
+> 
+> 	chain ufw-after-forward {
+> 	}
+> 
+> 	chain ufw-after-logging-input {
+> 		limit rate 3/minute burst 10 packets counter packets 23 bytes 958 log prefix "[UFW BLOCK] "
+> 	}
+> 
+> 	chain ufw-after-logging-output {
+> 	}
+> 
+> 	chain ufw-after-logging-forward {
+> 		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW BLOCK] "
+> 	}
+> 
+> 	chain ufw-reject-input {
+> 	}
+> 
+> 	chain ufw-reject-output {
+> 	}
+> 
+> 	chain ufw-reject-forward {
+> 	}
+> 
+> 	chain ufw-track-input {
+> 	}
+> 
+> 	chain ufw-track-output {
+> 		ip protocol tcp ct state new counter packets 428 bytes 26288 accept
+> 		ip protocol udp ct state new counter packets 45 bytes 3278 accept
+> 	}
+> 
+> 	chain ufw-track-forward {
+> 	}
+> 
+> 	chain OUTPUT {
+> 		type filter hook output priority filter; policy accept;
+> 		counter packets 25944 bytes 6086274 jump ufw-before-logging-output
+> 		counter packets 25944 bytes 6086274 jump ufw-before-output
+> 		counter packets 475 bytes 29646 jump ufw-after-output
+> 		counter packets 475 bytes 29646 jump ufw-after-logging-output
+> 		counter packets 475 bytes 29646 jump ufw-reject-output
+> 		counter packets 475 bytes 29646 jump ufw-track-output
+> 	}
+> 
+> 	chain FORWARD {
+> 		type filter hook forward priority filter; policy drop;
+> 		counter packets 0 bytes 0 jump ufw-before-logging-forward
+> 		counter packets 0 bytes 0 jump ufw-before-forward
+> 		counter packets 0 bytes 0 jump ufw-after-forward
+> 		counter packets 0 bytes 0 jump ufw-after-logging-forward
+> 		counter packets 0 bytes 0 jump ufw-reject-forward
+> 		counter packets 0 bytes 0 jump ufw-track-forward
+> 	}
+> 
+> 	chain ufw-logging-deny {
+> 		ct state invalid limit rate 3/minute burst 10 packets counter packets 36 bytes 2268 return
+> 		limit rate 3/minute burst 10 packets counter packets 4 bytes 328 log prefix "[UFW BLOCK] "
+> 	}
+> 
+> 	chain ufw-logging-allow {
+> 		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW ALLOW] "
+> 	}
+> 
+> 	chain ufw-skip-to-policy-input {
+> 		counter packets 0 bytes 0 drop
+> 	}
+> 
+> 	chain ufw-skip-to-policy-output {
+> 		counter packets 0 bytes 0 accept
+> 	}
+> 
+> 	chain ufw-skip-to-policy-forward {
+> 		counter packets 0 bytes 0 drop
+> 	}
+> 
+> 	chain ufw-not-local {
+> 		fib daddr type local counter packets 20 bytes 1046 return
+> 		fib daddr type multicast counter packets 12 bytes 432 return
+> 		fib daddr type broadcast counter packets 0 bytes 0 return
+> 		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 jump ufw-logging-deny
+> 		counter packets 0 bytes 0 drop
+> 	}
+> 
+> 	chain ufw-user-input {
+> 		tcp dport 22 counter packets 9 bytes 520 accept
+> 	}
+> 
+> 	chain ufw-user-output {
+> 	}
+> 
+> 	chain ufw-user-forward {
+> 	}
+> 
+> 	chain ufw-user-logging-input {
+> 	}
+> 
+> 	chain ufw-user-logging-output {
+> 	}
+> 
+> 	chain ufw-user-logging-forward {
+> 	}
+> 
+> 	chain ufw-user-limit {
+> 		limit rate 3/minute burst 5 packets counter packets 0 bytes 0 log prefix "[UFW LIMIT BLOCK] "
+> 		counter packets 0 bytes 0 reject
+> 	}
+> 
+> 	chain ufw-user-limit-accept {
+> 		counter packets 0 bytes 0 accept
+> 	}
+> }
+> table ip6 filter {
+> 	chain ufw6-before-logging-input {
+> 	}
+> 
+> 	chain ufw6-before-logging-output {
+> 	}
+> 
+> 	chain ufw6-before-logging-forward {
+> 	}
+> 
+> 	chain ufw6-before-input {
+> 		iifname "lo" counter packets 0 bytes 0 accept
+> 		rt type 0 counter packets 0 bytes 0 drop
+> 		ct state related,established counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type echo-reply counter packets 0 bytes 0 accept
+> 		ct state invalid counter packets 0 bytes 0 jump ufw6-logging-deny
+> 		ct state invalid counter packets 0 bytes 0 drop
+> 		meta l4proto ipv6-icmp icmpv6 type destination-unreachable counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type packet-too-big counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type time-exceeded counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type parameter-problem counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type echo-request counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type nd-router-solicit ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type nd-router-advert ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type nd-neighbor-solicit ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type nd-neighbor-advert ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-query counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-report counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-done counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 ip6 daddr <ipv6>/10 udp sport 547 udp dport 546 counter packets 0 bytes 0 accept
+> 		ip6 daddr <ipv6> udp dport 5353 counter packets 0 bytes 0 accept
+> 		ip6 daddr <ipv6> udp dport 1900 counter packets 0 bytes 0 accept
+> 		counter packets 0 bytes 0 jump ufw6-user-input
+> 	}
+> 
+> 	chain ufw6-before-output {
+> 		oifname "lo" counter packets 0 bytes 0 accept
+> 		rt type 0 counter packets 0 bytes 0 drop
+> 		ct state related,established counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type destination-unreachable counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type packet-too-big counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type time-exceeded counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type parameter-problem counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type echo-request counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type echo-reply counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type nd-router-solicit ip6 hoplimit 255 counter packets 8 bytes 448 accept
+> 		meta l4proto ipv6-icmp icmpv6 type nd-neighbor-advert ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type nd-neighbor-solicit ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type nd-router-advert ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-query counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-report counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp icmpv6 type mld-listener-done counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 255 counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+> 		ip6 saddr <ipv6>/10 meta l4proto ipv6-icmp xt match "icmp6" ip6 hoplimit 1 counter packets 0 bytes 0 accept
+> 		counter packets 0 bytes 0 jump ufw6-user-output
+> 	}
+> 
+> 	chain ufw6-before-forward {
+> 		rt type 0 counter packets 0 bytes 0 drop
+> 		ct state related,established counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type destination-unreachable counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type packet-too-big counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type time-exceeded counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type parameter-problem counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type echo-request counter packets 0 bytes 0 accept
+> 		meta l4proto ipv6-icmp icmpv6 type echo-reply counter packets 0 bytes 0 accept
+> 		counter packets 0 bytes 0 jump ufw6-user-forward
+> 	}
+> 
+> 	chain ufw6-after-input {
+> 		udp dport 137 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+> 		udp dport 138 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+> 		tcp dport 139 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+> 		tcp dport 445 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+> 		udp dport 546 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+> 		udp dport 547 counter packets 0 bytes 0 jump ufw6-skip-to-policy-input
+> 	}
+> 
+> 	chain ufw6-after-output {
+> 	}
+> 
+> 	chain ufw6-after-forward {
+> 	}
+> 
+> 	chain ufw6-after-logging-input {
+> 		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW BLOCK] "
+> 	}
+> 
+> 	chain ufw6-after-logging-output {
+> 	}
+> 
+> 	chain ufw6-after-logging-forward {
+> 		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW BLOCK] "
+> 	}
+> 
+> 	chain ufw6-reject-input {
+> 	}
+> 
+> 	chain ufw6-reject-output {
+> 	}
+> 
+> 	chain ufw6-reject-forward {
+> 	}
+> 
+> 	chain ufw6-track-input {
+> 	}
+> 
+> 	chain ufw6-track-output {
+> 		meta l4proto tcp ct state new counter packets 0 bytes 0 accept
+> 		meta l4proto udp ct state new counter packets 0 bytes 0 accept
+> 	}
+> 
+> 	chain ufw6-track-forward {
+> 	}
+> 
+> 	chain INPUT {
+> 		type filter hook input priority filter; policy drop;
+> 		counter packets 0 bytes 0 jump ufw6-before-logging-input
+> 		counter packets 0 bytes 0 jump ufw6-before-input
+> 		counter packets 0 bytes 0 jump ufw6-after-input
+> 		counter packets 0 bytes 0 jump ufw6-after-logging-input
+> 		counter packets 0 bytes 0 jump ufw6-reject-input
+> 		counter packets 0 bytes 0 jump ufw6-track-input
+> 	}
+> 
+> 	chain OUTPUT {
+> 		type filter hook output priority filter; policy accept;
+> 		counter packets 8 bytes 448 jump ufw6-before-logging-output
+> 		counter packets 8 bytes 448 jump ufw6-before-output
+> 		counter packets 0 bytes 0 jump ufw6-after-output
+> 		counter packets 0 bytes 0 jump ufw6-after-logging-output
+> 		counter packets 0 bytes 0 jump ufw6-reject-output
+> 		counter packets 0 bytes 0 jump ufw6-track-output
+> 	}
+> 
+> 	chain FORWARD {
+> 		type filter hook forward priority filter; policy drop;
+> 		counter packets 0 bytes 0 jump ufw6-before-logging-forward
+> 		counter packets 0 bytes 0 jump ufw6-before-forward
+> 		counter packets 0 bytes 0 jump ufw6-after-forward
+> 		counter packets 0 bytes 0 jump ufw6-after-logging-forward
+> 		counter packets 0 bytes 0 jump ufw6-reject-forward
+> 		counter packets 0 bytes 0 jump ufw6-track-forward
+> 	}
+> 
+> 	chain ufw6-logging-deny {
+> 		ct state invalid limit rate 3/minute burst 10 packets counter packets 0 bytes 0 return
+> 		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW BLOCK] "
+> 	}
+> 
+> 	chain ufw6-logging-allow {
+> 		limit rate 3/minute burst 10 packets counter packets 0 bytes 0 log prefix "[UFW ALLOW] "
+> 	}
+> 
+> 	chain ufw6-skip-to-policy-input {
+> 		counter packets 0 bytes 0 drop
+> 	}
+> 
+> 	chain ufw6-skip-to-policy-output {
+> 		counter packets 0 bytes 0 accept
+> 	}
+> 
+> 	chain ufw6-skip-to-policy-forward {
+> 		counter packets 0 bytes 0 drop
+> 	}
+> 
+> 	chain ufw6-user-input {
+> 		tcp dport 22 counter packets 0 bytes 0 accept
+> 	}
+> 
+> 	chain ufw6-user-output {
+> 	}
+> 
+> 	chain ufw6-user-forward {
+> 	}
+> 
+> 	chain ufw6-user-logging-input {
+> 	}
+> 
+> 	chain ufw6-user-logging-output {
+> 	}
+> 
+> 	chain ufw6-user-logging-forward {
+> 	}
+> 
+> 	chain ufw6-user-limit {
+> 		limit rate 3/minute burst 5 packets counter packets 0 bytes 0 log prefix "[UFW LIMIT BLOCK] "
+> 		counter packets 0 bytes 0 reject
+> 	}
+> 
+> 	chain ufw6-user-limit-accept {
+> 		counter packets 0 bytes 0 accept
+> 	}
+> }
+983c1400
+< allowagentforwarding yes
+---
+> allowagentforwarding no
+1031c1448
+< logingracetime 120
+---
+> logingracetime 30
+1038c1455
+< passwordauthentication yes
+---
+> passwordauthentication no
+1042c1459
+< permitrootlogin yes
+---
+> permitrootlogin no
+1072c1489
+< x11forwarding yes
+---
+> x11forwarding no
+1088a1506,1514
+> == /etc/ssh/sshd_config.d/00-wm-hardening.conf  (mode/owner 644 root:root, sha256 f919f80c48975a3f6b7c7a7d9efe53ee08a37f8596472f89915df55f85ed6d14)
+> PasswordAuthentication no
+> KbdInteractiveAuthentication no
+> PermitRootLogin no
+> PubkeyAuthentication yes
+> PermitEmptyPasswords no
+> X11Forwarding no
+> AllowAgentForwarding no
+> LoginGraceTime 30
+1194c1620
+< == number of accounts in total: 36
+---
+> == number of accounts in total: 37
+1204c1630
+< wm: (absent)
+---
+> wm:x:988:
+1228,1232c1654,1667
+< (no /srv/worldmodel)
+< 
+< (no /srv/worldmodel)
+< 
+< (no wm-* tools installed in /usr/local/sbin)
+---
+> == type mode owner:group size path
+> d 2750 ubuntu:wm 4096 /srv/worldmodel
+> d 2750 ubuntu:wm 4096 /srv/worldmodel/releases
+> d 2770 ubuntu:wm 4096 /srv/worldmodel/shared
+> 
+> == files with a sensitive-looking name: listed, NOT hashed
+> == files larger than 268435456 bytes: listed, NOT hashed
+> == symlinks
+> == sha256 of the remaining regular files
+> 
+> 755 root:root 549501fa4e03067fc8f4a04124719019be250feadb98e88afd78db0b37a7b3d4 /usr/local/sbin/wm-harden
+> 755 root:root 8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2 /usr/local/sbin/wm-snapshot
+> 755 root:root 16f2429aef165d813cc25c74f44e58d38aec60dcc90fab6d028944f16e8ca9c3 /usr/local/sbin/wm-snapshot-diff
+> 755 root:root 2aed8c9f5089f8a031da12038bf911accbbe90dbd359ffc0dbc2a158e526b59a /usr/local/sbin/wm-verify
+1237a1673,1680
+> # /etc/systemd/journald.conf.d/00-wm.conf
+> [Journal]
+> Storage=persistent
+> SystemMaxUse=1G
+> SystemKeepFree=2G
+> SystemMaxFileSize=64M
+> MaxFileSec=1day
+> MaxRetentionSec=90day
+1268a1712
+> 47793adc7efd5c7d0afdf1c616386d0cad50fc6056f9b7172f4a48b3705d1749  /etc/apt/apt.conf.d/52wm-unattended-upgrades
+1278c1722,1725
+< Unattended-Upgrade::Allowed-Origins:: "${distro_id}:${distro_codename}";
+---
+> Unattended-Upgrade::Allowed-Origins:: "${distro_id}:${distro_codename}-security";
+> Unattended-Upgrade::Allowed-Origins:: "${distro_id}ESM:${distro_codename}-infra-security";
+> Unattended-Upgrade::Allowed-Origins:: "${distro_id}ESMApps:${distro_codename}-apps-security";
+> Unattended-Upgrade::Automatic-Reboot "false";
+1288c1735
+< /dev/vda2      ext4  118G  5.3G  108G   5% /
+---
+> /dev/vda2      ext4  118G  5.9G  108G   6% /
+1291c1738
+< Mem:            7685         626        6182           2        1130        7059
+---
+> Mem:            7685         747        4449           2        2792        6937
+1298c1745
+< Archived and active journals take up 16.0M in the file system.
+---
+> Archived and active journals take up 28.7M in the file system.
+1300,1306c1747,1767
+< 18M	/var/log
+< 
+< (fail2ban is not installed)
+< 
+<                Local time: Sun 2026-11-15 10:15:39 CST
+<            Universal time: Sun 2026-11-15 02:15:39 UTC
+<                  RTC time: Sun 2026-11-15 02:15:39
+---
+> 12K	/srv/worldmodel
+> 35M	/var/log
+> 332K	/var/lib/wm-ops
+> 
+> fail2ban.service: enabled=enabled active=active
+> Status
+> |- Number of jail:	1
+> `- Jail list:	sshd
+> Status for the jail: sshd
+> |- Filter
+> |  |- Currently failed:	0
+> |  |- Total failed:	0
+> |  `- Journal matches:	_SYSTEMD_UNIT=sshd.service + _COMM=sshd
+> `- Actions
+>    |- Currently banned:	0
+>    |- Total banned:	0
+> (the list of banned addresses is left out on purpose)
+> 
+>                Local time: Sun 2026-11-15 21:51:59 CST
+>            Universal time: Sun 2026-11-15 13:51:59 UTC
+>                  RTC time: Sun 2026-11-15 13:51:59
+1343c1804
+< Reference ID    : A9FE0050 (<ipv4>)
+---
+> Reference ID    : A9FE0053 (<ipv4>)
+1345,1354c1806,1815
+< Ref time (UTC)  : Sun Nov 15 02:09:36 2026
+< System time     : 0.000091957 seconds slow of NTP time
+< Last offset     : -0.000039111 seconds
+< RMS offset      : 0.000033124 seconds
+< Frequency       : 1.322 ppm slow
+< Residual freq   : -0.000 ppm
+< Skew            : 0.007 ppm
+< Root delay      : 0.002424387 seconds
+< Root dispersion : 0.017327940 seconds
+< Update interval : 1043.7 seconds
+---
+> Ref time (UTC)  : Sun Nov 15 13:35:21 2026
+> System time     : 0.000040479 seconds fast of NTP time
+> Last offset     : +0.000022131 seconds
+> RMS offset      : 0.000076965 seconds
+> Frequency       : 1.428 ppm slow
+> Residual freq   : +0.000 ppm
+> Skew            : 0.017 ppm
+> Root delay      : 0.002612531 seconds
+> Root dispersion : 0.017991211 seconds
+> Update interval : 1044.2 seconds
+1359,1363c1820,1824
+< ^+ <ipv4>                  2  10   377   349   +220us[ +220us] +/-   23ms
+< ^* <ipv4>                  2  10   377   364   -371us[ -410us] +/-   27ms
+< ^+ <ipv4>                  2  10   377   463   -681us[ -720us] +/-   19ms
+< ^+ <ipv4>                  2  10   377   697   -224us[ -262us] +/-   30ms
+< ^+ <ipv4>                  2  10   377   583    +25us[  -14us] +/-   25ms
+---
+> ^+ <ipv4>                  2  10   377   812   +211us[ +211us] +/-   24ms
+> ^+ <ipv4>                  2  10   377   795    -33us[  -33us] +/-   21ms
+> ^+ <ipv4>                  2  10   377   301    +95us[  +95us] +/-   31ms
+> ^+ <ipv4>                  2  10   377   340   +341us[ +341us] +/-   22ms
+> ^* <ipv4>                  2  10   377   997   +156us[ +178us] +/-   21ms
+1366,1368c1827,1829
+< NEXT                           LEFT LAST                              PASSED UNIT                    ACTIVATES
+< Sun 2026-11-15 14:17:23 CST 4h 1min Sat 2026-11-14 19:53:45 CST      14h ago apt-daily.timer         apt-daily.service
+< Mon 2026-11-16 06:46:46 CST     20h Sun 2026-11-15 06:55:39 CST 3h 20min ago apt-daily-upgrade.timer apt-daily-upgrade.service
+---
+> NEXT                        LEFT LAST                           PASSED UNIT                    ACTIVATES
+> Mon 2026-11-16 06:55:13 CST   9h Sun 2026-11-15 06:55:39 CST   14h ago apt-daily-upgrade.timer apt-daily-upgrade.service
+> Mon 2026-11-16 11:13:59 CST  13h Sun 2026-11-15 21:37:53 CST 14min ago apt-daily.timer         apt-daily.service
+1372,1375c1833,1836
+< 2026-11-14 19:53 download-upgradeable-stamp
+< 2026-11-15 06:55 unattended-upgrades-stamp
+< 2026-11-14 19:53 update-stamp
+< 2026-11-14 19:53 update-success-stamp
+---
+> 2026-11-15 14:17 download-upgradeable-stamp
+> 2026-11-15 21:50 unattended-upgrades-stamp
+> 2026-11-15 14:17 update-stamp
+> 2026-11-15 21:38 update-success-stamp
+1378,1383c1839,1853
+< 2026-11-15 06:55:40,596 WARNING Could not figure out development release: Distribution data outdated. Please check for an update for distro-info-data. See /usr/share/doc/distro-info-data/README.Debian for details.
+< 2026-11-15 06:55:40,596 INFO Starting unattended upgrades script
+< 2026-11-15 06:55:40,596 INFO Allowed origins are: o=Ubuntu,a=noble
+< 2026-11-15 06:55:40,597 INFO Initial blacklist: 
+< 2026-11-15 06:55:40,597 INFO Initial whitelist (not strict): 
+< 2026-11-15 06:55:47,697 INFO No packages found that can be upgraded unattended and no pending auto-removals
+---
+> 2026-11-15 21:41:12,141 DEBUG Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/mirrors.tencentyun.com_ubuntu_dists_noble_main_i18n_Translation-en'  a=noble,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='' site='mirrors.tencentyun.com' IndexType='Debian Translation Index' Size=3095169 ID:1>
+> 2026-11-15 21:41:12,141 DEBUG Applying pinning: PkgFilePin(id=0, priority=-32768)
+> 2026-11-15 21:41:12,141 DEBUG Applying pin -32768 to package_file: <apt_pkg.PackageFile object: filename:'/var/lib/apt/lists/mirrors.tencentyun.com_ubuntu_dists_noble_main_binary-amd64_Packages'  a=noble,c=main,v=24.04,o=Ubuntu,l=Ubuntu arch='amd64' site='mirrors.tencentyun.com' IndexType='Debian Package Index' Size=7165069 ID:0>
+> 2026-11-15 21:41:12,141 DEBUG left to upgrade set()
+> 2026-11-15 21:41:12,141 INFO All upgrades installed
+> 2026-11-15 21:41:12,541 DEBUG InstCount=0 DelCount=0 BrokenCount=0
+> 2026-11-15 21:41:12,541 INFO The list of kept packages can't be calculated in dry-run mode.
+> 2026-11-15 21:41:12,812 WARNING Could not figure out development release: Distribution data outdated. Please check for an update for distro-info-data. See /usr/share/doc/distro-info-data/README.Debian for details.
+> 2026-11-15 21:41:12,812 INFO Starting unattended upgrades script
+> 2026-11-15 21:41:12,813 INFO Allowed origins are: o=Ubuntu,a=noble-security, o=UbuntuESMApps,a=noble-apps-security, o=UbuntuESM,a=noble-infra-security
+> 2026-11-15 21:41:12,813 INFO Initial blacklist: 
+> 2026-11-15 21:41:12,813 INFO Initial whitelist (not strict): 
+> 2026-11-15 21:42:43,656 INFO Packages that will be upgraded: apt apt-utils bind9-dnsutils bind9-host bind9-libs bsdextrautils bsdutils bzip2 ca-certificates coreutils cpio curl diffutils dirmngr distro-info-data dracut-install eject fdisk gawk gir1.2-glib-2.0 gir1.2-packagekitglib-1.0 git git-man gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpgconf gpgsm gpgv keyboxd krb5-locales libaom3 libapt-pkg6.0t64 libarchive13t64 libattr1 libblkid1 libbrotli1 libbz2-1.0 libc-bin libc-dev-bin libc-devtools libc6 libc6-dev libcurl3t64-gnutls libcurl4t64 libde265-0 libdrm-common libdrm2 libevent-core-2.1-7t64 libexpat1 libfdisk1 libfreetype6 libgcrypt20 libglib2.0-0t64 libglib2.0-bin libglib2.0-data libgssapi-krb5-2 libheif-plugin-aomdec libheif-plugin-aomenc libheif-plugin-libde265 libheif1 libisns0t64 libk5crypto3 libkrb5-3 libkrb5support0 liblzma5 libmount1 libmspack0t64 libncurses6 libncursesw6 libnss-systemd libnss3 libp11-kit0 libpackagekit-glib2-18 libpam-modules libpam-modules-bin libpam-runtime libpam-systemd libpam0g libpcap0.8t64 libpcre2-8-0 libperl5.38t64 libpng16-16t64 libpolkit-agent-1-0 libpolkit-gobject-1-0 libpython3.12-minimal libpython3.12-stdlib libpython3.12t64 libsgutils2-1.46-2 libsmartcols1 libsqlite3-0 libssh-4 libssl-dev libssl3t64 libsystemd-shared libsystemd0 libtinfo6 libudev1 libudisks2-0 libuuid1 libx11-6 libx11-data libxml2 libxpm4 linux-firmware linux-generic linux-headers-generic linux-image-generic linux-libc-dev linux-tools-common locales mount ncurses-base ncurses-bin ncurses-term openssh-client openssh-server openssh-sftp-server openssl packagekit packagekit-tools perl perl-base perl-modules-5.38 polkitd pollinate python3-jwt python3-pyasn1 python3-requests python3-twisted python3-urllib3 python3.12 python3.12-minimal rsync rsyslog sg3-utils sg3-utils-udev snapd sudo systemd systemd-dev systemd-resolved systemd-sysv tzdata tzdata-legacy udev udisks2 util-linux uuid-runtime wireless-regdb xz-utils zlib1g zlib1g-dev
+> 2026-11-15 21:42:43,656 INFO Writing dpkg log to /var/log/unattended-upgrades/unattended-upgrades-dpkg.log
+> 2026-11-15 21:50:46,834 INFO All upgrades installed
+1385c1855,1858
+< absent
+---
+> present
+> libc6
+> linux-image-6.8.0-149-generic
+> linux-base
+1387c1860
+< upgradable packages: 216
+---
+> upgradable packages: 72
+1390,1391c1863,1864
+< log lines read: 25
+< failed password: 0
+---
+> log lines read: 383
+> failed password: 68
+1393,1395c1866,1868
+< invalid user: 0
+< authentication failure: 0
+< closed before login: 0
+---
+> invalid user: 47
+> authentication failure: 68
+> closed before login: 69

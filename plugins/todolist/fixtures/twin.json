@@ -1,0 +1,4 @@
+{
+  "note": "待办插件没有隐藏真值；这是 plugin.world.perception.twin_fixtures 要求的占位夹具（装之前离线跑：差在她感知不到的地方，行为要逐条相同）。",
+  "fixtures": []
+}

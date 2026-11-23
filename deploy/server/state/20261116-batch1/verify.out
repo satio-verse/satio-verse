@@ -1,0 +1,79 @@
+wm-verify 2026-11-16T18:09:58Z ops_user=ubuntu
+PASS   ssh.passwordauthentication passwordauthentication no
+PASS   ssh.kbdinteractiveauthentication kbdinteractiveauthentication no
+PASS   ssh.permitrootlogin        permitrootlogin no
+PASS   ssh.pubkeyauthentication   pubkeyauthentication yes
+PASS   ssh.no-allowusers          no user/group restriction in sshd (the web-terminal SSH channel keeps working)
+PASS   ssh.sftp                   sftp subsystem present (scp uses the SFTP protocol)
+PASS   ssh.maxsessions            maxsessions 10
+PASS   ssh.include                sshd_config includes sshd_config.d/*.conf
+PASS   ssh.dropin                 /etc/ssh/sshd_config.d/00-wm-hardening.conf present
+INFO   ssh.other-dropin           50-cloud-init.conf: PasswordAuthentication yes
+INFO   ssh.other-dropin           50-cloud-init.conf enables password login but sorts after 00-wm-hardening.conf, so ours wins (first value wins)
+PASS   ssh.main-pwauth            main sshd_config has no active 'PasswordAuthentication yes'
+PASS   ssh.main-unchanged         main sshd_config is identical to the baseline recorded by wm-harden
+PASS   ssh.service                ssh service or socket is active
+PASS   ssh.password-probe         local password-only login attempt was refused; the server offers publickey only
+PASS   firewall.active            ufw is active
+PASS   firewall.defaults          default deny incoming, allow outgoing
+PASS   firewall.rules             ufw allows only 22/tcp inbound
+PASS   firewall.listeners         no TCP listener reachable from outside except port 22
+INFO   firewall.udp               non-loopback UDP listeners: 10.0.0.5%eth0:68 
+MANUAL firewall.console           Lighthouse console firewall must allow only port 22 as well (close the default port 80 first); the server cannot see it
+PASS   updates.package            unattended-upgrades is installed
+PASS   updates.Update-Package-Lists APT::Periodic::Update-Package-Lists = 1
+PASS   updates.Unattended-Upgrade APT::Periodic::Unattended-Upgrade = 1
+PASS   updates.Automatic-Reboot   Unattended-Upgrade::Automatic-Reboot = false
+PASS   updates.origins            only security origins are allowed
+PASS   updates.timers             apt-daily and apt-daily-upgrade timers are enabled
+PASS   updates.recent-run         unattended-upgrades wrote its log within the last 48 hours
+PASS   fail2ban.service           fail2ban is active
+PASS   fail2ban.jail              jail sshd is running
+PASS   fail2ban.backend           jail sshd reads the systemd journal
+PASS   fail2ban.maxretry          maxretry 5
+PASS   fail2ban.findtime          findtime 600
+PASS   fail2ban.bantime           bantime 600
+PASS   fail2ban.mode              mode = normal in /etc/fail2ban/jail.d/90-wm-sshd.local
+INFO   fail2ban.status            Status for the jail: sshd |- Filter | |- Currently failed: 0 | |- Total failed: 6 | `- Journal matches: _SYSTEMD_UNIT=sshd.service + _COMM=sshd `- Actions |- Currently banned: 0 |- Total banned: 0 `- Banned IP list: 
+PASS   time.chrony                chrony is active
+PASS   time.timesyncd             systemd-timesyncd is not active
+PASS   time.server1               time1.tencentyun.com is configured as a server
+PASS   time.server2               time2.tencentyun.com is configured as a server
+PASS   time.server3               time3.tencentyun.com is configured as a server
+PASS   time.server4               time4.tencentyun.com is configured as a server
+PASS   time.server5               time5.tencentyun.com is configured as a server
+PASS   time.sources               chrony knows 5 time sources
+PASS   time.selected              at least one source is selected (^* or ^+)
+PASS   time.offset                system time is 0.000020644s from NTP time (limit 0.1s)
+PASS   time.leap                  leap status Normal
+PASS   time.synchronized          timedatectl: NTPSynchronized=yes
+PASS   logs.journal-dir           /var/log/journal exists (journal is stored on disk)
+PASS   logs.storage               journald Storage=persistent
+PASS   logs.size-limit            journald SystemMaxUse is set
+INFO   logs.disk-usage            Archived and active journals take up 45.2M in the file system.
+PASS   logs.rotate                logrotate config for /var/log/wm-ops present
+PASS   accounts.ops-user          user ubuntu exists
+PASS   accounts.ops-keys          ubuntu has 1 authorized key(s): (RSA) 
+INFO   accounts.ops-sudo          sudo rights of ubuntu (accepted by design, README section 2):  (ALL : ALL) ALL (ALL) NOPASSWD: ALL (ALL) NOPASSWD: ALL (ALL : ALL) NOPASSWD: ALL 
+INFO   accounts.sudoers-files     files in /etc/sudoers.d: README 90-cloud-init-users 
+INFO   accounts.ops-password      password status of ubuntu: P (L locked, P set, NP none)
+INFO   accounts.other-login       other accounts with a login shell (the Tencent Cloud image has lighthouse, with passwordless sudo): lighthouse 
+PASS   accounts.wm-shell          user wm cannot log in (shell /usr/sbin/nologin)
+PASS   accounts.wm-system         wm is a system account (uid 999)
+PASS   accounts.wm-keys           wm has no authorized_keys
+INFO   accounts.root              root password status: L (L means locked); root login over ssh is off anyway
+PASS   dirs.worldmodel            /srv/worldmodel 2750 ubuntu:wm
+PASS   dirs.releases              /srv/worldmodel/releases 2750 ubuntu:wm
+PASS   dirs.shared                /srv/worldmodel/shared 2770 ubuntu:wm
+PASS   tencent.tat_agent          tat_agent is running (console web-terminal login and online key/password changes depend on it)
+INFO   tencent.processes          processes under /usr/local/qcloud: YDLive YDService sgagent tat_agent 
+PASS   tools.wm-harden            /usr/local/sbin/wm-harden 755 root:root sha256=549501fa4e03067fc8f4a04124719019be250feadb98e88afd78db0b37a7b3d4
+PASS   tools.wm-snapshot          /usr/local/sbin/wm-snapshot 755 root:root sha256=8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2
+PASS   tools.wm-snapshot-diff     /usr/local/sbin/wm-snapshot-diff 755 root:root sha256=16f2429aef165d813cc25c74f44e58d38aec60dcc90fab6d028944f16e8ca9c3
+PASS   tools.wm-verify            /usr/local/sbin/wm-verify 755 root:root sha256=2aed8c9f5089f8a031da12038bf911accbbe90dbd359ffc0dbc2a158e526b59a
+INFO   tools.snapshots            2 state snapshot(s) in /var/lib/wm-ops
+MANUAL console.baseline-snapshot  Console: a baseline snapshot exists, and a new one was taken before this change (instance details -> Snapshots)
+MANUAL console.alerts             Console: monthly budget and traffic alerts are set and a test alert was received
+MANUAL console.mfa                Console: main account has MFA, login protection and operation protection
+MANUAL ssh.second-window          Open a NEW ssh window and confirm key login works before closing the old one
+SUMMARY pass=60 fail=0 info=12 manual=5

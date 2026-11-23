@@ -1,0 +1,8 @@
+{
+  "id": "moon",
+  "name": "看月相",
+  "purpose": "算出某一天大概是什么月相 (例子: 不联网)",
+  "version": "0.1.0",
+  "network": [],
+  "tools": [{"name": "phase", "description": "某一天的月相"}]
+}

@@ -1,0 +1,276 @@
+/* 桌宠页面: 背景全透明, 只有角色、对话栏和侧菜单可见 (后两者见 ui-shell.css) */
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+#stage {
+  position: fixed;
+  inset: 0;
+}
+
+#stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 小屋模式 (pet.js 带 room=1): #stage 变成窗口下半部分的一张圆角卡片, 里面是她的小屋; 位置由 pet.js 的 ROOM_CARD 设 */
+body.room-mode #stage {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  cursor: grab;
+}
+
+body.room-mode #stage canvas.dragging {
+  cursor: grabbing;
+}
+
+/* 卡片顶上的把手: 按住拖动挪桌宠 (卡片里拖动是看房间) */
+.room-bar {
+  position: fixed;
+  top: calc(50% + 4px);
+  left: calc(50% - 22px);  /* 卡片的中线 (右边留了一条放侧菜单) */
+  transform: translateX(-50%);
+  padding: 3px 14px;
+  border-radius: 99px;
+  background: rgba(30, 24, 22, 0.66);
+  color: #fdf2f4;
+  font-size: 12px;
+  cursor: move;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* 左下角: 她在做什么 */
+.room-status {
+  position: fixed;
+  left: 18px;
+  bottom: 16px;
+  max-width: 70%;
+  padding: 4px 11px;
+  border-radius: 99px;
+  background: rgba(30, 24, 22, 0.66);
+  color: #fdf2f4;
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 她想起来的事 / 今天的日记: 小屋上面那块空处的一张便签卡 (Bento 风格) */
+.room-memory {
+  position: fixed;
+  left: 14px;
+  right: 60px;
+  max-width: 340px;
+  padding: 10px 13px 11px;
+  border-radius: 14px;
+  background: rgba(253, 248, 238, 0.94);
+  color: #4a3b34;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  font-size: 12.5px;
+  line-height: 1.55;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+.room-memory.show {
+  opacity: 1;
+  transform: none;
+}
+
+.room-memory-title {
+  margin-bottom: 3px;
+  color: #a07a62;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+/* 她在整理记忆这类要等一会儿的事: 状态行前面一个转圈 */
+.room-status.working::before {
+  content: '';
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 6px;
+  border: 2px solid rgba(253, 242, 244, 0.35);
+  border-top-color: #fdf2f4;
+  border-radius: 50%;
+  vertical-align: -1px;
+  animation: room-spin 0.9s linear infinite;
+}
+
+@keyframes room-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 小屋卡片左上角: 心情牌 (点开: 五项需求、库存、投喂) */
+.room-mood {
+  position: fixed;
+  top: calc(50% + 8px);
+  left: 16px;
+  max-width: calc(100% - 96px);
+  color: #fdf2f4;
+  font-size: 12px;
+}
+
+.mood-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 11px 3px 8px;
+  border: none;
+  border-radius: 99px;
+  background: rgba(30, 24, 22, 0.66);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.mood-chip:hover,
+.room-mood.open .mood-chip {
+  background: rgba(46, 36, 33, 0.85);
+}
+
+.mood-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.mood-card {
+  margin-top: 6px;
+  width: 196px;
+  padding: 9px 10px 10px;
+  border-radius: 12px;
+  background: rgba(30, 24, 22, 0.86);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
+}
+
+.mood-bar {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.mood-bar i {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.mood-bar b {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: #9fcf9a;
+  transition: width 0.6s ease;
+}
+
+.mood-bar.low b {
+  background: #f08a8a;
+}
+
+.mood-stock {
+  margin: 7px 0 8px;
+  color: rgba(253, 242, 244, 0.7);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.mood-extra {
+  margin: -2px 0 8px;
+  color: rgba(253, 242, 244, 0.7);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.mood-feed {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.mood-feed button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 5px 0 4px;
+  border: none;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.09);
+  color: inherit;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.mood-feed button span {
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.mood-feed button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.mood-feed button.fed {
+  transform: scale(0.92);
+  background: rgba(159, 207, 154, 0.35);
+}
+
+/* 启动画面: 角色加载好以前在窗口下半部分 (她站的地方) 显示品牌图, 淡入; 页面就绪时直接收掉 (不淡出, 免得自检刚就绪就量透明区域时量到它) */
+.pet-splash {
+  position: fixed;
+  left: 50%;
+  bottom: 7%;
+  width: min(62vw, 340px);
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  animation: pet-splash-in 0.6s ease 0.15s forwards;
+}
+
+.pet-splash img {
+  display: block;
+  width: 100%;
+}
+
+@keyframes pet-splash-in {
+  to { opacity: 1; }
+}
+/* 全屏时露出对话栏 (2026-11-07, 宿主发 {t:"peek"}): 用户全屏看视频时她陪看说的那句 —— 角色、侧菜单、思考气泡都不显示,
+   对话栏和"她在陪你看"提示条挪到窗口右下角 (屏幕右下角、任务栏上面). 静音时宿主不放声音, 就只有这个气泡 */
+body.peek #stage {
+  visibility: hidden;
+}
+
+body.peek .dock,
+body.peek #think,
+body.peek .persona-menu {
+  display: none !important;
+}
+
+body.peek .talk-stack,
+body.peek .talk-stack.lean {
+  top: auto;
+  left: auto;
+  right: 10px;
+  bottom: 12px;
+  flex-direction: column;
+  align-items: flex-end;
+}

@@ -1,0 +1,44 @@
+__pycache__/
+.pytest_cache/
+logs/
+models/
+runtime/
+downloads/
+config/local.json
+*.part
+third_party/
+
+# --- 2026-11-17 S.A.T.I.O Verse 私有备份：只收源码 ---
+# 第三方二进制 / 构建产物 / WebView2 缓存
+desktop/third_party/
+desktop/build/
+Bot用/
+backups/
+downloads/
+exa-results/
+character_models/
+--probe-selfcheck/
+.riff_cache/
+.ruff_cache/
+# 大二进制
+deploy/server/coscli-*
+*.exe
+*.dll
+*.msi
+*.zip
+*.db
+*.glb
+*.vrm
+*.moc3
+*.model3.json
+# 备份与草稿
+*.bak
+*.bak-*
+*.before
+*.before.md.bak
+*.orig
+*~
+# 个人配置（含 tokens）与人格草稿备份
+config/local.json
+config/local.json.bak*
+config/*.md.bak*

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WorldModel v1 原型</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/static/vendor/three/build/three.module.js",
+        "three/addons/": "/static/vendor/three/examples/jsm/",
+        "@pixiv/three-vrm": "/static/vendor/three-vrm/three-vrm.module.min.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="top">
+    <h1>WorldModel v1 <span>意图先行 · 流式语音闭环</span></h1>
+    <div id="status" class="status"></div>
+  </header>
+
+  <main class="layout">
+    <section class="stage card" id="stage">
+      <canvas id="avatar" aria-label="角色"></canvas>
+      <div class="stage-tools">
+        <select id="avatar-select" aria-label="选择角色"></select>
+        <select id="camera-mode" aria-label="镜头">
+          <option value="auto">镜头: 自动</option>
+          <option value="portrait">镜头: 近景</option>
+          <option value="room">镜头: 全景</option>
+        </select>
+        <label class="check stage-check" title="显示支撑多边形、质心投影和关节可行域 (绿: 余量充足, 黄: 接近极限, 红: 越界)"><input type="checkbox" id="kin-toggle"> 约束</label>
+        <span id="avatar-status" class="avatar-status"></span>
+        <input type="file" id="vrm-file" accept=".vrm" hidden>
+      </div>
+      <div id="kin-panel" class="kin-panel" hidden></div>
+      <div class="hpe-box"><canvas id="hpe-preview" width="192" height="144" hidden></canvas><div id="hpe-label" class="hpe-label"></div></div>
+    </section>
+
+    <section class="talk card">
+      <div id="chat" class="chat" aria-live="polite"></div>
+      <div id="partial" class="partial"></div>
+      <div id="examples" class="examples"></div>
+      <form id="composer" class="composer">
+        <input id="text" type="text" autocomplete="off" placeholder="输入一句话, 或打开麦克风说话">
+        <button type="submit" class="primary">发送</button>
+      </form>
+      <div class="controls">
+        <button type="button" id="mic">打开麦克风</button>
+        <span id="mic-level" class="meter" aria-hidden="true"></span>
+        <button type="button" id="interrupt">打断</button>
+        <button type="button" id="camera" title="用摄像头看你的姿势 (在浏览器里本地识别, 画面不上传)">摄像头</button>
+        <label class="check" title="没有耳机时打开: 角色说话期间上行静音, 防止把自己的声音当成插话"><input type="checkbox" id="half-duplex"> 半双工</label>
+        <button type="button" id="reset" class="ghost">清空对话</button>
+      </div>
+    </section>
+
+    <section class="latency card" id="latency">
+      <div class="latency-head">
+        <h2>延迟</h2>
+        <span id="clock" class="muted"></span>
+      </div>
+      <div class="kpis" data-kpis></div>
+      <div class="muted small" data-meta>还没有数据</div>
+      <div class="waterfall" data-waterfall></div>
+      <h3>本次会话</h3>
+      <table class="stats">
+        <thead><tr><th>指标</th><th class="num">P50</th><th class="num">P95</th><th class="num">n</th></tr></thead>
+        <tbody data-stats></tbody>
+      </table>
+      <div id="resources" class="resources"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+  <script type="module" src="/static/app.js"></script>
+</body>
+</html>

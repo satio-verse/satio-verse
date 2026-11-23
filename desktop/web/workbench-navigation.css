@@ -1,0 +1,77 @@
+/* Workspace and conversation controls share the workbench's light/dark tokens. */
+.session-row { position:relative;display:flex;align-items:center;min-width:0;border-radius:9px;margin:1px 0; }
+.session-row:hover,.session-row:focus-within { background:var(--code); }
+.session-row.selected { background:var(--accent-soft); }
+.session-row .sess { flex:1;min-width:0;padding-right:5px;background:transparent; }
+.session-row .sess.sel { background:transparent; }
+.session-row .sess .t { min-width:0; }
+.session-row.unread .sess .t { font-weight:650; }
+.session-unread { width:5px;height:5px;background:var(--accent);border-radius:50%;flex:none; }
+.session-pin { width:12px;height:12px;flex:none;color:var(--muted); }
+.session-more { display:grid;place-items:center;flex:none;width:27px;height:27px;border:0;border-radius:6px;background:none;color:var(--muted);cursor:pointer;opacity:0;margin-right:4px; }
+.session-row:hover .session-more,.session-row:focus-within .session-more,.session-more[aria-expanded="true"] { opacity:1; }
+.session-more:hover,.session-more:focus-visible { color:var(--text);background:var(--panel); }
+.session-row:hover .when,.session-row:focus-within .when { color:var(--muted); }
+.archive-entry { display:flex;align-items:center;gap:8px;background:none;border:0;color:var(--muted);text-align:left;cursor:pointer;padding:9px 11px;border-radius:8px;margin:4px 0;font-size:12px; }
+.archive-entry:hover { color:var(--text);background:var(--code); }
+.archive-entry span:last-child { margin-left:auto;font-size:11px; }
+.composer-scope { display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto -1px;padding:9px 14px;background:var(--code);border:1px solid var(--line);border-radius:14px 14px 0 0; }
+.composer-scope .pill.ws { max-width:min(70%,360px);padding:2px 0;border-radius:4px;background:transparent;color:var(--text);font-size:12px;gap:6px;cursor:pointer; }
+.composer-scope .pill.ws:hover { color:var(--accent-ink); }
+.composer-scope .pill.ws span { min-width:0;overflow:hidden;text-overflow:ellipsis;color:inherit; }
+.composer-device { display:flex;align-items:center;gap:6px;flex:none;color:var(--muted);font-size:12px; }
+.composer-scope + .box { border-top-left-radius:10px;border-top-right-radius:10px; }
+.navigation-menu { position:fixed;z-index:130;width:276px;max-width:calc(100vw - 16px);max-height:calc(100dvh - 16px);overflow-y:auto;padding:6px;border:1px solid var(--line);border-radius:13px;background:var(--panel);box-shadow:0 10px 35px #0002;color:var(--text); }
+.navigation-menu[hidden] { display:none; }
+.navigation-menu-title { font-size:11px;color:var(--muted);padding:6px 10px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.navigation-menu button { display:flex;align-items:center;gap:11px;width:100%;min-height:36px;padding:7px 10px;border:0;border-radius:7px;background:transparent;color:inherit;cursor:pointer;text-align:left;font:inherit;font-size:13px; }
+.navigation-menu button > span { flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.navigation-menu button > svg { flex:none; }
+.navigation-menu button kbd { color:var(--muted);font-family:inherit;font-size:10px;white-space:nowrap; }
+.navigation-menu button:hover:not(:disabled),.navigation-menu button:focus-visible { background:var(--accent-soft);outline:none; }
+.navigation-menu button:disabled { cursor:default;opacity:.4; }
+.navigation-menu button.danger { color:var(--danger); }
+.navigation-separator { border-top:1px solid var(--line);margin:5px 4px; }
+.navigation-menu-note { color:var(--muted);font-size:11px;line-height:1.5;margin:5px 10px; }
+.navigation-dialog { box-sizing:border-box;width:min(540px,calc(100vw - 28px));max-height:calc(100dvh - 32px);padding:24px;border:1px solid var(--line);border-radius:20px;color:var(--text);background:var(--panel);box-shadow:0 20px 70px #0003;overflow:auto; }
+.navigation-dialog.wide { width:min(640px,calc(100vw - 28px)); }
+.navigation-dialog::backdrop { background:#1114;backdrop-filter:blur(3px); }
+.navigation-dialog > header { display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:23px; }
+.navigation-dialog h2 { margin:0;font-size:20px;line-height:1.3; }
+.navigation-dialog .navigation-icon { display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;background:none;color:var(--muted);font-size:23px; }
+.navigation-dialog label { display:block;font-weight:550;font-size:13px;margin:17px 0 8px; }
+.navigation-dialog input,.navigation-dialog select { box-sizing:border-box;width:100%;min-width:0;height:42px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text);font:inherit;font-size:13px; }
+.navigation-dialog input:focus,.navigation-dialog select:focus { outline:2px solid color-mix(in srgb,var(--accent) 45%,transparent);outline-offset:1px; }
+.navigation-name-field { display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;padding-left:13px; }
+.navigation-name-field svg { flex:none;color:var(--muted); }
+.navigation-name-field input { border:0;background:none; }
+.workspace-folder-box { border:1px solid var(--line);border-radius:12px;text-align:center;padding:12px; }
+.navigation-dialog #workspaceChoose { display:flex;flex-direction:column;align-items:center;gap:9px;width:100%;min-height:115px;border:1px dashed transparent;border-radius:9px;background:var(--code);color:var(--text);padding:17px;cursor:pointer; }
+.navigation-dialog #workspaceChoose:hover { border-color:var(--accent); }
+#workspaceChoose svg { width:25px;height:25px;color:var(--accent-ink); }
+#workspaceChoose strong { font-weight:550;font-size:14px; }
+#workspaceFolderValue { color:var(--muted);font-size:12px;word-break:break-all;max-width:100%; }
+.workspace-folder-box small { display:block;color:var(--muted);font-size:11px;padding:11px 0 1px; }
+.workspace-path-fallback { margin-top:16px;color:var(--muted);font-size:12px; }
+.workspace-path-fallback summary { cursor:pointer;width:max-content;max-width:100%; }
+.navigation-feedback { font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0;min-height:18px;overflow-wrap:anywhere; }
+.navigation-dialog footer { display:flex;justify-content:flex-end;gap:10px;align-items:center;margin-top:18px; }
+.navigation-dialog button { padding:8px 15px;border:1px solid var(--line);border-radius:9px;color:var(--text);background:var(--panel);font:inherit;font-size:13px;cursor:pointer; }
+.navigation-dialog button:hover { background:var(--code); }
+.navigation-dialog button.primary { background:var(--text);border-color:var(--text);color:var(--panel); }
+.navigation-dialog button.danger-solid { background:var(--danger);border-color:var(--danger);color:white; }
+.navigation-dialog button:disabled { opacity:.45;cursor:default; }
+.navigation-description { font-size:13px;color:var(--muted);line-height:1.7;overflow-wrap:anywhere; }
+.navigation-description strong { color:var(--text); }
+.navigation-archive-row { display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line); }
+.navigation-archive-row > svg { flex:none;color:var(--muted); }
+.navigation-archive-row > div { flex:1;min-width:0; }
+.navigation-archive-row strong { display:block;font-size:13px;font-weight:550;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.navigation-archive-row small { display:block;font-size:11px;color:var(--muted);margin-top:4px; }
+#archiveList { max-height:55dvh;overflow:auto;margin-top:10px; }
+.navigation-empty { color:var(--muted);font-size:13px;text-align:center;padding:32px 0; }
+.navigation-more { display:block;width:100%;margin-top:12px; }
+@media (hover:none) { .session-more { opacity:1; } .session-row .when { display:none; } }
+@media (max-width:600px) { .navigation-dialog { padding:18px;border-radius:16px; } .composer-scope { gap:9px;padding:8px 11px; } .composer-device { font-size:11px; } .session-more { opacity:1; } }
+@media (prefers-reduced-motion:no-preference) { html:not([data-wm-motion="reduce"]) .navigation-menu:not([hidden]) { animation:nav-arrive 120ms ease-out; } html:not([data-wm-motion="reduce"]) .navigation-dialog[open] { animation:nav-arrive 150ms ease-out; } }
+@keyframes nav-arrive { from { opacity:0;transform:translateY(4px); } to { opacity:1;transform:translateY(0); } }

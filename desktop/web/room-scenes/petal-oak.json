@@ -1,0 +1,1148 @@
+{
+ "name": "「抹茶樱花」小筑居",
+ "note": "小屋窗口的场景 (格式同 web/scenes/room.json, 给行动层寻路和坐下用): 米, Y 朝上; +Z 朝前 (镜头在这边), +X 是右边 (从正面看). 房间 6 x 5 m, 墙内侧 x ±3.0、z ±2.5, 墙高 2.9. 家具的位置取自用户房间的 room_interactions.json 碰撞盒和俯视图; 前墙、右墙、天花板导出时去掉了 (娃娃屋视角). view: 小屋窗口的默认镜头; life: 她自己生活时会做的事 (见 desktop/web/room-life.js). life[].pick: 小屋里点哪里算这件事 (盒子: center [x,z], size [x,z], base, height). sleep/coffee/fridge/yoga/drop/carry/movable: 睡觉、冲咖啡、冰箱、瑜伽、投喂、搬小东西、挪家具的配置 (见 desktop/web/room-life.js); life[].script: 那件事怎么做 (没写就是走过去或坐下待一阵), gives: 做完补哪些需求, want: 缺哪项时更想做, need: 要用掉哪样库存.",
+ "glb": "/pet/rooms/petal-oak/room.glb",
+ "floor": [
+  [
+   -2.95,
+   -2.45
+  ],
+  [
+   2.95,
+   -2.45
+  ],
+  [
+   2.95,
+   2.45
+  ],
+  [
+   -2.95,
+   2.45
+  ]
+ ],
+ "wallHeight": 2.9,
+ "agentRadius": 0.26,
+ "spawn": {
+  "pos": [
+   0.2,
+   0.9
+  ],
+  "yaw": 0
+ },
+ "camera": {
+  "room": [
+   0,
+   3.3,
+   8.2
+  ],
+  "user": [
+   0,
+   1.45,
+   5.0
+  ]
+ },
+ "view": {
+  "pitch": 44,
+  "dist": 4.6,
+  "lookY": 0.75,
+  "fov": 34,
+  "minDist": 1.4,
+  "maxDist": 10,
+  "deadzone": 0.5,
+  "bounds": [
+   [
+    -3.2,
+    -0.2,
+    -2.8
+   ],
+   [
+    3.2,
+    2.6,
+    2.8
+   ]
+  ],
+  "edge": 1.1,
+  "span": 2.0
+ },
+ "objects": [
+  {
+   "id": "user",
+   "name": "你",
+   "aliases": [
+    "我",
+    "镜头"
+   ],
+   "virtual": true,
+   "approach": [
+    0.15,
+    1.85
+   ],
+   "look": "camera"
+  },
+  {
+   "id": "center",
+   "name": "房间中间",
+   "virtual": true,
+   "approach": [
+    0.2,
+    0.2
+   ],
+   "look": [
+    0,
+    1.4,
+    2.5
+   ]
+  },
+  {
+   "id": "bed",
+   "name": "床",
+   "kind": "bed",
+   "box": {
+    "center": [
+     -2.0,
+     -1.13
+    ],
+    "size": [
+     1.8,
+     2.25
+    ],
+    "height": 0.6
+   },
+   "approach": [
+    -2.0,
+    0.45
+   ],
+   "look": [
+    -2.0,
+    0.6,
+    -1.0
+   ],
+   "seat": {
+    "pos": [
+     -2.0,
+     -0.06
+    ],
+    "yaw": 0,
+    "height": 0.68
+   }
+  },
+  {
+   "id": "desk",
+   "name": "电脑桌",
+   "aliases": [
+    "电脑",
+    "桌子"
+   ],
+   "kind": "desk",
+   "box": {
+    "center": [
+     0.35,
+     -2.0
+    ],
+    "size": [
+     1.85,
+     0.7
+    ],
+    "height": 0.76
+   },
+   "approach": [
+    0.35,
+    -0.42
+   ],
+   "look": [
+    0.35,
+    1.05,
+    -2.15
+   ]
+  },
+  {
+   "id": "desk_chair",
+   "name": "电竞椅",
+   "aliases": [
+    "椅子"
+   ],
+   "kind": "chair",
+   "box": {
+    "center": [
+     0.35,
+     -0.95
+    ],
+    "size": [
+     0.62,
+     0.62
+    ],
+    "height": 0.55
+   },
+   "approach": [
+    0.35,
+    -0.3
+   ],
+   "look": [
+    0.35,
+    1.05,
+    -2.15
+   ],
+   "seat": {
+    "pos": [
+     0.35,
+     -1.0
+    ],
+    "yaw": 3.1416,
+    "height": 0.58,
+    "scoot": 0.32,
+    "mover": "desk_chair"
+   }
+  },
+  {
+   "id": "reading_chair",
+   "name": "阅读椅",
+   "aliases": [
+    "沙发",
+    "单人沙发"
+   ],
+   "kind": "armchair",
+   "box": {
+    "center": [
+     -1.76,
+     1.65
+    ],
+    "size": [
+     0.92,
+     0.76
+    ],
+    "height": 0.8
+   },
+   "approach": [
+    -1.6,
+    2.12
+   ],
+   "look": [
+    -1.76,
+    0.6,
+    1.65
+   ],
+   "seat": {
+    "pos": [
+     -1.76,
+     1.6
+    ],
+    "yaw": 0,
+    "height": 0.48
+   }
+  },
+  {
+   "id": "coffee",
+   "name": "咖啡角",
+   "aliases": [
+    "咖啡机"
+   ],
+   "kind": "counter",
+   "box": {
+    "center": [
+     2.23,
+     -1.98
+    ],
+    "size": [
+     1.45,
+     0.91
+    ],
+    "height": 0.94
+   },
+   "approach": [
+    2.2,
+    -1.12
+   ],
+   "look": [
+    2.19,
+    1.25,
+    -2.03
+   ]
+  },
+  {
+   "id": "fridge",
+   "name": "冰箱",
+   "virtual": true,
+   "approach": [
+    1.78,
+    -1.12
+   ],
+   "look": [
+    1.9,
+    0.55,
+    -1.98
+   ]
+  },
+  {
+   "id": "yoga",
+   "name": "瑜伽垫",
+   "virtual": true,
+   "approach": [
+    1.65,
+    1.0
+   ],
+   "look": [
+    1.65,
+    1.3,
+    3.0
+   ]
+  },
+  {
+   "id": "window",
+   "name": "窗户",
+   "aliases": [
+    "窗"
+   ],
+   "virtual": true,
+   "approach": [
+    -2.3,
+    0.2
+   ],
+   "look": [
+    -3.0,
+    1.55,
+    -0.35
+   ]
+  },
+  {
+   "id": "bookcase",
+   "name": "书架",
+   "kind": "shelf",
+   "box": {
+    "center": [
+     -2.78,
+     1.64
+    ],
+    "size": [
+     0.44,
+     1.32
+    ],
+    "height": 1.9
+   },
+   "approach": [
+    -2.3,
+    0.95
+   ],
+   "look": [
+    -2.78,
+    1.2,
+    1.64
+   ]
+  },
+  {
+   "id": "bed_side",
+   "name": "床边",
+   "virtual": true,
+   "approach": [
+    -0.62,
+    -0.95
+   ],
+   "look": [
+    -2.0,
+    0.7,
+    -1.2
+   ],
+   "seat": {
+    "pos": [
+     -1.32,
+     -0.95
+    ],
+    "yaw": 1.5708,
+    "height": 0.66
+   }
+  },
+  {
+   "id": "surf_table",
+   "name": "小边桌",
+   "virtual": true,
+   "place": [
+    -1.05,
+    0.51,
+    1.7
+   ],
+   "approach": [
+    -0.95,
+    1.2
+   ],
+   "look": [
+    -1.0,
+    0.5,
+    1.75
+   ]
+  },
+  {
+   "id": "surf_desk",
+   "name": "电脑桌",
+   "virtual": true,
+   "place": [
+    0.95,
+    0.77,
+    -1.78
+   ],
+   "approach": [
+    0.95,
+    -1.15
+   ],
+   "look": [
+    0.95,
+    0.8,
+    -1.8
+   ]
+  },
+  {
+   "id": "surf_bed",
+   "name": "床上",
+   "virtual": true,
+   "place": [
+    -1.45,
+    0.72,
+    -0.42
+   ],
+   "approach": [
+    -0.8,
+    -0.4
+   ],
+   "look": [
+    -1.5,
+    0.7,
+    -0.45
+   ]
+  },
+  {
+   "id": "surf_chair",
+   "name": "阅读椅上",
+   "virtual": true,
+   "place": [
+    -1.76,
+    0.5,
+    1.6
+   ],
+   "approach": [
+    -1.6,
+    2.12
+   ],
+   "look": [
+    -1.76,
+    0.55,
+    1.6
+   ]
+  },
+  {
+   "id": "surf_yoga",
+   "name": "瑜伽区的地上",
+   "virtual": true,
+   "place": [
+    2.05,
+    0.0,
+    1.95
+   ],
+   "approach": [
+    1.7,
+    1.6
+   ],
+   "look": [
+    2.05,
+    0.1,
+    1.95
+   ]
+  }
+ ],
+ "decor": [
+  {
+   "id": "nightstand",
+   "kind": "nightstand",
+   "box": {
+    "center": [
+     -0.89,
+     -1.94
+    ],
+    "size": [
+     0.47,
+     0.5
+    ],
+    "height": 0.5
+   },
+   "name": "床头柜"
+  },
+  {
+   "id": "reading_table",
+   "kind": "sidetable",
+   "box": {
+    "center": [
+     -0.96,
+     1.8
+    ],
+    "size": [
+     0.48,
+     0.48
+    ],
+    "height": 0.5
+   },
+   "name": "小边桌"
+  },
+  {
+   "id": "water_caddy",
+   "kind": "cart",
+   "box": {
+    "center": [
+     2.68,
+     -0.95
+    ],
+    "size": [
+     0.42,
+     0.45
+    ],
+    "height": 0.65
+   },
+   "name": "推车"
+  },
+  {
+   "id": "floor_lamp",
+   "kind": "lamp",
+   "box": {
+    "center": [
+     -0.86,
+     0.59
+    ],
+    "size": [
+     0.3,
+     0.3
+    ],
+    "height": 1.6
+   },
+   "name": "落地灯"
+  },
+  {
+   "id": "plant",
+   "kind": "plant",
+   "box": {
+    "center": [
+     -2.47,
+     0.55
+    ],
+    "size": [
+     0.5,
+     0.5
+    ],
+    "height": 1.0
+   },
+   "name": "无花果树"
+  },
+  {
+   "id": "yoga_ball",
+   "kind": "ball",
+   "box": {
+    "center": [
+     2.5,
+     0.1
+    ],
+    "size": [
+     0.6,
+     0.6
+    ],
+    "height": 0.6
+   },
+   "name": "瑜伽球"
+  },
+  {
+   "id": "pillows",
+   "name": "枕头",
+   "kind": "pillow",
+   "box": {
+    "center": [
+     -2.0,
+     -1.75
+    ],
+    "size": [
+     1.5,
+     0.71
+    ],
+    "height": 1.04,
+    "base": 0.57
+   },
+   "note": "靠在床头的几个枕头 (z -2.1 到 -1.39, 高 0.57 到 1.04): 体感用 (头插进去会疼), 寻路时在床的碰撞盒里, 不影响"
+  }
+ ],
+ "life": [
+  {
+   "id": "computer",
+   "name": "玩电脑",
+   "going": "坐到电脑前",
+   "doing": "在玩电脑",
+   "do": "sit",
+   "target": "desk_chair",
+   "look": "desk",
+   "stay": [
+    40,
+    90
+   ],
+   "weight": 3,
+   "emotion": "happy",
+   "pick": {
+    "center": [
+     0.35,
+     -1.6
+    ],
+    "size": [
+     1.95,
+     1.6
+    ],
+    "height": 1.4
+   },
+   "gives": {
+    "fun": 12,
+    "energy": -4
+   },
+   "want": {
+    "fun": 1.2
+   },
+   "note": "只在帮你操作 (工具调用) 或者看你在电脑上做什么 (托盘里开了\"看你在做什么\") 的时候坐过来"
+  },
+  {
+   "id": "read",
+   "name": "坐在阅读椅上看书",
+   "going": "去阅读椅那边",
+   "doing": "坐在阅读椅上看书",
+   "do": "sit",
+   "target": "reading_chair",
+   "look": "reading_table",
+   "stay": [
+    40,
+    80
+   ],
+   "weight": 3,
+   "pick": {
+    "center": [
+     -1.6,
+     1.7
+    ],
+    "size": [
+     1.4,
+     0.9
+    ],
+    "height": 1.0
+   },
+   "gives": {
+    "fun": 8,
+    "energy": 2
+   },
+   "want": {
+    "fun": 1
+   }
+  },
+  {
+   "id": "rest",
+   "name": "坐在床边发呆",
+   "going": "去床边坐会儿",
+   "doing": "坐在床边发呆",
+   "do": "sit",
+   "target": "bed",
+   "stay": [
+    25,
+    50
+   ],
+   "weight": 2,
+   "night": 6,
+   "pick": {
+    "center": [
+     -2.0,
+     -1.13
+    ],
+    "size": [
+     1.8,
+     2.3
+    ],
+    "height": 0.8
+   },
+   "gives": {
+    "energy": 6
+   },
+   "want": {
+    "energy": 1
+   }
+  },
+  {
+   "id": "coffee",
+   "name": "冲咖啡",
+   "going": "去咖啡角",
+   "doing": "在冲咖啡",
+   "target": "coffee",
+   "look": "coffee",
+   "stay": [
+    12,
+    20
+   ],
+   "weight": 2,
+   "day": true,
+   "pick": {
+    "center": [
+     2.6,
+     -2.0
+    ],
+    "size": [
+     0.75,
+     0.95
+    ],
+    "height": 1.6
+   },
+   "script": "coffee",
+   "need": "beans",
+   "gives": {
+    "energy": 28,
+    "water": 8,
+    "fun": 5
+   },
+   "want": {
+    "energy": 2
+   }
+  },
+  {
+   "id": "window",
+   "name": "看看窗外",
+   "going": "走到窗边",
+   "doing": "在看窗外",
+   "do": "go",
+   "target": "window",
+   "look": "window",
+   "stay": [
+    10,
+    20
+   ],
+   "weight": 1,
+   "pick": {
+    "center": [
+     -2.98,
+     -0.3
+    ],
+    "size": [
+     0.1,
+     1.7
+    ],
+    "base": 0.85,
+    "height": 1.5
+   },
+   "gives": {
+    "fun": 3
+   }
+  },
+  {
+   "id": "books",
+   "name": "在书架前挑书",
+   "going": "去书架那边",
+   "doing": "在书架前挑书",
+   "do": "go",
+   "target": "bookcase",
+   "look": "bookcase",
+   "stay": [
+    8,
+    15
+   ],
+   "weight": 1,
+   "pick": {
+    "center": [
+     -2.78,
+     1.64
+    ],
+    "size": [
+     0.5,
+     1.35
+    ],
+    "height": 1.95
+   },
+   "gives": {
+    "fun": 4
+   }
+  },
+  {
+   "id": "visit",
+   "name": "过来看看你",
+   "going": "朝你走过来",
+   "doing": "在看你",
+   "do": "go",
+   "target": "user",
+   "stay": [
+    8,
+    14
+   ],
+   "weight": 1,
+   "wave": true,
+   "emotion": "happy",
+   "gives": {
+    "social": 15,
+    "fun": 3
+   },
+   "want": {
+    "social": 3
+   }
+  },
+  {
+   "id": "drink",
+   "name": "喝饮料",
+   "script": "drink",
+   "going": "去冰箱拿饮料",
+   "doing": "在喝饮料",
+   "need": "drinks",
+   "weight": 1,
+   "gives": {
+    "water": 40,
+    "fun": 4
+   },
+   "want": {
+    "water": 4
+   },
+   "pick": {
+    "center": [
+     1.9,
+     -1.98
+    ],
+    "size": [
+     0.7,
+     0.85
+    ],
+    "height": 0.92
+   }
+  },
+  {
+   "id": "snack",
+   "name": "吃零食",
+   "script": "snack",
+   "going": "去拿零食",
+   "doing": "在吃零食",
+   "need": "snacks",
+   "weight": 1,
+   "gives": {
+    "food": 32,
+    "fun": 8
+   },
+   "want": {
+    "food": 4
+   }
+  },
+  {
+   "id": "milk",
+   "name": "喝牛奶",
+   "script": "milk",
+   "going": "去拿牛奶",
+   "doing": "在喝牛奶",
+   "need": "milk",
+   "weight": 0.6,
+   "gives": {
+    "water": 25,
+    "food": 12
+   },
+   "want": {
+    "water": 1.5,
+    "food": 1.5
+   }
+  },
+  {
+   "id": "yoga",
+   "name": "做瑜伽",
+   "script": "yoga",
+   "going": "去瑜伽垫那边",
+   "doing": "在做瑜伽",
+   "weight": 1.6,
+   "day": true,
+   "gives": {
+    "fun": 15,
+    "energy": -6
+   },
+   "want": {
+    "fun": 1.2
+   },
+   "pick": {
+    "center": [
+     1.7,
+     1.25
+    ],
+    "size": [
+     2.3,
+     2.0
+    ],
+    "height": 0.6
+   }
+  },
+  {
+   "id": "sleep",
+   "name": "睡觉",
+   "script": "sleep",
+   "going": "去床上",
+   "doing": "盖着被子睡着了",
+   "weight": 0.25,
+   "night": 24,
+   "want": {
+    "energy": 5
+   }
+  },
+  {
+   "id": "rearrange",
+   "name": "挪家具",
+   "script": "rearrange",
+   "going": "想换个摆法",
+   "doing": "在挪家具",
+   "weight": 0.5
+  },
+  {
+   "id": "tidy",
+   "name": "收拾东西",
+   "script": "tidy",
+   "going": "去收拾东西",
+   "doing": "在收拾东西",
+   "weight": 0.8
+  },
+  {
+   "id": "diary",
+   "name": "写日记",
+   "script": "diary",
+   "going": "去拿日记本",
+   "doing": "在写日记",
+   "weight": 1.2,
+   "gives": {
+    "fun": 8,
+    "social": 4
+   },
+   "want": {
+    "social": 0.8,
+    "fun": 0.6
+   },
+   "pick": {
+    "center": [
+     -0.96,
+     1.8
+    ],
+    "size": [
+     0.55,
+     0.55
+    ],
+    "height": 0.65
+   }
+  },
+  {
+   "id": "train",
+   "name": "自我训练",
+   "script": "train",
+   "going": "去健身区练练动作",
+   "doing": "在健身区校准动作",
+   "weight": 0.8,
+   "gives": {
+    "fun": 6,
+    "energy": -4
+   }
+  }
+ ],
+ "sleep": {
+  "seat": "bed_side",
+  "x": [
+   -2.72,
+   -1.28
+  ],
+  "hipsX": -1.9,
+  "headZ": -1.2,
+  "top": 0.7,
+  "yaw": 0,
+  "note": "躺下: 先坐到床的长边 (bed_side), 腿收上床、转过来坐好、往后躺到 hipsX 那条线上, 头朝 -Z; 头的中心在 headZ (枕头靠在床头 z -2.1 到 -1.39, 头再往里会插进枕头 —— 练习会在这附近调); top 是被子面的高度; x 是被子的左右范围; zFoot 床尾",
+  "zFoot": 0.05
+ },
+ "coffee": {
+  "stand": [
+   2.15,
+   -1.24
+  ],
+  "cups": [
+   "IR_Item_Espresso_Pink",
+   "IR_Item_Espresso_White"
+  ],
+  "power": "IR_Coffee_Power",
+  "brew": "IR_Coffee_Brew"
+ },
+ "fridge": {
+  "items": [
+   "IR_Item_Juice_0",
+   "IR_Item_Juice_1",
+   "IR_Item_Soda_4",
+   "IR_Item_Soda_5",
+   "IR_Item_Soda_0",
+   "IR_Item_Soda_1",
+   "IR_Item_Soda_2",
+   "IR_Item_Soda_3",
+   "IR_Item_Bottle_0",
+   "IR_Item_Bottle_1",
+   "IR_Item_Bottle_2",
+   "IR_Item_Bottle_3"
+  ],
+  "note": "冰箱里饮料的顺序 (先拿上层够得着的); 库存几瓶就显示前几个"
+ },
+ "yoga": {
+  "stand": [
+   1.6,
+   0.8
+  ],
+  "yaw": 0,
+  "note": "房间里铺着一张瑜伽垫, 她站在 stand 上 (面向镜头) 做; 卷着的那张是备用的, 不动"
+ },
+ "drop": {
+  "center": [
+   0.25,
+   1.3
+  ],
+  "spread": [
+   0.45,
+   0.3
+  ],
+  "note": "投喂的东西落在这一块地上"
+ },
+ "carry": {
+  "IR_Item_Bunny": {
+   "name": "小兔子",
+   "to": [
+    "surf_chair",
+    "surf_bed",
+    "surf_desk"
+   ]
+  },
+  "IR_Item_Open_Book": {
+   "name": "摊开的书",
+   "to": [
+    "surf_table",
+    "surf_bed",
+    "surf_desk"
+   ]
+  },
+  "IR_Item_Bedside_Book_1": {
+   "name": "床头的书",
+   "to": [
+    "surf_table",
+    "surf_bed"
+   ]
+  },
+  "IR_Item_Water_Flask": {
+   "name": "水壶",
+   "to": [
+    "surf_desk",
+    "surf_table",
+    "surf_yoga"
+   ]
+  },
+  "IR_Item_Lounge_Cushion": {
+   "name": "靠垫",
+   "to": [
+    "surf_bed",
+    "surf_chair"
+   ]
+  }
+ },
+ "movable": {
+  "reading_chair": {
+   "node": "MV_reading_chair",
+   "name": "阅读椅",
+   "objects": [
+    "reading_chair",
+    "surf_chair"
+   ],
+   "picks": [
+    "read"
+   ],
+   "carries": [
+    "IR_Item_Lounge_Cushion",
+    "IR_Item_Bunny"
+   ],
+   "spots": [
+    [
+     -1.76,
+     1.619,
+     0
+    ],
+    [
+     -1.52,
+     1.7,
+     0.4
+    ],
+    [
+     -1.98,
+     1.75,
+     -0.3
+    ],
+    [
+     -1.35,
+     1.95,
+     0.25
+    ]
+   ]
+  },
+  "reading_table": {
+   "node": "MV_reading_table",
+   "name": "小边桌",
+   "decor": [
+    "reading_table"
+   ],
+   "objects": [
+    "surf_table"
+   ],
+   "carries": [
+    "IR_Item_Open_Book",
+    "IR_Item_Bedside_Book_1",
+    "IR_Item_Water_Flask",
+    "IR_Item_Bunny"
+   ],
+   "spots": [
+    [
+     -0.96,
+     1.8,
+     0
+    ],
+    [
+     -1.0,
+     1.08,
+     0
+    ],
+    [
+     -0.72,
+     2.08,
+     0
+    ],
+    [
+     -2.2,
+     2.1,
+     0
+    ]
+   ]
+  },
+  "ficus": {
+   "node": "MV_ficus",
+   "name": "无花果树",
+   "decor": [
+    "plant"
+   ],
+   "spots": [
+    [
+     -2.482,
+     0.609,
+     0
+    ],
+    [
+     -0.5,
+     2.12,
+     0
+    ],
+    [
+     -1.25,
+     2.15,
+     0
+    ],
+    [
+     -2.55,
+     0.55,
+     0.6
+    ]
+   ]
+  },
+  "desk_chair": {
+   "node": "MV_desk_chair",
+   "name": "电竞椅",
+   "objects": [
+    "desk_chair"
+   ],
+   "rearrange": false,
+   "note": "不参加\"换个摆法\". 平时塞在桌子底下 (前面只有 0.39 m, 站不进去); 座位上的 scoot: 坐之前拉出来这么多, 坐下以后连人带椅子挪回去, 走之前挪出来再推回桌下"
+  }
+ }
+}

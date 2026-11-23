@@ -1,0 +1,114 @@
+{
+  "id": "bookkeeper",
+  "name": "记账",
+  "description": "记生活支出：book_add 记一笔（金额必填、必须是正数、最多两位小数，类别从固定几类里选），book_summary 按 今天 / 本周 / 本月 / 全部 汇总合计、笔数和按类别分组的金额，book_undo 凭加账回执整笔撤销（重复撤销不报错，也不会重复改账）。账本落在插件自己的目录（~/.worldmodel/plugins/bookkeeper/ledger.jsonl，可用 WM_BOOK_HOME 换位置），不写她的记忆库、不写 vault；金额用 Decimal 精确计算，不用浮点累加。",
+  "plugin": {
+    "schema": 2,
+    "version": "0.1.0",
+    "author": "WorldModel",
+    "license": "MIT",
+    "host": ">=0.4",
+    "tier": "panel",
+    "permissions": {},
+    "panel": {
+      "entry": "spectate.html"
+    },
+    "world": {
+      "kind": "space",
+      "prefix": "book",
+      "events": [
+        {
+          "type": "book_added",
+          "sense": "receipt"
+        },
+        {
+          "type": "book_undone",
+          "sense": "receipt"
+        }
+      ],
+      "actions": [
+        {
+          "name": "book_add",
+          "kind": "act",
+          "outward": false,
+          "receipt": "book_added",
+          "why": "记一笔支出：金额（正数，最多两位小数）、类别、可选备注和时间",
+          "params": {
+            "amount": {
+              "type": "number",
+              "required": true
+            },
+            "category": {
+              "type": "enum",
+              "required": true,
+              "values": [
+                "餐饮",
+                "交通",
+                "购物",
+                "居住",
+                "娱乐",
+                "医疗",
+                "其他"
+              ]
+            },
+            "note": {
+              "type": "string",
+              "required": false,
+              "max_len": 40
+            },
+            "at": {
+              "type": "string",
+              "required": false,
+              "max_len": 32
+            }
+          }
+        },
+        {
+          "name": "book_summary",
+          "kind": "query",
+          "why": "按 今天 / 本周 / 本月 / 全部 汇总合计、笔数、按类别分组的金额，只读不动账本",
+          "params": {
+            "period": {
+              "type": "enum",
+              "required": false,
+              "values": [
+                "今天",
+                "本周",
+                "本月",
+                "全部"
+              ]
+            }
+          }
+        },
+        {
+          "name": "book_undo",
+          "kind": "act",
+          "outward": false,
+          "receipt": "book_undone",
+          "why": "凭加账回执把那一笔从账本里删掉；重复调用幂等，不会重复改账",
+          "params": {
+            "receipt_id": {
+              "type": "string",
+              "required": true,
+              "max_len": 200
+            }
+          }
+        }
+      ],
+      "perception": {
+        "visible": [
+          "amount",
+          "category",
+          "note",
+          "at"
+        ],
+        "twin_fixtures": [
+          "fixtures/twin.json"
+        ]
+      },
+      "spectate": {
+        "panel": "spectate.html"
+      }
+    }
+  }
+}

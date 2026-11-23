@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>WorldModel 桌宠</title>
+  <!-- 宿主把 /pet/* 换成 desktop/web/ 的文件, 其他路径 (/static、/api、/avatars) 照常走服务: 和服务同源 -->
+  <link rel="stylesheet" href="/pet/pet.css">
+  <link rel="stylesheet" href="/pet/ui-shell.css">
+  <link rel="stylesheet" href="/pet/ui-preferences.css">
+  <link rel="stylesheet" href="/pet/ui-material.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/static/vendor/three/build/three.module.js",
+        "three/addons/": "/static/vendor/three/examples/jsm/",
+        "@pixiv/three-vrm": "/static/vendor/three-vrm/three-vrm.module.min.js"
+      }
+    }
+  </script>
+</head>
+<body class="wm-pet-surface">
+  <!-- 启动画面: 角色加载好 (页面就绪) 以前在她要站的地方显示品牌图 (brand/brand.png, 用户设计的) -->
+  <div class="pet-splash" id="splash"><img src="/pet/brand/brand.png" alt=""></div>
+  <div id="stage"></div>
+  <div id="shell"></div>
+  <!-- 宿主带 --services 起来时服务端可能还没开 (2026-10-27 实测服务端 55 秒才起来, 页面早一分钟就载完了): 3D 库这些从服务端的
+       /static 来, 有一个载不到整个主模块就不跑, 不连服务端、QQ 也不连. 主模块没载成: 每 3 秒看一次服务端, 能连上就重新载入. -->
+  <script>
+    function petBootRetry() {
+      const again = () => fetch('/api/status', { cache: 'no-store' })
+        .then((r) => (r.ok ? location.reload() : setTimeout(again, 3000)))
+        .catch(() => setTimeout(again, 3000));
+      setTimeout(again, 3000);
+    }
+  </script>
+  <script type="module" src="/pet/pet-preferences.js"></script>
+  <script type="module" src="/pet/pet.js" onerror="petBootRetry()"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+只读基线 · 元数据（这个文件夹不进知识库）
+
+跑的时间（本机，UTC-8）：2026-11-14T18:15:13-0800 到 2026-11-14T18:15:34-0800，约 21 秒
+服务器那边的时间：UTC 2026-11-15T02:15:36Z（服务器时区是 Asia/Shanghai，当时是 11-15 10:15）
+登录身份：ubuntu（sudo -n 可用，免密）
+
+怎么跑的：
+  bash deploy/server/wm-ssh.sh --script deploy/server/wm-snapshot.sh > baseline.raw
+  经 wm-ssh.sh：严格核对主机指纹（只认 deploy/server/known_hosts），只读，不转发，不要密码
+  wm-ssh.sh     SHA-256 ba45f2753f0faee6eb268a7849006e19f89926c94df20fcc1367f34751f8390f
+  known_hosts   SHA-256 a5dafc9052d48e73eec7e2f74c235c685e71a282b2492ac9e8efbdab88fd056c
+                （一行，ED25519，指纹 SHA256:rkL93Ue3qn3QLjG8b55lkbUTEAFZUYWbZGb/hJCRo4U，和协调对话给的那串逐字一致）
+
+用的脚本：deploy/server/wm-snapshot.sh（不带参数 = 只往标准输出打印）
+  wm-snapshot.sh SHA-256 8568e8cf8062d569c1e46358070dce0dffb63058afeacaa13559064980b826e2
+  跑的就是这一份；以后改了它，要重跑基线，这份就不再对应。
+退出码：0（ssh 的，也就是远端脚本的）；标准错误输出为空；脚本自查 secret_hits=0
+
+输出：baseline.txt，1429 行，31 个区块（00-meta 到 99-ssh-failures，最后一行 END），没有 CR 字节。
+  没有区块被"需要密码"跳过（sudo -n 一路可用），没有权限报错。
+  baseline.txt SHA-256 cc40ffdeb4e86e4e999fb514480bf97de379ff474f4235e885f0cfe5fee1df0a
+
+存下来以后的扫描（Python）：
+  查了 PRIVATE KEY、ssh-rsa/ssh-ed25519/ecdsa 公钥正文、password= secret= token= 后面带值、密码哈希、40 位以上的 base64 串，
+  还查了所有区块里的 IPv4/IPv6（0.0.0.0、127.x、::1 除外；软件包清单区块不查地址，因为版本号长得像地址）。
+  结果：命中 0 行，没有删任何一行。
+  扫描规则调过一次：第一轮在更早的一份基线上误判了 6 行——maxstartups 10:30:100（当成了 IPv6）、
+  4 行主机密钥指纹（当成了长 base64）、"failed password: 0" 这个计数行（当成了带值的 password）。
+  我逐行看过，都是误报，收紧规则后重扫。
+
+这份是当天第三次跑：前两份（18:09、18:12）被它取代，已删。第一份没读到 root 才能读的几个文件
+（sshd_config.d/50-cloud-init.conf、/etc/cron.d 里腾讯云那两个），第二份缺 journald 配置和 ssh 密钥文件的权限。
+
+不在这里的东西：
+  没有读 /etc/shadow、私钥、authorized_keys 的内容（只数了条数和看了权限）、进程环境变量、
+  /usr/local/qcloud/、/var/lib/cloud/、/etc/cloud/ 里的文件内容。
+  没有公网 IP、登录来源 IP、ip addr、last/lastb。没有跑 apt update。服务器上没建文件、没装东西、没改配置、没重启服务。
+  登录和 sudo 自己写进系统日志的那些行不算。
+  已知的副作用：nft list ruleset 在内核还没加载 nf_tables 模块时会让内核自动加载（这台机器上 ufw 服务是开着的，多半早已加载，没核实）。
