@@ -1,4 +1,5 @@
 aiohttp>=3.9
+psutil>=5.9
 pypdf>=6.10.2,<7
 numpy>=1.24
 scipy>=1.10
