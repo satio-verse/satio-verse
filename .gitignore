@@ -42,3 +42,5 @@ deploy/server/coscli-*
 config/local.json
 config/local.json.bak*
 config/*.md.bak*
+
+deploy/_*
