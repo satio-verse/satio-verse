@@ -19,8 +19,8 @@ jobs:
           pip install -r requirements.txt
       - name: 语法检查（全量 compileall）
         run: python -m compileall -q wm tools tests
-      - name: 核心测试（不依赖模型权重）
-        run: python -m pytest -q tests/test_world_schema.py tests/test_world_economy.py
+      - name: 核心测试（下载队列 / 世界契约 / 任务队列，231 项）
+        run: python -m pytest -q tests/test_agent_downloads.py tests/test_plugin_manifest.py tests/test_agent_queue.py
 
   contract:
     runs-on: windows-latest
