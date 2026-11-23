@@ -8,7 +8,7 @@ set -eu
 DOMAIN=${1:?用法: sh deploy/bootstrap.sh <域名>}
 ROOT=${ROOT:-/srv/satio-verse}
 DATA=${DATA:-/srv/worldmodel-data}
-REPO=${REPO:-https://github.com/Tanora001/satio-verse.git}
+REPO=${REPO:-https://github.com/satio-verse/satio-verse.git}
 
 echo "== 1/6 系统包 =="
 export DEBIAN_FRONTEND=noninteractive
