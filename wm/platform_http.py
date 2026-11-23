@@ -53,6 +53,8 @@ async def platform(request, hub):
                 result = community.add_source(body.get('source'))
             elif action == 'community_refresh':
                 result = await community.refresh(body.get('source_id'))
+            elif action == 'community_inspect':
+                result = await community.inspect(body.get('source_id'), body.get('id'), body.get('version'))
             elif action == 'community_install':
                 result = await community.install(body.get('source_id'), body.get('id'), body.get('version'))
             elif action == 'community_publish':

@@ -23,6 +23,7 @@ import uuid
 from pathlib import Path, PurePosixPath
 
 from ..config import ROOT
+from . import install_gate
 from .mcp_runtime import MCPClient, MCPError, SECRET_ENV
 
 ID = re.compile(r"^[a-z0-9][a-z0-9-]{0,47}$")
@@ -213,6 +214,10 @@ class ExtensionRegistry:
         name = str(spec.get("name") or "").strip()
         if not name or len(name) > 80:
             raise ValueError("扩展名称需要 1～80 个字符")
+        # 装之前先过「世界接口契约」：老扩展也要一份报告，世界插件必须真合约（不合约就抛 ContractError）。
+        kind = install_gate.classify(spec)
+        wanted = spec.get("files") if isinstance(spec.get("files"), dict) else None
+        contract = install_gate.gate(spec, files=wanted)
         files = spec.get("files")
         if not isinstance(files, dict) or not files or len(files) > 64:
             raise ValueError("files 需要 1～64 个文本文件")
@@ -234,6 +239,9 @@ class ExtensionRegistry:
                     raise ValueError(f"{path} 第 {exc.lineno} 行 Python 语法错误") from exc
             clean[path] = content
             seen.add(path.casefold())
+        if kind == "plugin":
+            # 世界插件的清单随包一起存（插件宿主装的时候要的就是这份 wmworld.json）。
+            clean[install_gate.MANIFEST_NAME] = json.dumps(spec["plugin"], ensure_ascii=False, indent=2)
         mcp = spec.get("mcp") or None
         if mcp:
             if not isinstance(mcp, dict) or not str(mcp.get("command") or "").strip():
@@ -245,15 +253,26 @@ class ExtensionRegistry:
                 raise ValueError("MCP args 必须是最多 32 项的字符串列表")
             mcp = {"command": str(mcp["command"]).strip(), "args": args, "transport": "stdio"}
         ui = _relative(spec["ui"]) if spec.get("ui") else None
+        if not ui and kind == "plugin":
+            manifest_block = spec["plugin"]
+            panel = manifest_block.get("panel")
+            if not isinstance(panel, dict):
+                inner = manifest_block.get("plugin")
+                panel = inner.get("panel") if isinstance(inner, dict) else None
+            entry_path = panel.get("entry") if isinstance(panel, dict) else None
+            if isinstance(entry_path, str) and entry_path in clean and entry_path.lower().endswith((".html", ".htm")):
+                ui = _relative(entry_path)   # 世界面板就是它的界面，预览直接能开
         if ui and (ui not in clean or not ui.lower().endswith((".html", ".htm"))):
             raise ValueError("ui 必须指向扩展中的 HTML 文件")
-        if "SKILL.md" not in clean and not mcp and not ui:
-            raise ValueError("扩展至少包含 SKILL.md、MCP 或 HTML 界面之一")
+        if kind != "plugin" and "SKILL.md" not in clean and not mcp and not ui:
+            raise ValueError("扩展至少包含 SKILL.md、MCP 或 HTML 界面之一；世界插件要有 panel 或动作")
         manifest = {"id": spec["id"], "name": name, "description": str(spec.get("description") or "")[:1000],
             "mcp": mcp, "ui": ui, "sha256": {p: hashlib.sha256(t.encode()).hexdigest() for p, t in clean.items()}}
         revision = hashlib.sha256(json.dumps(manifest, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:24]
         manifest.update({"revision": revision, "created": time.time(), "by": str(by)[:80],
-            "validation": {"static": "passed", "execution": "not_run", "checks": ["relative_paths", "size_limits", "python_syntax", "content_hashes"]}})
+            "validation": {"static": "passed", "execution": "not_run", "kind": kind,
+                           "contract": {"name": contract["contract"]["name"], "schema": contract["contract"]["schema"]},
+                           "checks": ["relative_paths", "size_limits", "python_syntax", "content_hashes", "world_contract"]}})
         with self.lock:
             state = self._state()
             folder = self.root / spec["id"] / "revisions" / revision
@@ -276,11 +295,15 @@ class ExtensionRegistry:
             entry = state["packages"].setdefault(spec["id"], {"id": spec["id"], "enabled": False, "active_revision": None, "revisions": []})
             if revision not in entry["revisions"]:
                 entry["revisions"].append(revision)
-            entry.update({"name": name, "description": manifest["description"], "latest_revision": revision, "updated": time.time()})
+            entry.update({"name": name, "description": manifest["description"], "latest_revision": revision,
+                          "updated": time.time(), "kind": kind})
             _atomic(self.root / "registry.json", state)
             self._audit("create", spec["id"], revision, by)
             return {"id": spec["id"], "revision": revision, "enabled": entry["enabled"], "active_revision": entry["active_revision"],
-                "validation": manifest["validation"], "files": list(clean), "has_ui": bool(ui)}
+                "validation": manifest["validation"], "files": list(clean), "has_ui": bool(ui),
+                "kind": kind, "contract": {"ok": contract["ok"], "world": contract["summary"].get("world", ""),
+                                           "actions": contract["summary"].get("actions", []),
+                                           "events": contract["summary"].get("events", [])}}
 
     def _audit(self, action, package_id, revision, by):
         self.root.mkdir(parents=True, exist_ok=True)

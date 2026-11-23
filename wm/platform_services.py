@@ -18,6 +18,7 @@ import uuid
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from .agent import install_gate
 from .agent.extensions import _atomic, _read_json, _relative, _within, ID
 
 MAX_WIRE = 24 * 1024 * 1024
@@ -247,6 +248,11 @@ class CommunityStore:
         _, manifest, folder = self.extensions._revision(package_id, revision)
         spec = {k: manifest[k] for k in ('id', 'name', 'description', 'mcp', 'ui')}
         spec['files'] = {name: (folder / name).read_text('utf-8') for name in manifest['sha256']}
+        if manifest.get('validation', {}).get('kind') == 'plugin' and install_gate.MANIFEST_NAME in spec['files']:
+            try:  # 世界插件把清单带回去，别人装的时候才认得出它是世界
+                spec['plugin'] = json.loads(spec['files'][install_gate.MANIFEST_NAME])
+            except ValueError:
+                pass
         package = {'worldmodel_package': 1, 'author': author.strip(), 'version': version,
                    'revision': manifest['revision'], 'spec': spec}
         blob = canonical(package)
@@ -308,7 +314,8 @@ class CommunityStore:
     def entries(self):
         return [entry for source in self.sources() for entry in read(self.root / 'cache' / (source['id'] + '.json'), [])]
 
-    async def install(self, source_id, package_id, version, transport=remote_json):
+    async def _fetch(self, source_id, package_id, version, transport):
+        """取包并核对哈希/编号/版本。装和预览都走这里，两边看到的是同一份东西。"""
         entry = next((e for e in self.entries() if e['source_id'] == source_id and e['id'] == package_id and e['version'] == version), None)
         if entry is None:
             raise ValueError('请先刷新索引并选择插件版本')
@@ -317,8 +324,33 @@ class CommunityStore:
             raise ValueError('插件包与索引哈希不符')
         if package.get('spec', {}).get('id') != package_id or package.get('version') != version:
             raise ValueError('插件包编号或版本不符')
-        result = self.extensions.create(package['spec'], by='community:' + str(package.get('author', ''))[:60])
-        return {'installed': result, 'enabled': False, 'notice': '已导入 Creator 草稿；请检查后在我的扩展中启用。'}
+        return entry, package
+
+    async def inspect(self, source_id, package_id, version, transport=remote_json):
+        """装之前先看契约：这个包会要什么、加什么动作、能不能过。不写盘、不执行。"""
+        _, package = await self._fetch(source_id, package_id, version, transport)
+        spec = package.get('spec') if isinstance(package.get('spec'), dict) else {}
+        files = spec.get('files') if isinstance(spec.get('files'), dict) else None
+        report = install_gate.inspect(spec, source='third_party', files=files)
+        return {'id': package_id, 'version': version, 'author': package.get('author'), 'report': report}
+
+    async def install(self, source_id, package_id, version, transport=remote_json):
+        _, package = await self._fetch(source_id, package_id, version, transport)
+        spec = package.get('spec') if isinstance(package.get('spec'), dict) else {}
+        files = spec.get('files') if isinstance(spec.get('files'), dict) else None
+        report = install_gate.inspect(spec, source='third_party', files=files)
+        if not report['ok']:
+            raise ValueError('这个包不符合%s，没装：\n%s' % (install_gate.CONTRACT_NAME, report['errors_text']))
+        result = self.extensions.create(spec, by='community:' + str(package.get('author', ''))[:60])
+        plugin = None
+        if report['kind'] == 'plugin':
+            plugin = install_gate.install_plugin_package(spec, source='third_party')
+        notice = '已导入 Creator 草稿；请检查后在我的扩展中启用。'
+        if plugin is not None:
+            notice = ('已装进插件宿主（%s），默认停着；到插件页打开它。'
+                      % ('授权档 ' + str(plugin.get('tier')) if plugin.get('ok') else plugin.get('why') or '没装进宿主'))
+        return {'installed': result, 'enabled': False, 'kind': report['kind'],
+                'contract': report, 'plugin': plugin, 'notice': notice}
 
     async def publish(self, package_id, version, endpoint, token, transport=remote_json):
         if not token:

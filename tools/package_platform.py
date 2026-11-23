@@ -8,7 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FILES = (
     'wm/__init__.py', 'wm/config.py', 'wm/agent/__init__.py', 'wm/agent/extensions.py',
-    'wm/agent/mcp_runtime.py', 'wm/platform_services.py',
+    'wm/agent/mcp_runtime.py', 'wm/agent/install_gate.py', 'wm/agent/plugin_manifest.py',
+    'wm/platform_services.py',
     'tools/community_server.py', 'tools/release_bundle.py', 'tools/platform_admin.py', 'tools/sign_release.py',
     'deploy/requirements-platform.txt', 'deploy/requirements-signatures.txt',
     'deploy/start-platform.ps1', 'deploy/start-platform.sh', 'deploy/nginx-platform.conf.example',

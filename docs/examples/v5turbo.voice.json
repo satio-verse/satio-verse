@@ -1,0 +1,19 @@
+{
+  "name": "v5turbo",
+  "title": "v5turbo 底模零样本（4 步蒸馏，48 kHz，非流式）",
+  "version": "v5turbo",
+  "gpt": "runtime/gpt-sovits/GPT_SoVITS/pretrained_models/s1v3.ckpt",
+  "sovits": "runtime/gpt-sovits/GPT_SoVITS/pretrained_models/gsv-v5-pretrained/s2Gv5turbo.pth",
+  "ref_audio": "models/tts/<你的音色>/ref/ref_02_calm.wav",
+  "prompt_text": "今天这个后进来没有迟到呢气不气",
+  "prompt_lang": "zh",
+  "text_lang": "zh",
+  "sample_rate": 48000,
+  "sample_steps": 4,
+  "seed": 42,
+  "output": {
+    "gain_db": 4.0,
+    "limit": 0.92
+  },
+  "note": "v5turbo 底模零样本（4 步蒸馏，48 kHz，非流式）。这是「声音档」的格式示例：换声音用 `python tools/switch_voice.py apply <名字>`，它把 voice.json 里这几样写进 config/local.json，再重启 9880。权重、参考音、参考音文本属于个人素材，不在本仓库里 —— 自己录或授权后再填。关键点：v5 系必须由 tools/start_tts.py 启动（会自动设 CUDAGraph=0 与 aux=cpu，否则短句会假哑）；seed 固定（同一句换 seed 语速能差 1 s）；输出补 +4 dB、限幅 0.92。"
+}

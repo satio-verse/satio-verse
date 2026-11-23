@@ -7,6 +7,8 @@
 from __future__ import annotations
 
 import asyncio
+import json
+import math
 import threading
 import zlib
 from pathlib import Path
@@ -159,6 +161,81 @@ class SherpaTTS:
             await asyncio.shield(future)
 
 
+class ToneShaper:
+    """输出端音色补偿: 固定增益 + 高频搁架, 滤波器状态跨块延续 (流式不断音).
+
+    为什么在客户端做: 换的是「这套权重合成出来偏闷、偏轻」, 属于输出后的整体音色,
+    跟模型内部无关; 放在 wm 这一层就能按声音 profile 配置, 换回别的音色自动失效,
+    也不用改 GPT-SoVITS 的推理代码。参数来自 config/local.json 的 tts.http.output。
+    """
+
+    def __init__(self, sample_rate: int, gain_db: float = 0.0, shelf_db: float = 0.0,
+                 shelf_fc: float = 6500.0, limit: float = 0.0):
+        self.sample_rate = int(sample_rate)
+        self.gain_db = float(gain_db or 0.0)
+        self.shelf_db = float(shelf_db or 0.0)
+        self.shelf_fc = float(shelf_fc or 6500.0)
+        # 限幅阈值 (0-1 满刻度, 0 或 >=0.999 表示不做). 提亮/提音量之后峰值会顶到 1.0,
+        # 硬削顶是听得出来的破音, 这里用 tanh 软限幅把峰值压回阈值以内.
+        self.limit = float(limit or 0.0)
+        if not (0.0 < self.limit < 0.999):
+            self.limit = 0.0
+        self.gain = 10 ** (self.gain_db / 20.0) if abs(self.gain_db) > 0.01 else 1.0
+        self._b = self._a = None
+        self._zi = None
+        if abs(self.shelf_db) >= 0.1:
+            self._design()
+
+    def _design(self) -> None:
+        fs = max(8000, self.sample_rate)
+        fc = min(max(self.shelf_fc, 500.0), fs / 2.5)
+        A = 10 ** (self.shelf_db / 40.0)
+        w0 = 2 * math.pi * fc / fs
+        cw, sw = math.cos(w0), math.sin(w0)
+        alpha = sw / 2 * math.sqrt(2.0)
+        two = 2 * math.sqrt(A) * alpha
+        a0 = (A + 1) - (A - 1) * cw + two
+        self._b = np.array([
+            A * ((A + 1) + (A - 1) * cw + two),
+            -2 * A * ((A - 1) + (A + 1) * cw),
+            A * ((A + 1) + (A - 1) * cw - two),
+        ], dtype=np.float64) / a0
+        self._a = np.array([
+            1.0,
+            2 * ((A - 1) - (A + 1) * cw) / a0,
+            ((A + 1) - (A - 1) * cw - two) / a0,
+        ], dtype=np.float64)
+
+    @property
+    def active(self) -> bool:
+        return abs(self.gain_db) > 0.01 or self._b is not None or self.limit > 0.0
+
+    def reset(self) -> None:
+        self._zi = None
+
+    def process(self, pcm: np.ndarray) -> np.ndarray:
+        if not self.active:
+            return pcm
+        x = pcm.astype(np.float32) * self.gain
+        if self._b is None:
+            y = x
+        else:
+            from scipy.signal import lfilter, lfilter_zi
+
+            if self._zi is None:
+                # 用首样本定初值, 否则滤波器从 0 状态起步会在每句开头留一个小爆点.
+                self._zi = lfilter_zi(self._b, self._a) * float(x[0]) if len(x) else np.zeros(2)
+            y, self._zi = lfilter(self._b, self._a, x, zi=self._zi)
+        if self.limit:
+            lim = self.limit * 32767.0
+            y = np.tanh(y / lim) * lim
+        return np.clip(y, -32768, 32767).astype(np.int16)
+
+
+# 换声音时 tools/switch_voice.py 写这个文件; 服务端按 mtime 热加载, 不用重启 8790.
+TONE_FILE = Path(__file__).resolve().parent.parent / "config" / "tts-tone.json"
+
+
 class HttpTTS:
     name = "http"
 
@@ -168,6 +245,29 @@ class HttpTTS:
         self.base = self.cfg["base_url"].rstrip("/")
         self.sample_rate = int(self.cfg.get("sample_rate", 32000))
         self._session: aiohttp.ClientSession | None = None
+        out = self.cfg.get("output") or {}
+        base = ToneShaper(self.sample_rate, **{
+            k: out[k] for k in ("gain_db", "shelf_db", "shelf_fc", "limit") if k in out})
+        self._base_shaper = base if base.active else None
+        self._tone_mtime: int | None = None
+        self._tone_shaper: ToneShaper | None = None
+
+    def shaper(self) -> ToneShaper | None:
+        """当前该用的补偿: config/tts-tone.json 优先 (改了自动生效), 否则用配置里的 output."""
+        try:
+            mtime = TONE_FILE.stat().st_mtime_ns
+        except OSError:
+            return self._base_shaper
+        if self._tone_mtime != mtime:
+            self._tone_mtime = mtime
+            try:
+                data = json.loads(TONE_FILE.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                data = {}
+            sh = ToneShaper(self.sample_rate, **{
+                k: data[k] for k in ("gain_db", "shelf_db", "shelf_fc", "limit") if k in data})
+            self._tone_shaper = sh if sh.active else None
+        return self._tone_shaper
 
     async def load(self) -> None:
         self._session = aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=self.cfg.get("timeout_s", 60)))
@@ -175,7 +275,7 @@ class HttpTTS:
     def _request(self, text: str) -> dict:
         c = self.cfg
         if self.preset == "gpt_sovits":
-            return {"method": "POST", "url": self.base + "/tts", "json": {
+            body = {
                 "text": text, "text_lang": c.get("text_lang", "zh"),
                 # api_v2 的工作目录是整合包根, 相对路径要先按项目根解析.
                 "ref_audio_path": str(resolve_path(c["ref_audio_path"])) if c.get("ref_audio_path") else "",
@@ -183,7 +283,16 @@ class HttpTTS:
                 "prompt_lang": c.get("prompt_lang", "zh"), "text_split_method": "cut0",
                 "batch_size": 1, "speed_factor": c.get("speed", 1.0),
                 "media_type": "raw", "streaming_mode": c.get("streaming_mode", True),
-                "min_chunk_length": int(c.get("min_chunk_length", 8))}}
+                "min_chunk_length": int(c.get("min_chunk_length", 8))}
+            # v5 系 (v5dev/v5turbo) 的采样步数: v5turbo 4 步就够, 默认 32 步会慢 3 倍.
+            # v2ProPlus 不认这个字段, 配置里没写就不发.
+            if c.get("sample_steps"):
+                body["sample_steps"] = int(c["sample_steps"])
+            # 固定 seed 让同一句话的音色/语速稳定: v5turbo 换 seed 时「嗯，我在。」能从 1.84 s 变到 2.84 s.
+            # 不写就不发 (v2ProPlus 那边是随机种子, 本来就没这问题).
+            if c.get("seed") is not None:
+                body["seed"] = int(c["seed"])
+            return {"method": "POST", "url": self.base + "/tts", "json": body}
         if self.preset == "cosyvoice":
             form = aiohttp.FormData()
             form.add_field("tts_text", text)
@@ -201,6 +310,9 @@ class HttpTTS:
     async def stream(self, text: str) -> AsyncIterator[tuple[np.ndarray, int]]:
         req = self._request(text)
         method, url = req.pop("method"), req.pop("url")
+        shaper = self.shaper()
+        if shaper is not None:
+            shaper.reset()  # 每句重新起滤波器, 状态不跨句
         async with self._session.request(method, url, **req) as r:
             if r.status != 200:
                 raise RuntimeError(f"TTS 服务返回 {r.status}: {(await r.text())[:300]}")
@@ -210,7 +322,10 @@ class HttpTTS:
                 usable = len(data) - len(data) % 2
                 carry = data[usable:]
                 if usable:
-                    yield np.frombuffer(data[:usable], dtype=np.int16).copy(), self.sample_rate
+                    pcm = np.frombuffer(data[:usable], dtype=np.int16).copy()
+                    if shaper is not None:
+                        pcm = shaper.process(pcm)
+                    yield pcm, self.sample_rate
 
 
 def create_tts(cfg: dict):
