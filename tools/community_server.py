@@ -20,6 +20,44 @@ from wm.platform_services import canonical, digest, read, identifier, redact
 from wm.agent.extensions import _atomic, ExtensionRegistry
 
 
+def _esc(value) -> str:
+    return (str(value).replace('&', '&amp;').replace('<', '&lt;')
+            .replace('>', '&gt;').replace('"', '&quot;'))
+
+
+_LANDING = """<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S.A.T.I.O Verse · 社区插件目录</title>
+<style>
+:root{{color-scheme:dark}}
+body{{margin:0;background:#0d0e12;color:#e8e6e1;font:15px/1.7 "Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}}
+main{{max-width:760px;margin:0 auto;padding:72px 24px 96px}}
+h1{{font-size:28px;letter-spacing:.12em;margin:0 0 6px;font-weight:600}}
+h1 span{{color:#c8344a}}
+p.lead{{color:#9a9a9a;margin:0 0 40px}}
+ul{{list-style:none;padding:0;margin:0}}
+li{{border:1px solid #22242b;border-radius:12px;padding:16px 18px;margin:0 0 12px;background:#12141a}}
+li b{{font-size:16px}}
+li code{{color:#8f8f8f;font-size:12px;margin-left:6px}}
+li .v{{color:#c8344a;font-size:12px;margin-left:6px}}
+li p{{margin:6px 0 8px;color:#b6b3ad}}
+li a{{color:#e0b96a;text-decoration:none;font-size:13px}}
+li a:hover{{text-decoration:underline}}
+li.empty{{color:#8a8a8a}}
+footer{{margin-top:40px;border-top:1px solid #1e2028;padding-top:18px;color:#8a8a8a;font-size:13px}}
+footer a{{color:#cfcfcf;text-decoration:none}}
+</style></head><body><main>
+<h1>S.A.T.I.O <span>Verse</span></h1>
+<p class="lead">社区插件目录 · 公开只读接口。这个站只负责索引和分发插件包，不执行任何插件代码。</p>
+<ul>{items}</ul>
+<footer>
+<p>共 {count} 个插件包 · 机器可读索引 <a href="{index_url}">{index_url}</a></p>
+<p>客户端在此添加源：把上面的 index.json 地址填进「市场 → 添加源」。<br>
+源码 <a href="https://github.com/satio-verse/satio-verse">satio-verse</a> ·
+插件目录 <a href="https://github.com/satio-verse/satio-plugins">satio-plugins</a></p>
+</footer></main></body></html>"""
+
+
 def create_app(root: Path, public_url: str, authors: dict, receipt_secret: bytes):
     """authors maps SHA256(bearer token) -> stable author ID."""
     if len(receipt_secret) < 32:
@@ -47,6 +85,21 @@ def create_app(root: Path, public_url: str, authors: dict, receipt_secret: bytes
                          'author': package['author'], 'version': package['version'], 'sha256': digest(canonical(package)),
                          'url': public_url.rstrip('/') + '/packages/' + file.name})
         return web.json_response({'worldmodel_index': 1, 'packages': rows})
+
+    async def landing(request):
+        rows = []
+        for file in sorted((root / 'packages').glob('*.json')):
+            package = read(file, {})
+            spec = package['spec']
+            rows.append((spec['name'], spec['id'], package.get('version', ''),
+                         spec.get('description', ''), public_url.rstrip('/') + '/packages/' + file.name))
+        items = '\n'.join(
+            f'<li><b>{_esc(name)}</b> <code>{_esc(pid)}</code> <span class="v">{_esc(ver)}</span>'
+            f'<p>{_esc(desc)}</p><a href="{_esc(url)}">下载插件包</a></li>' for name, pid, ver, desc, url in rows
+        ) or '<li class="empty">还没有发布任何插件。</li>'
+        html = _LANDING.format(count=len(rows), items=items, public_url=_esc(public_url.rstrip('/')),
+                               index_url=_esc(public_url.rstrip('/') + '/index.json'))
+        return web.Response(text=html, content_type='text/html', charset='utf-8')
 
     async def package_get(request):
         name = request.match_info['name']
@@ -128,6 +181,12 @@ def create_app(root: Path, public_url: str, authors: dict, receipt_secret: bytes
         _atomic(root / 'deleted' / (item_id + '.json'), {'deleted': time.time()})
         return web.json_response({'id': item_id, 'deleted': True, 'training_used': False})
 
+    async def health(request):
+        count = len(list((root / 'packages').glob('*.json')))
+        return web.json_response({'ok': True, 'packages': count})
+
+    app.router.add_get('/', landing)
+    app.router.add_get('/health', health)
     app.router.add_get('/index.json', index)
     app.router.add_get('/packages/{name}', package_get)
     app.router.add_post('/packages', publish)

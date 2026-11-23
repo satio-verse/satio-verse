@@ -1,7 +1,7 @@
 #!/bin/sh
 # S.A.T.I.O Verse 社区源 —— 一台空 Ubuntu/Debian 机器的一次性引导。
 # 用法（在服务器上，root）：
-#   sh deploy/bootstrap.sh satio-verse.gitgratitude.com
+#   sh deploy/bootstrap.sh satio-verse.gitgraduate.com
 # 幂等：重复跑只会补齐缺的东西。
 set -eu
 
