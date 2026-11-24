@@ -32,6 +32,8 @@ def save_logo():
     img.save(OUT / "logo.png", "PNG", optimize=True)
     for size, name in ((192, "icon-192.png"), (180, "apple-touch-icon.png"), (64, "favicon.png"), (32, "favicon-32.png")):
         img.resize((size, size), Image.LANCZOS).save(OUT / name, "PNG", optimize=True)
+    # 真 ico：浏览器直接要 /favicon.ico 时用得上
+    img.save(OUT / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
     print("logo ok", img.size)
 
 

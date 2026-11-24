@@ -211,7 +211,16 @@ def create_app(root: Path, public_url: str, authors: dict, receipt_secret: bytes
         async def script(request):
             return web.FileResponse(site / 'site.js', headers={'Cache-Control': 'public, max-age=600'})
 
+        async def favicon(request):
+            # 浏览器/爬虫默认会直接要 /favicon.ico，别让它 404
+            for name in ('favicon.ico', 'favicon.png'):
+                target = site / 'assets' / name
+                if target.is_file():
+                    return web.FileResponse(target, headers={'Cache-Control': 'public, max-age=604800'})
+            raise web.HTTPNotFound()
+
         app.router.add_get('/', home)
+        app.router.add_get('/favicon.ico', favicon)
         app.router.add_get('/site.css', stylesheet)
         app.router.add_get('/site.js', script)
         app.router.add_get('/assets/{name}', asset)
