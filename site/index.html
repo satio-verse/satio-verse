@@ -57,16 +57,16 @@
   <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
     <p class="eyebrow reveal">S.A.T.I.O VERSE · 本地优先的角色外壳</p>
-    <h1 class="reveal">让角色<br><span class="thin">住进你的电脑。</span></h1>
-    <p class="lede reveal">有房间、有声音、有情绪，也能顺手替你干活。模型跑在本机，密钥不出门；没装模型的时候它退化成 mock，不假装自己很聪明。</p>
+    <h1 class="reveal">一个住在你电脑里的角色。<span class="thin">房间、声音、记忆都在本机。</span></h1>
+    <p class="lede reveal">3D 客厅、发光的对话胶囊、记事与日程，都是自带的。模型跑在本机，密钥不出门；没装模型时用 mock 顶上，先把界面走通。</p>
     <div class="cta reveal">
-      <a class="btn primary" href="#start">把世界跑起来</a>
-      <a class="btn ghost" href="#plugins">看看插件目录</a>
+      <a class="btn primary" href="#start">开始安装</a>
+      <a class="btn ghost" href="#plugins">看插件目录</a>
     </div>
     <ul class="facts reveal">
-      <li><b>一条命令</b>起服务</li>
-      <li><b>零公网</b>也能对话</li>
-      <li><b>Apache-2.0</b> 可自托管</li>
+      <li><b>Python 3.10+</b><span>就能跑</span></li>
+      <li><b>Windows / Linux / macOS</b><span>都能装</span></li>
+      <li><b>Apache-2.0</b><span>可自托管</span></li>
     </ul>
     <dl class="hero-meta reveal" aria-label="版本与平台">
       <div><dt>版本</dt><dd>v0.1.0</dd></div>
@@ -75,25 +75,25 @@
     </dl>
     <figure class="hero-shot reveal">
       <img src="/assets/room.webp" width="1600" height="1000" alt="S.A.T.I.O 的黄昏客厅：3D 房间、站在房间里的角色，以及底部那颗发光的对话胶囊" fetchpriority="high">
-      <figcaption>黄昏客厅 · 这不是渲染图，是刚跑起来的窗口截图</figcaption>
+      <figcaption>黄昏客厅。窗口截图，不是渲染图；左上角是房间名，右下角是帧率。</figcaption>
     </figure>
   </section>
 
   <section class="sec" id="world">
     <header class="sec-head reveal">
       <p class="kicker"><span>01</span>世界</p>
-      <h2>不是聊天窗口，<br>是一间能走进去的屋子。</h2>
-      <p class="sec-lede">推门进去是黄昏的客厅：沙发、电视、书架、窗外那点将暗未暗的光。她站在中间；底下那颗发光的胶囊，就是说话的地方——打字、开口、丢一张图都行。</p>
+      <h2>打开就是一间 3D 客厅。</h2>
+      <p class="sec-lede">角色站在房间中间，底部那颗发光的胶囊就是输入框：打字、语音、贴一张图都从这里进。房间、家具、灯光都是场景数据，可以换成别的。</p>
     </header>
 
     <div class="slabs">
       <figure class="slab wide reveal">
         <img src="/assets/panopticon.webp" width="1600" height="1000" alt="控制台：模型插槽 1/4、记忆编排、插件市场的只读数据盘" loading="lazy">
-        <figcaption><b>控制台</b>模型插槽、记忆编排、插件市场——一块屏看完，只读不写。</figcaption>
+        <figcaption><b>控制台</b>模型插槽 1/4、记忆队列、插件市场的安装与启用数，都在这块屏上；只读，写不进去。</figcaption>
       </figure>
       <figure class="slab reveal">
         <img src="/assets/nexus.webp" width="1600" height="1000" alt="材质映射台：外部资产的表面自动对齐到自家调色板" loading="lazy">
-        <figcaption><b>材质映射台</b>外面拖进来的资产，表面先对到自家调色板；拿不准就标「待确认」，但不拦着导入。</figcaption>
+        <figcaption><b>材质映射台</b>外部资产进来先做表面匹配；置信度低于 0.6 的标「待确认」，但不会挡住导入。</figcaption>
       </figure>
     </div>
   </section>
@@ -101,23 +101,23 @@
   <section class="sec" id="ability">
     <header class="sec-head reveal">
       <p class="kicker"><span>02</span>能力</p>
-      <h2>六件事，<br>都长在同一个内核上。</h2>
+      <h2>装好之后，这些是现成的。</h2>
     </header>
     <div class="grid">
-      <article class="card reveal"><span class="num">01</span><h3>对话</h3><p>一条胶囊接住文字、语音和图片。字幕跟着她的情绪走，语气、停顿、亮度都能调。</p></article>
-      <article class="card reveal"><span class="num">02</span><h3>记忆</h3><p>记事、日程、关系都存在本机。换个模型接进来，它照样认得你。</p></article>
-      <article class="card reveal"><span class="num">03</span><h3>能力</h3><p>技能与工具走同一份契约，权限分四档。装之前先看清单，装完默认停用。</p></article>
-      <article class="card reveal"><span class="num">04</span><h3>世界</h3><p>房间与街区可以换，家具、角色、道具按清单进场；能改的东西归服务器，好看的东西归客户端。</p></article>
-      <article class="card reveal"><span class="num">05</span><h3>数据</h3><p>插槽、记忆、市场全在大盘上，接口只读。想知道她在想什么，看编码就行。</p></article>
-      <article class="card reveal"><span class="num">06</span><h3>插件</h3><p>社区源一行地址就能加；每个包带装前报告，告诉你它要动哪些东西、要哪些权限。</p></article>
+      <article class="card reveal"><span class="num">01</span><h3>对话</h3><p>一个输入框接文字、语音和图片。语音走本机 TTS，字幕和表情跟着这一轮的内容变。</p></article>
+      <article class="card reveal"><span class="num">02</span><h3>记忆</h3><p>记事、日程、关系存在本地，换一个模型接进来，这些还在。</p></article>
+      <article class="card reveal"><span class="num">03</span><h3>能力</h3><p>技能和工具用同一份 schema 描述，权限分四档。装之前先看清单，装完默认是停用的。</p></article>
+      <article class="card reveal"><span class="num">04</span><h3>世界</h3><p>房间和街区可以换，家具、角色、道具按清单进场。能改的东西归服务器，渲染归客户端。</p></article>
+      <article class="card reveal"><span class="num">05</span><h3>数据</h3><p>插槽、记忆、市场都在大盘上，接口只读。想知道它现在什么状态，看接口就行。</p></article>
+      <article class="card reveal"><span class="num">06</span><h3>插件</h3><p>加社区源只要一行地址。每个包自带装前报告，写清它要动哪些文件、要哪些权限。</p></article>
     </div>
   </section>
 
   <section class="sec" id="plugins">
     <header class="sec-head reveal">
       <p class="kicker"><span>03</span>插件目录</p>
-      <h2>别人造的世界，<br>也能搬进你家。</h2>
-      <p class="sec-lede">下面是这个社区源此刻的全部插件包，页面直接从 <code>/index.json</code> 读，没有缓存，也没有后台写入口。</p>
+      <h2>这个源里现在有什么。</h2>
+      <p class="sec-lede">下面这一列是社区源此刻的全部内容，页面直接读 <code>/index.json</code> 渲染，不是截图，也没有后台写入口。</p>
     </header>
 
     <div class="catalog reveal" aria-live="polite">
@@ -135,8 +135,8 @@
   <section class="sec" id="start">
     <header class="sec-head reveal">
       <p class="kicker"><span>04</span>开始</p>
-      <h2>三步，<br>她就到你家了。</h2>
-      <p class="sec-lede">需要 Python 3.10 以上。没有显卡、没下模型也能先跑起来——它会退化成 mock，先把界面和流程走通。</p>
+      <h2>从 clone 到打开窗口。</h2>
+      <p class="sec-lede">需要 Python 3.10 或更高。没有显卡、没下模型也能起，会退化成 mock，先看界面和流程。</p>
     </header>
 
     <ol class="steps">
@@ -161,20 +161,19 @@ cd satio-verse" aria-label="复制命令">复制</button></div>
   <section class="sec" id="license">
     <header class="sec-head reveal">
       <p class="kicker"><span>05</span>许可</p>
-      <h2>可以拿去用，<br>但别拿去卖。</h2>
+      <h2>代码和文字，分开授权。</h2>
     </header>
     <div class="licenses">
-      <div class="lic reveal"><span class="mono">CODE</span><h3>Apache-2.0</h3><p>代码随便用、改、自托管，商用也行；改动请保留声明。</p><a class="link" href="https://github.com/satio-verse/satio-verse/blob/main/LICENSE" rel="noopener">LICENSE ↗</a></div>
-      <div class="lic reveal"><span class="mono">WORDS &amp; CHARACTER</span><h3>CC BY-NC 4.0</h3><p>文字、设定、角色与美术署名后可以非商业地使用；想商用，先来聊一声。</p><a class="link" href="https://github.com/satio-verse/satio-verse/blob/main/NOTICE" rel="noopener">NOTICE ↗</a></div>
+      <div class="lic reveal"><span class="mono">CODE</span><h3>Apache-2.0</h3><p>代码可以拿去用、改、自托管，商用也行；改过的文件请保留原有声明。</p><a class="link" href="https://github.com/satio-verse/satio-verse/blob/main/LICENSE" rel="noopener">LICENSE ↗</a></div>
+      <div class="lic reveal"><span class="mono">WORDS &amp; CHARACTER</span><h3>CC BY-NC 4.0</h3><p>文字、设定、角色和美术，署名后可以非商业使用；要商用先来问一声。</p><a class="link" href="https://github.com/satio-verse/satio-verse/blob/main/NOTICE" rel="noopener">NOTICE ↗</a></div>
     </div>
   </section>
 </main>
 
 <footer class="foot">
-  <div class="marquee" aria-hidden="true"><div class="marquee-track">
-    <span>S.A.T.I.O VERSE</span><span>LOCAL-FIRST</span><span>SELF-HOSTED</span><span>APACHE-2.0</span><span>造一个能住在电脑里的角色</span>
-    <span>S.A.T.I.O VERSE</span><span>LOCAL-FIRST</span><span>SELF-HOSTED</span><span>APACHE-2.0</span><span>造一个能住在电脑里的角色</span>
-  </div></div>
+  <ul class="specs">
+    <li>本地优先</li><li>SQLite 存记忆</li><li>LLM / TTS / ASR 都可换</li><li>代码 Apache-2.0</li><li>文字 CC BY-NC 4.0</li><li>插件用 wmworld.json 接</li>
+  </ul>
   <div class="foot-row">
     <p class="mono">© 2026 S.A.T.I.O Verse · 社区源 <span id="foot-health">—</span></p>
     <nav class="foot-links" aria-label="相关链接">
