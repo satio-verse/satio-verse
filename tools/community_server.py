@@ -58,11 +58,19 @@ footer a{{color:#cfcfcf;text-decoration:none}}
 </footer></main></body></html>"""
 
 
-def create_app(root: Path, public_url: str, authors: dict, receipt_secret: bytes):
-    """authors maps SHA256(bearer token) -> stable author ID."""
+_SITE_DIR = Path(__file__).resolve().parent.parent / 'site'
+
+
+def create_app(root: Path, public_url: str, authors: dict, receipt_secret: bytes, site: Path | None = None):
+    """authors maps SHA256(bearer token) -> stable author ID.
+
+    site: the built landing page (site/index.html + site.css + site.js + assets/).
+    When it is missing the server falls back to the built-in one page directory.
+    """
     if len(receipt_secret) < 32:
         raise ValueError('Receipt secret must contain at least 32 bytes')
     root = Path(root)
+    site = Path(site) if site else _SITE_DIR
     app = web.Application(client_max_size=2 * 1024 * 1024)
     registry = ExtensionRegistry(root / 'validation', settings_path=False)
 
@@ -185,7 +193,31 @@ def create_app(root: Path, public_url: str, authors: dict, receipt_secret: bytes
         count = len(list((root / 'packages').glob('*.json')))
         return web.json_response({'ok': True, 'packages': count})
 
-    app.router.add_get('/', landing)
+    page = site / 'index.html'
+    if page.is_file():
+        async def home(request):
+            return web.FileResponse(page, headers={'Cache-Control': 'no-cache'})
+
+        async def asset(request):
+            name = request.match_info['name']
+            target = (site / 'assets' / name).resolve()
+            if site.joinpath('assets').resolve() not in target.parents or not target.is_file():
+                raise web.HTTPNotFound()
+            return web.FileResponse(target, headers={'Cache-Control': 'public, max-age=86400'})
+
+        async def stylesheet(request):
+            return web.FileResponse(site / 'site.css', headers={'Cache-Control': 'public, max-age=600'})
+
+        async def script(request):
+            return web.FileResponse(site / 'site.js', headers={'Cache-Control': 'public, max-age=600'})
+
+        app.router.add_get('/', home)
+        app.router.add_get('/site.css', stylesheet)
+        app.router.add_get('/site.js', script)
+        app.router.add_get('/assets/{name}', asset)
+    else:
+        app.router.add_get('/', landing)
+
     app.router.add_get('/health', health)
     app.router.add_get('/index.json', index)
     app.router.add_get('/packages/{name}', package_get)
@@ -201,6 +233,8 @@ if __name__ == '__main__':
     parser.add_argument('--public-url', required=True)
     parser.add_argument('--authors', type=Path, required=True, help='JSON SHA256(token) to stable author ID')
     parser.add_argument('--port', type=int, default=8792)
+    parser.add_argument('--site', type=Path, default=None, help='static landing page directory (default: <repo>/site)')
     args = parser.parse_args()
     secret = os.environ.get('WM_RECEIPT_SECRET', '').encode()
-    web.run_app(create_app(args.home, args.public_url, read(args.authors, {}), secret), host='127.0.0.1', port=args.port)
+    web.run_app(create_app(args.home, args.public_url, read(args.authors, {}), secret, args.site),
+                host='127.0.0.1', port=args.port)

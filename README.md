@@ -1,6 +1,19 @@
-# S.A.T.I.O Verse
+<p align="center">
+  <img src="site/assets/logo.png" width="116" alt="S.A.T.I.O Verse" />
+</p>
 
-> 一个能住在你电脑里的角色外壳：3D 房间是她的家，终端是她的嘴，插件是她的本事。
+<h1 align="center">S.A.T.I.O Verse</h1>
+
+<p align="center">
+  一个能住在你电脑里的角色外壳 —— 3D 房间是她的家，终端是她的嘴，插件是她的本事。
+</p>
+
+<p align="center">
+  <a href="https://satio-verse.gitgraduate.com">官网</a> ·
+  <a href="https://satio-verse.gitgraduate.com/#start">快速开始</a> ·
+  <a href="https://github.com/satio-verse/satio-plugins">插件目录</a>
+</p>
+
 > 本仓库 = 你连接「她」的物理外壳与监视器；角色的人格、声音、记忆属于各自的实例，不在这份仓库里。
 
 ## 这是什么

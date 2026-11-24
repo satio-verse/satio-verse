@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S.A.T.I.O Verse — 能住在你电脑里的角色外壳</title>
+<meta name="description" content="S.A.T.I.O Verse：一个能住在你电脑里的角色外壳。3D 房间、对话胶囊、记忆与能力、插件与世界契约。模型跑在本机，密钥不出门；代码 Apache-2.0。">
+<meta name="theme-color" content="#0a0b10">
+<meta property="og:type" content="website">
+<meta property="og:title" content="S.A.T.I.O Verse — 能住在你电脑里的角色外壳">
+<meta property="og:description" content="3D 房间、对话胶囊、记忆与能力、插件与世界契约。模型跑在本机，密钥不出门。">
+<meta property="og:image" content="/assets/og.png">
+<meta property="og:url" content="https://satio-verse.gitgraduate.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.png" sizes="64x64">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/site.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+<a class="skip" href="#main">跳到内容</a>
+
+<header class="topbar">
+  <a class="brand" href="/" aria-label="S.A.T.I.O Verse 首页">
+    <img src="/assets/icon-192.png" width="28" height="28" alt="" aria-hidden="true">
+    <span class="brand-text">S.A.T.I.O<em>Verse</em></span>
+  </a>
+  <nav class="nav" aria-label="主导航">
+    <a href="#world">世界</a>
+    <a href="#ability">能力</a>
+    <a href="#plugins">插件目录</a>
+    <a href="#start">开始</a>
+  </nav>
+  <div class="topbar-actions">
+    <span class="status" id="status" data-state="idle"><i></i><b>连接中</b></span>
+    <a class="pill" href="https://github.com/satio-verse/satio-verse" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+
+<aside class="rail" aria-hidden="true">
+  <ol>
+    <li data-for="world"><span>01</span>世界</li>
+    <li data-for="ability"><span>02</span>能力</li>
+    <li data-for="plugins"><span>03</span>目录</li>
+    <li data-for="start"><span>04</span>开始</li>
+    <li data-for="license"><span>05</span>许可</li>
+  </ol>
+</aside>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <p class="eyebrow reveal">S.A.T.I.O VERSE · 本地优先的角色外壳</p>
+    <h1 class="reveal">让角色<br><span class="thin">住进你的电脑。</span></h1>
+    <p class="lede reveal">有房间、有声音、有情绪，也能顺手替你干活。模型跑在本机，密钥不出门；没装模型的时候它退化成 mock，不假装自己很聪明。</p>
+    <div class="cta reveal">
+      <a class="btn primary" href="#start">把世界跑起来</a>
+      <a class="btn ghost" href="#plugins">看看插件目录</a>
+    </div>
+    <ul class="facts reveal">
+      <li><b>一条命令</b>起服务</li>
+      <li><b>零公网</b>也能对话</li>
+      <li><b>Apache-2.0</b> 可自托管</li>
+    </ul>
+    <dl class="hero-meta reveal" aria-label="版本与平台">
+      <div><dt>版本</dt><dd>v0.1.0</dd></div>
+      <div><dt>平台</dt><dd>Windows · Linux · macOS</dd></div>
+      <div><dt>许可</dt><dd>Apache-2.0 / CC BY-NC 4.0</dd></div>
+    </dl>
+    <figure class="hero-shot reveal">
+      <img src="/assets/room.webp" width="1600" height="1000" alt="S.A.T.I.O 的黄昏客厅：3D 房间、站在房间里的角色，以及底部那颗发光的对话胶囊" fetchpriority="high">
+      <figcaption>黄昏客厅 · 这不是渲染图，是刚跑起来的窗口截图</figcaption>
+    </figure>
+  </section>
+
+  <section class="sec" id="world">
+    <header class="sec-head reveal">
+      <p class="kicker"><span>01</span>世界</p>
+      <h2>不是聊天窗口，<br>是一间能走进去的屋子。</h2>
+      <p class="sec-lede">推门进去是黄昏的客厅：沙发、电视、书架、窗外那点将暗未暗的光。她站在中间；底下那颗发光的胶囊，就是说话的地方——打字、开口、丢一张图都行。</p>
+    </header>
+
+    <div class="slabs">
+      <figure class="slab wide reveal">
+        <img src="/assets/panopticon.webp" width="1600" height="1000" alt="控制台：模型插槽 1/4、记忆编排、插件市场的只读数据盘" loading="lazy">
+        <figcaption><b>控制台</b>模型插槽、记忆编排、插件市场——一块屏看完，只读不写。</figcaption>
+      </figure>
+      <figure class="slab reveal">
+        <img src="/assets/nexus.webp" width="1600" height="1000" alt="材质映射台：外部资产的表面自动对齐到自家调色板" loading="lazy">
+        <figcaption><b>材质映射台</b>外面拖进来的资产，表面先对到自家调色板；拿不准就标「待确认」，但不拦着导入。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" id="ability">
+    <header class="sec-head reveal">
+      <p class="kicker"><span>02</span>能力</p>
+      <h2>六件事，<br>都长在同一个内核上。</h2>
+    </header>
+    <div class="grid">
+      <article class="card reveal"><span class="num">01</span><h3>对话</h3><p>一条胶囊接住文字、语音和图片。字幕跟着她的情绪走，语气、停顿、亮度都能调。</p></article>
+      <article class="card reveal"><span class="num">02</span><h3>记忆</h3><p>记事、日程、关系都存在本机。换个模型接进来，它照样认得你。</p></article>
+      <article class="card reveal"><span class="num">03</span><h3>能力</h3><p>技能与工具走同一份契约，权限分四档。装之前先看清单，装完默认停用。</p></article>
+      <article class="card reveal"><span class="num">04</span><h3>世界</h3><p>房间与街区可以换，家具、角色、道具按清单进场；能改的东西归服务器，好看的东西归客户端。</p></article>
+      <article class="card reveal"><span class="num">05</span><h3>数据</h3><p>插槽、记忆、市场全在大盘上，接口只读。想知道她在想什么，看编码就行。</p></article>
+      <article class="card reveal"><span class="num">06</span><h3>插件</h3><p>社区源一行地址就能加；每个包带装前报告，告诉你它要动哪些东西、要哪些权限。</p></article>
+    </div>
+  </section>
+
+  <section class="sec" id="plugins">
+    <header class="sec-head reveal">
+      <p class="kicker"><span>03</span>插件目录</p>
+      <h2>别人造的世界，<br>也能搬进你家。</h2>
+      <p class="sec-lede">下面是这个社区源此刻的全部插件包，页面直接从 <code>/index.json</code> 读，没有缓存，也没有后台写入口。</p>
+    </header>
+
+    <div class="catalog reveal" aria-live="polite">
+      <div class="catalog-head">
+        <span class="mono" id="catalog-count">正在读取索引…</span>
+        <a class="link mono" href="/index.json">/index.json</a>
+      </div>
+      <ul class="pkgs" id="pkgs">
+        <li class="skeleton" aria-hidden="true"></li>
+      </ul>
+      <p class="catalog-foot mono">客户端「市场 → 添加源」，把上面这个地址填进去就行。</p>
+    </div>
+  </section>
+
+  <section class="sec" id="start">
+    <header class="sec-head reveal">
+      <p class="kicker"><span>04</span>开始</p>
+      <h2>三步，<br>她就到你家了。</h2>
+      <p class="sec-lede">需要 Python 3.10 以上。没有显卡、没下模型也能先跑起来——它会退化成 mock，先把界面和流程走通。</p>
+    </header>
+
+    <ol class="steps">
+      <li class="step reveal">
+        <div class="step-meta"><span class="mono">STEP 01</span><h3>拉代码</h3></div>
+        <div class="code"><code>git clone https://github.com/satio-verse/satio-verse
+cd satio-verse</code><button class="copy" data-copy="git clone https://github.com/satio-verse/satio-verse
+cd satio-verse" aria-label="复制命令">复制</button></div>
+      </li>
+      <li class="step reveal">
+        <div class="step-meta"><span class="mono">STEP 02</span><h3>装依赖</h3></div>
+        <div class="code"><code>python -m pip install -r requirements.txt</code><button class="copy" data-copy="python -m pip install -r requirements.txt" aria-label="复制命令">复制</button></div>
+      </li>
+      <li class="step reveal">
+        <div class="step-meta"><span class="mono">STEP 03</span><h3>起服务</h3></div>
+        <div class="code"><code>python -m wm.services up
+# 然后打开 http://127.0.0.1:8790/pet/satio.html</code><button class="copy" data-copy="python -m wm.services up" aria-label="复制命令">复制</button></div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="sec" id="license">
+    <header class="sec-head reveal">
+      <p class="kicker"><span>05</span>许可</p>
+      <h2>可以拿去用，<br>但别拿去卖。</h2>
+    </header>
+    <div class="licenses">
+      <div class="lic reveal"><span class="mono">CODE</span><h3>Apache-2.0</h3><p>代码随便用、改、自托管，商用也行；改动请保留声明。</p><a class="link" href="https://github.com/satio-verse/satio-verse/blob/main/LICENSE" rel="noopener">LICENSE ↗</a></div>
+      <div class="lic reveal"><span class="mono">WORDS &amp; CHARACTER</span><h3>CC BY-NC 4.0</h3><p>文字、设定、角色与美术署名后可以非商业地使用；想商用，先来聊一声。</p><a class="link" href="https://github.com/satio-verse/satio-verse/blob/main/NOTICE" rel="noopener">NOTICE ↗</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="marquee" aria-hidden="true"><div class="marquee-track">
+    <span>S.A.T.I.O VERSE</span><span>LOCAL-FIRST</span><span>SELF-HOSTED</span><span>APACHE-2.0</span><span>造一个能住在电脑里的角色</span>
+    <span>S.A.T.I.O VERSE</span><span>LOCAL-FIRST</span><span>SELF-HOSTED</span><span>APACHE-2.0</span><span>造一个能住在电脑里的角色</span>
+  </div></div>
+  <div class="foot-row">
+    <p class="mono">© 2026 S.A.T.I.O Verse · 社区源 <span id="foot-health">—</span></p>
+    <nav class="foot-links" aria-label="相关链接">
+      <a href="https://github.com/satio-verse/satio-verse" rel="noopener">主仓库</a>
+      <a href="https://github.com/satio-verse/satio-plugins" rel="noopener">插件目录</a>
+      <a href="https://github.com/satio-verse/satio-verse/issues" rel="noopener">反馈</a>
+      <a href="/health">/health</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/site.js" defer></script>
+</body>
+</html>
