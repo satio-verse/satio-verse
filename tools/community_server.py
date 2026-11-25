@@ -89,10 +89,18 @@ def create_app(root: Path, public_url: str, authors: dict, receipt_secret: bytes
         for file in sorted((root / 'packages').glob('*.json')):
             package = read(file, {})
             spec = package['spec']
+            # 能进这个目录的包都经过作者令牌发布（--authors 白名单），所以这里一律 verified。
+            # 白名单从「发布许可」降级成「认证标记」：没令牌的社区包走 GitHub PR + 静态目录。
             rows.append({'id': spec['id'], 'name': spec['name'], 'description': spec['description'],
                          'author': package['author'], 'version': package['version'], 'sha256': digest(canonical(package)),
+                         'verified': True,
                          'url': public_url.rstrip('/') + '/packages/' + file.name})
-        return web.json_response({'worldmodel_index': 1, 'packages': rows})
+        body = {'worldmodel_index': 1, 'catalog_version': 2, 'packages': rows}
+        # 客户端轮询带 If-None-Match：内容没变就回 304，一个字节都不传。
+        etag = '"' + hashlib.sha256(canonical(body)).hexdigest()[:32] + '"'
+        if request.headers.get('If-None-Match', '') == etag:
+            return web.Response(status=304, headers={'ETag': etag})
+        return web.json_response(body, headers={'ETag': etag, 'Cache-Control': 'no-cache'})
 
     async def landing(request):
         rows = []

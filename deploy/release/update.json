@@ -1,0 +1,28 @@
+{
+  "version": "0.3.1",
+  "file": "WorldModel-Setup-0.3.1.exe",
+  "url": "https://satio-verse.gitgraduate.com/releases/WorldModel-Setup-0.3.1.exe",
+  "mirror_url": "https://github.com/satio-verse/satio-verse/releases/download/v0.3.1/WorldModel-Setup-0.3.1.exe",
+  "size": 1855417520,
+  "sha256": "2c050a734ff3ef9dce6fabbca8ff534bd016d904531a29f8f6efd9e4298452e5",
+  "published_at": "2026-11-25T15:20:00Z",
+  "min_version": "0.3.0",
+  "notes": "S.A.T.I.O 0.3.1：六区外壳 + 3D 客厅 + v5turbo 语音 + 体素街区原型；Windows 10 1809 及以上，自带运行时与本机模型。",
+  "signing": {
+    "mode": "self-signed",
+    "subject": "CN=S.A.T.I.O Verse, O=S.A.T.I.O, C=CN",
+    "not_after": "2029-11-25",
+    "cer_sha256": "80236f1efa3598db7b758cf036e582c660e71f710acdd27e3d6bb196346a2173",
+    "cer_url": "https://satio-verse.gitgraduate.com/releases/satio-codesign.cer"
+  },
+  "patches": [
+    {
+      "from_version": "0.3.0",
+      "from_sha256": "c17f8df98c2986034604e9ad3cdc1179424f6654d53b0ab8ac1e889adbb1b8aa",
+      "url": "https://satio-verse.gitgraduate.com/releases/patches/patch-0.3.0-to-0.3.1.zst",
+      "size": 5708739,
+      "sha256": "b7ad0906a68531fec5dfff4f72f6c943b7ca985fe13feee074372b39c76890b8",
+      "file": "patch-0.3.0-to-0.3.1.zst"
+    }
+  ]
+}

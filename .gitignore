@@ -44,3 +44,10 @@ config/local.json.bak*
 config/*.md.bak*
 
 deploy/_*
+
+# --- 2026-11-25 发行相关 ---
+# 签名私钥绝不进仓库
+deploy/signing/
+# 增量补丁是发布资产，放服务器与 GitHub Release，不进 git
+deploy/release/patches/
+*.pfx

@@ -34,6 +34,7 @@
     <a href="#world">世界</a>
     <a href="#ability">能力</a>
     <a href="#plugins">插件目录</a>
+    <a href="#download">下载</a>
     <a href="#start">开始</a>
   </nav>
   <div class="topbar-actions">
@@ -47,8 +48,9 @@
     <li data-for="world"><span>01</span>世界</li>
     <li data-for="ability"><span>02</span>能力</li>
     <li data-for="plugins"><span>03</span>目录</li>
-    <li data-for="start"><span>04</span>开始</li>
-    <li data-for="license"><span>05</span>许可</li>
+    <li data-for="download"><span>04</span>下载</li>
+    <li data-for="start"><span>05</span>开始</li>
+    <li data-for="license"><span>06</span>许可</li>
   </ol>
 </aside>
 
@@ -60,8 +62,8 @@
     <h1 class="reveal">一个住在你电脑里的角色。<span class="thin">房间、声音、记忆都在本机。</span></h1>
     <p class="lede reveal">3D 客厅、发光的对话胶囊、记事与日程，都是自带的。模型跑在本机，密钥不出门；没装模型时用 mock 顶上，先把界面走通。</p>
     <div class="cta reveal">
-      <a class="btn primary" href="#start">开始安装</a>
-      <a class="btn ghost" href="#plugins">看插件目录</a>
+      <a class="btn primary" href="#download">下载 Windows 版</a>
+      <a class="btn ghost" href="#start">从源码跑</a>
     </div>
     <ul class="facts reveal">
       <li><b>Python 3.10+</b><span>就能跑</span></li>
@@ -69,7 +71,7 @@
       <li><b>Apache-2.0</b><span>可自托管</span></li>
     </ul>
     <dl class="hero-meta reveal" aria-label="版本与平台">
-      <div><dt>版本</dt><dd>v0.1.0</dd></div>
+      <div><dt>版本</dt><dd>v0.3.1</dd></div>
       <div><dt>平台</dt><dd>Windows · Linux · macOS</dd></div>
       <div><dt>许可</dt><dd>Apache-2.0 / CC BY-NC 4.0</dd></div>
     </dl>
@@ -129,12 +131,37 @@
         <li class="skeleton" aria-hidden="true"></li>
       </ul>
       <p class="catalog-foot mono">客户端「市场 → 添加源」，把上面这个地址填进去就行。</p>
+      <p class="catalog-foot">想发自己的插件：<a class="link" href="https://github.com/satio-verse/satio-plugins" target="_blank" rel="noopener">提 PR 到 satio-plugins</a>，CI 校验契约后合并；目录由 <code>packages/</code> 自动生成，包体走 CDN，不经这台服务器。<a class="link mono" href="https://cdn.jsdelivr.net/gh/satio-verse/satio-plugins@main/index.json" target="_blank" rel="noopener">静态目录</a></p>
+    </div>
+  </section>
+
+  <section class="sec" id="download">
+    <header class="sec-head reveal">
+      <p class="kicker"><span>04</span>下载</p>
+      <h2>装好就是一个窗口。</h2>
+      <p class="sec-lede">Windows 安装包自带 Python 运行时、本机小模型、语音识别与合成、默认房间和角色。不用先配环境，也不用联外网拉依赖。</p>
+    </header>
+
+    <div class="dl reveal">
+      <div class="dl-main">
+        <p class="dl-name mono">WorldModel-Setup-0.3.1.exe</p>
+        <p class="dl-sub">Windows 10 1809 及以上 · x64 · 1,769.5 MB</p>
+        <a class="btn primary" href="/releases/WorldModel-Setup-0.3.1.exe">下载安装包</a>
+      </div>
+      <dl class="dl-meta">
+        <div><dt>版本</dt><dd>0.3.1</dd></div>
+        <div><dt>大小</dt><dd>1,769.5 MB</dd></div>
+        <div><dt>SHA-256</dt><dd class="dl-hash" id="dl-hash">2c050a734ff3ef9dce6fabbca8ff534bd016d904531a29f8f6efd9e4298452e5</dd></div>
+      </dl>
+      <p class="dl-note">安装包带自签名（<code>CN=S.A.T.I.O Verse</code>，2029-11 到期），能自证完整性，但免不掉 Windows 首次运行的 SmartScreen 提示：点「更多信息 → 仍要运行」。可以用 <a href="/releases/SHA256SUMS">SHA256SUMS</a> 和 <a href="/releases/satio-codesign.cer">签名证书</a> 自己核对，也可以下载后用 <code>python -m wm.update download</code> 让程序自己校验 sha256。默认装到 <code>%LOCALAPPDATA%\Programs\WorldModel</code>；检测到 NVIDIA 驱动会带上 CUDA 组件，没有就用 CPU 跑。卸载走系统「应用和功能」，不会动你在 <code>%USERPROFILE%\.worldmodel</code> 里的记忆和配置。</p>
+      <p class="dl-alt">官网下载慢的话，走 GitHub 线路：<a href="https://github.com/satio-verse/satio-verse/releases/tag/v0.3.1">release v0.3.1</a>（同一个包，同一个 SHA-256）。</p>
+      <p class="dl-alt">已经装在 0.3.0 上的话，不用再下一次 1.7 GB：<code>python -m wm.update patch --from &lt;你本机那个 Setup.exe&gt;</code> 只下 5.4 MB，拼完自动核对整包 SHA-256。</p>
     </div>
   </section>
 
   <section class="sec" id="start">
     <header class="sec-head reveal">
-      <p class="kicker"><span>04</span>开始</p>
+      <p class="kicker"><span>05</span>开始</p>
       <h2>从 clone 到打开窗口。</h2>
       <p class="sec-lede">需要 Python 3.10 或更高。没有显卡、没下模型也能起，会退化成 mock，先看界面和流程。</p>
     </header>
